@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NCM 103 - Practice Test</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #f1f5f9; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+    </style>
+</head>
+<body class="bg-slate-100 text-slate-800 font-sans min-h-screen flex flex-col justify-between">
+
+    <!-- Sticky Header -->
+    <header class="bg-emerald-900 text-white shadow-md sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 bg-amber-400 text-emerald-950 font-extrabold flex items-center justify-center rounded-full text-xs shadow">
+                    SFC
+                </div>
+                <div>
+                    <h1 class="text-xs sm:text-sm font-bold text-white leading-tight">Saint Ferdinand College</h1>
+                    <p class="text-[10px] text-amber-300 font-medium">College of Nursing &bull; NCM 103 Practice Exam</p>
+                </div>
+            </div>
+            
+            <div class="flex items-center space-x-3">
+                <div class="bg-slate-800/80 text-amber-300 px-3 py-1.5 rounded-lg text-xs font-mono font-bold flex items-center gap-1.5 border border-slate-700">
+                    <i class="fa-regular fa-clock"></i> <span id="timer">40:00</span>
+                </div>
+                <a href="practice-exam.html" class="bg-emerald-800 hover:bg-emerald-700 text-amber-300 text-xs font-bold px-3 py-1.5 rounded-lg border border-emerald-700 transition">
+                    <i class="fa-solid fa-arrow-left"></i> <span class="hidden sm:inline">BACK</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="max-w-5xl w-full mx-auto px-4 py-8 flex-1 space-y-6">
+
+        <!-- Exam Overview Card -->
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+            <div>
+                <span class="bg-emerald-100 text-emerald-800 font-bold text-[11px] px-2.5 py-1 rounded-full uppercase">Fundamentals of Nursing Practice</span>
+                <h2 class="text-xl font-bold text-slate-900 mt-2">NCM 103 - Practice Test</h2>
+                <p class="text-xs text-slate-500 mt-1">Instructor: Rene S. Real, RN</p>
+            </div>
+            
+            <div class="flex items-center gap-3 w-full md:w-auto">
+                <div class="bg-slate-50 border border-slate-200 p-3 rounded-xl text-center flex-1 md:flex-initial min-w-[100px]">
+                    <p class="text-[10px] text-slate-400 font-bold uppercase">Answered</p>
+                    <p class="text-lg font-extrabold text-emerald-800" id="answeredCount">0 / 40</p>
+                </div>
+                <div class="bg-slate-50 border border-slate-200 p-3 rounded-xl text-center flex-1 md:flex-initial min-w-[100px]">
+                    <p class="text-[10px] text-slate-400 font-bold uppercase">Score</p>
+                    <p class="text-lg font-extrabold text-slate-800" id="liveScore">--</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question View Box -->
+        <div id="quizCard" class="bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-slate-200 space-y-6">
+            <div class="flex justify-between items-center text-xs font-bold text-slate-400 border-b pb-3">
+                <span id="qNumber">Question 1 of 40</span>
+                <button onclick="toggleBookmark()" id="bookmarkBtn" class="text-slate-400 hover:text-amber-500 transition flex items-center gap-1">
+                    <i class="fa-regular fa-bookmark"></i> Flag
+                </button>
+            </div>
+
+            <!-- Question Stem -->
+            <h3 id="qText" class="text-base sm:text-lg font-bold text-slate-900 leading-snug">
+                Loading Question...
+            </h3>
+
+            <!-- Choices Grid -->
+            <div id="optionsBox" class="space-y-3">
+                <!-- Dynamic Choices Injected Here -->
+            </div>
+
+            <!-- Explanation Box -->
+            <div id="rationaleBox" class="hidden p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-xs text-emerald-950 space-y-1">
+                <strong class="block font-bold text-emerald-900"><i class="fa-solid fa-circle-check mr-1"></i> Clinical Rationale:</strong>
+                <p id="rationaleText"></p>
+            </div>
+
+            <!-- Navigation Bar -->
+            <div class="flex justify-between items-center pt-4 border-t">
+                <button id="prevBtn" onclick="navigate(-1)" class="px-4 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition disabled:opacity-40">
+                    <i class="fa-solid fa-chevron-left mr-1"></i> Previous
+                </button>
+                
+                <button id="nextBtn" onclick="navigate(1)" class="px-5 py-2.5 rounded-lg bg-emerald-800 hover:bg-emerald-700 text-white font-bold text-xs transition shadow">
+                    Next Question <i class="fa-solid fa-chevron-right ml-1"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Test II: Nursing Care Plan Case Scenario Card -->
+        <div class="bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-slate-200 space-y-4">
+            <div class="flex justify-between items-center border-b pb-3">
+                <span class="bg-amber-100 text-amber-900 font-bold text-xs px-2.5 py-1 rounded-full uppercase">Test II: Clinical Scenario</span>
+                <span class="text-xs text-slate-400 font-bold">Nursing Care Plan (ADPIE)</span>
+            </div>
+            
+            <h3 class="text-lg font-bold text-slate-900">Case Study: High-Grade Fever & UTI Management</h3>
+            
+            <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 text-xs text-slate-700 leading-relaxed space-y-2">
+                <p><strong>Patient Profile:</strong> Mr. Santos, 35-year-old male, admitted with high-grade fever, body weakness, and chills for 2 days. Reports dysuria, urgency, and lower abdominal pain.</p>
+                <p><strong>Vital Signs:</strong> Temp: 39.2°C | PR: 102 bpm | RR: 20 cpm | BP: 110/70 mmHg | SpO2: 98% on room air.</p>
+                <p><strong>Physical Exam:</strong> Flushed skin, dry lips/oral mucosa, discomfort on lower abdomen palpation. Verbalizes: <em>“I feel so hot and weak. I just want to lie down.”</em></p>
+                <p><strong>Labs & Orders:</strong> Elevated WBC & urinalysis positive for bacteria (UTI). Prescribed D5 0.3 NaCl at 500 mL q8h, Paracetamol 500mg PO q6h PRN, Cefuroxime 750mg IV q8h.</p>
+            </div>
+
+            <button onclick="toggleNcpModal()" class="w-full text-center bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 rounded-xl shadow text-xs transition flex items-center justify-center gap-2">
+                <i class="fa-solid fa-file-medical"></i> View Model ADPIE Nursing Care Plan Key
+            </button>
+        </div>
+
+    </main>
+
+    <!-- Modal for Model Nursing Care Plan (Test II) -->
+    <div id="ncpModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white w-full max-w-4xl max-h-[90vh] rounded-2xl shadow-xl flex flex-col overflow-hidden">
+            <div class="bg-emerald-900 text-white p-4 flex justify-between items-center">
+                <h3 class="font-bold text-sm">Model Nursing Care Plan (ADPIE Format)</h3>
+                <button onclick="toggleNcpModal()" class="text-white hover:text-amber-300"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            
+            <div class="p-6 overflow-y-auto custom-scrollbar text-xs space-y-4">
+                <div class="grid grid-cols-1 md:grid-cols-5 gap-3 border border-slate-200 p-3 rounded-xl bg-slate-50">
+                    <div>
+                        <strong class="text-emerald-800 block uppercase font-bold mb-1">Assessment</strong>
+                        <p><strong>S:</strong> "I feel hot and weak."</p>
+                        <p><strong>O:</strong> T=39.2°C, PR=102bpm, flushed skin, dry lips, elevated WBC, bacteriuria.</p>
+                    </div>
+                    <div>
+                        <strong class="text-emerald-800 block uppercase font-bold mb-1">Diagnosis</strong>
+                        <p>Hyperthermia related to ..............</p>
+                    </div>
+                    <div>
+                        <strong class="text-emerald-800 block uppercase font-bold mb-1">Planning</strong>
+                        <p>Within 2 to 4 hours of nursing interventions, patient's body temperature will ...........</p>
+                    </div>
+                    <div>
+                        <strong class="text-emerald-800 block uppercase font-bold mb-1">Implementation</strong>
+                        <p>• Independent.</p>
+                        <p>• Dependent.</p>
+                        <p>• Collaborative.</p>
+                    </div>
+                    <div>
+                        <strong class="text-emerald-800 block uppercase font-bold mb-1">Evaluation</strong>
+                        <p>Goal Met?.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-4 bg-slate-50 border-t text-right">
+                <button onclick="toggleNcpModal()" class="px-5 py-2 bg-emerald-800 text-white text-xs font-bold rounded-lg hover:bg-emerald-700">Close Key</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Exam Quiz Data & JS Script -->
+    <script>
+        const questions = [
+            { q: "What is the primary purpose of the nursing process?", opts: ["To record patient symptoms", "To provide individualized nursing care", "To follow physician’s orders", "To administer medications"], ans: 1, rat: "The primary purpose of the nursing process is to provide individualized, client-centered holistic care." },
+            { q: "What is the first step in the nursing process?", opts: ["Diagnosis", "Planning", "Assessment", "Evaluation"], ans: 2, rat: "Assessment is the baseline first step where all data collection occurs." },
+            { q: "What is the final output of the assessment phase?", opts: ["Nursing diagnosis", "Initial data", "Recorded data", "Patient chart"], ans: 2, rat: "The output of assessment is a organized, validated database of recorded data." },
+            { q: "The best description of subjective data is:", opts: ["Data measured by devices", "Statements made by the nurse", "Patient's personal experiences and feelings", "Results from a lab test"], ans: 2, rat: "Subjective data consists of symptoms verbalized by the patient." },
+            { q: "Which is an example of objective data?", opts: ["'I feel dizzy'", "'My stomach hurts'", "Blood pressure: 140/90 mmHg", "'I have no appetite'"], ans: 2, rat: "Vital signs like blood pressure are directly observable and measurable." },
+            { q: "What is a primary source of data during assessment?", opts: ["Nurse", "Patient", "Laboratory", "Patient’s record"], ans: 1, rat: "The patient is always the primary source of assessment data." },
+            { q: "What is the best method for validating data?", opts: ["Ignoring conflicting info", "Relying on experience", "Double-checking for accuracy", "Asking the doctor"], ans: 2, rat: "Validation involves double-checking conflicting data to ensure accuracy." },
+            { q: "What is the purpose of the initial assessment?", opts: ["To plan discharge", "To collect baseline data", "To perform an x-ray", "To administer meds"], ans: 1, rat: "Initial assessment establishes a baseline for future comparisons." },
+            { q: "A nurse uses open-ended questions in assessment to:", opts: ["Get specific answers", "Limit conversation", "Encourage detailed responses", "Direct the patient’s reply"], ans: 2, rat: "Open-ended questions allow patients to elaborate on their symptoms." },
+            { q: "What principle guides emergency assessment?", opts: ["SOAP", "ADPIE", "ABC (Airway, Breathing, Circulation)", "NCP"], ans: 2, rat: "Airway, Breathing, and Circulation (ABC) takes immediate priority." },
+            { q: "A focused assessment is conducted:", opts: ["At discharge", "Once a year", "After a crisis", "Throughout patient care"], ans: 3, rat: "Focused assessments target specific clinical issues continuously." },
+            { q: "Which of the following is part of data collection?", opts: ["Diagnosing", "Validating", "Evaluating", "Planning"], ans: 1, rat: "Validating data is a core component of the assessment/data collection phase." },
+            { q: "Which of the following is a nursing diagnosis?", opts: ["Diabetes Mellitus", "Ineffective airway clearance", "Pneumonia", "Appendicitis"], ans: 1, rat: "Ineffective airway clearance is an official NANDA nursing diagnosis." },
+            { q: "What is a nursing diagnosis based on?", opts: ["Disease", "Medication", "Patient response to health condition", "Physician's diagnosis"], ans: 2, rat: "Nursing diagnoses focus on human responses to actual or potential health problems." },
+            { q: "A nursing diagnosis that identifies a patient’s potential problem is:", opts: ["Risk diagnosis", "Actual diagnosis", "Wellness diagnosis", "Medical diagnosis"], ans: 0, rat: "Risk diagnoses address vulnerabilities for developing a problem." },
+            { q: "What type of nursing diagnosis is used when data is insufficient?", opts: ["Wellness", "Actual", "Risk", "Possible"], ans: 3, rat: "A 'Possible' diagnosis is utilized when clear cues are incomplete." },
+            { q: "What phrase best describes a wellness diagnosis?", opts: ["Presence of disease", "Transition to higher health level", "Risk of infection", "Unknown condition"], ans: 1, rat: "Wellness diagnoses reflect readiness to enhance health status." },
+            { q: "Which part of the nursing diagnosis explains the cause of the problem?", opts: ["Problem statement", "Defining characteristics", "Presumed etiology", "Outcome"], ans: 2, rat: "The etiology (related factors) explains the underlying cause." },
+            { q: "What is the output of the diagnosing phase?", opts: ["Treatment", "Medical order", "Nursing diagnosis", "Evaluation"], ans: 2, rat: "The diagnostic phase concludes with formulated nursing diagnoses." },
+            { q: "Which is not a guideline for writing nursing diagnoses?", opts: ["Be specific", "Use medical terms", "Use non-judgmental language", "Avoid redundancy"], ans: 1, rat: "Nurses avoid using medical diagnostic terms as the etiology." },
+            { q: "The planning phase begins:", opts: ["After diagnosis", "Before assessment", "After discharge", "After medication is given"], ans: 0, rat: "Planning immediately follows diagnostic formulation." },
+            { q: "What is the final output of the planning phase?", opts: ["Assessment sheet", "Discharge form", "Nursing care plan", "SOAP note"], ans: 2, rat: "The output of planning is the written Nursing Care Plan (NCP)." },
+            { q: "Which of the following is a SMART goal?", opts: ["The patient will feel better", "Improve vital signs", "Patient will walk 10 meters with support in 24 hours", "To manage pain"], ans: 2, rat: "This goal is Specific, Measurable, Achievable, Relevant, and Time-bound." },
+            { q: "Which type of planning is done at the time of discharge?", opts: ["Ongoing", "Discharge planning", "Initial", "Short-term"], ans: 1, rat: "Discharge planning ensures continuity of home care." },
+            { q: "What is the nurse’s priority during planning?", opts: ["Physician's preference", "Nurse's goal", "Patient's problems and needs", "Number of staff available"], ans: 2, rat: "Prioritization centres on patient safety and Maslow's hierarchy of needs." },
+            { q: "Which is an activity during the planning phase?", opts: ["Administering medication", "Reassessing data", "Setting goals", "Inserting IV"], ans: 2, rat: "Goal setting and establishing outcome criteria occur in planning." },
+            { q: "Why should the nurse involve the client in planning?", opts: ["To follow policy", "To reduce work", "To increase compliance", "To record faster"], ans: 2, rat: "Patient involvement fosters partnership and adherence to care." },
+            { q: "What is the purpose of the evaluation phase?", opts: ["Determine if outcomes are met", "Restart planning", "Update patient record", "Begin discharge"], ans: 0, rat: "Evaluation judges patient progress toward desired outcomes." },
+            { q: "Which is an evaluation activity?", opts: ["Measuring blood sugar", "Writing a care plan", "Comparing outcomes with criteria", "Giving instructions"], ans: 2, rat: "Evaluation compares actual patient status with predefined criteria." },
+            { q: "What is the nurse’s decision if the outcome is unmet?", opts: ["Discontinue plan", "Restart assessment", "Revise the care plan", "Ignore the result"], ans: 2, rat: "Unmet goals require care plan revision." },
+            { q: "Terminal evaluation is done:", opts: ["During first shift", "After every hour", "At discharge", "At assessment"], ans: 2, rat: "Terminal evaluation determines overall progress at discharge." },
+            { q: "Which type of evaluation allows real-time corrections?", opts: ["Ongoing", "Intermittent", "Terminal", "Initial"], ans: 0, rat: "Ongoing evaluation allows real-time clinical modifications." },
+            { q: "Why is documentation essential during evaluation?", opts: ["For nurse performance review", "For hospital billing", "To provide written evidence of care", "For family history"], ans: 2, rat: "Documentation provides legal and clinical evidence of delivered care." },
+            { q: "What does SOAPIE stand for?", opts: ["Subjective, Objective, Action, Plan, Interview, Examine", "Summary, Outcome, Action, Plan, Intake, Evaluation", "Subjective, Objective, Assessment, Plan, Intervention, Evaluation", "Survey, Observation, Analysis, Plan, Initiate, End"], ans: 2, rat: "SOAPIE = Subjective, Objective, Assessment, Plan, Intervention, Evaluation." },
+            { q: "What makes the nursing process dynamic?", opts: ["Nurse's mood", "Constant changes in client status", "Routine procedures", "Lab values"], ans: 1, rat: "The continuous fluctuation in patient status keeps the process dynamic." },
+            { q: "What does a nurse use to prioritize care?", opts: ["Goals", "Diagnosis", "Client problems", "Care plans"], ans: 2, rat: "Urgent client problems dictate priority of care." },
+            { q: "The benefit of a nursing care plan is:", opts: ["Reduces nurse accountability", "Promotes standardized care", "Ensures individualized and organized care", "Increases medication use"], ans: 2, rat: "NCPs ensure structured, individual-centered nursing delivery." },
+            { q: "How is data organized in a problem-oriented clinical record?", opts: ["By room number", "By nurse shift", "By client’s problems", "By date"], ans: 2, rat: "POMR organizes clinical notes around specific problem lists." },
+            { q: "Which component is part of the Problem-Oriented Medical Record (POMR)?", opts: ["Patient biography", "Family history", "Problem list", "Nursing license"], ans: 2, rat: "A master Problem List is a core structural element of POMR." },
+            { q: "In the interview process, what is the purpose of the opening stage?", opts: ["Start IV therapy", "Build rapport and set the tone", "Ask personal questions", "Validate data"], ans: 1, rat: "The opening stage establishes therapeutic rapport and outlines purpose." }
+        ];
+
+        let currentIdx = 0;
+        let userAns = new Array(questions.length).fill(null);
+
+        function loadQuestion() {
+            const q = questions[currentIdx];
+            document.getElementById('qNumber').textContent = `Question ${currentIdx + 1} of ${questions.length}`;
+            document.getElementById('qText').textContent = `${currentIdx + 1}. ${q.q}`;
+            
+            const box = document.getElementById('optionsBox');
+            box.innerHTML = '';
+
+            q.opts.forEach((opt, idx) => {
+                const btn = document.createElement('button');
+                btn.className = `w-full text-left p-3.5 rounded-xl border text-xs sm:text-sm font-medium transition flex items-center justify-between ${
+                    userAns[currentIdx] === idx 
+                        ? (idx === q.ans ? 'bg-emerald-50 border-emerald-600 text-emerald-950 font-bold' : 'bg-red-50 border-red-500 text-red-950')
+                        : 'bg-slate-50 border-slate-200 hover:bg-slate-100 text-slate-700'
+                }`;
+                btn.innerHTML = `<span>${String.fromCharCode(65 + idx)}. ${opt}</span>`;
+                btn.onclick = () => { userAns[currentIdx] = idx; updateStats(); loadQuestion(); };
+                box.appendChild(btn);
+            });
+
+            const ratBox = document.getElementById('rationaleBox');
+            if (userAns[currentIdx] !== null) {
+                document.getElementById('rationaleText').textContent = q.rat;
+                ratBox.classList.remove('hidden');
+            } else {
+                ratBox.classList.add('hidden');
+            }
+
+            document.getElementById('prevBtn').disabled = currentIdx === 0;
+            document.getElementById('nextBtn').disabled = currentIdx === questions.length - 1;
+        }
+
+        function navigate(dir) {
+            currentIdx += dir;
+            loadQuestion();
+        }
+
+        function updateStats() {
+            const count = userAns.filter(a => a !== null).length;
+            document.getElementById('answeredCount').textContent = `${count} / ${questions.length}`;
+            
+            if (count > 0) {
+                const correct = userAns.reduce((acc, a, idx) => acc + (a === questions[idx].ans ? 1 : 0), 0);
+                document.getElementById('liveScore').textContent = `${correct} / ${questions.length}`;
+            }
+        }
+
+        function toggleNcpModal() {
+            document.getElementById('ncpModal').classList.toggle('hidden');
+        }
+
+        window.onload = loadQuestion;
+    </script>
+</body>
+</html>

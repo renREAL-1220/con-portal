@@ -1,0 +1,1319 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SFC College of Nursing - NCM 103 Midterm Practice Exam</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        sfcGreen: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d',
+                            950: '#052e16',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        /* Custom scrollbar for question navigation sidebar */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 9999px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    </style>
+</head>
+<body class="bg-slate-100 text-slate-800 h-full flex flex-col min-h-screen">
+
+    <!-- Top Navigation Header -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-40 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            
+            <!-- Left: Burger Menu Button & School Branding (Gestalt Law of Proximity) -->
+            <div class="flex items-center space-x-3">
+                <button id="sidebar-toggle" class="p-2 rounded-lg text-slate-600 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-sfcGreen-800 transition-colors" aria-label="Toggle Navigation Drawer">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+
+                <div class="flex items-center space-x-3">
+                    <!-- College Logo Placeholder -->
+                    <div class="w-16 h-16 bg-sfcGreen-900 text-amber-400 flex items-center justify-center rounded-full font-bold text-xs shadow-inner flex-shrink-0 border-2 border-amber-300">
+                        <img src="1000054448.png" alt="Saint Ferdinand College" class="max-h-full max-w-full object-contain rounded-full shadow-sm">
+                    </div>
+                    <div class="object-contain sm:block">
+                        <h1 class="text-sm font-bold text-sfcGreen-950 leading-tight">Saint Ferdinand College</h1>
+                        <p class="text-xs font-medium text-slate-500">College of Nursing &bull; Ilagan City</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Center: Exam Identifier -->
+            <div class="text-center">
+                <span class="inline-block bg-sfcGreen-50 text-sfcGreen-800 text-xs font-bold px-2.5 py-1 rounded-full border border-sfcGreen-100">
+                    NCM 103 Practice Exam
+                </span>
+            </div>
+
+            <!-- Right: Timer & Action Controls -->
+            <div class="flex items-center space-x-3">
+                <div id="timer-badge" class="flex items-center space-x-1.5 bg-slate-100 text-slate-700 px-3 py-1.5 rounded-lg border border-slate-200 text-xs font-mono font-bold">
+                    <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    <span id="timer-display">60:00</span>
+                </div>
+
+                <button id="submit-exam-btn" onclick="confirmExamSubmit()" class="bg-sfcGreen-800 hover:bg-sfcGreen-900 text-white font-semibold text-xs px-3.5 py-2 rounded-lg shadow-sm transition-colors focus:ring-2 focus:ring-sfcGreen-700 focus:outline-none">
+                    Submit Exam
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Off-Canvas Drawer Navigation Menu -->
+    <div id="drawer-backdrop" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 hidden transition-opacity" onclick="toggleDrawer()"></div>
+    <aside id="drawer-menu" class="fixed top-0 left-0 w-80 h-full bg-white z-50 transform -translate-x-full transition-transform duration-300 ease-in-out shadow-2xl flex flex-col">
+        <div class="p-5 bg-sfcGreen-950 text-white flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <div class="w-8 h-8 bg-amber-400 text-sfcGreen-950 rounded-full flex items-center justify-center font-extrabold text-xs">
+                    SFC
+                </div>
+                <div>
+                    <h2 class="font-bold text-sm leading-tight text-white">Saint Ferdinand College</h2>
+                    <p class="text-xs text-sfcGreen-100">Nursing Portal Navigation</p>
+                </div>
+            </div>
+            <button onclick="toggleDrawer()" class="p-1.5 text-sfcGreen-100 hover:text-white hover:bg-sfcGreen-800 rounded-lg">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </div>
+
+        <nav class="flex-1 p-4 space-y-1 overflow-y-auto">
+            <a href="#" class="flex items-center space-x-3 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-600 hover:bg-slate-100 hover:text-sfcGreen-800">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 00-1-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                </svg>
+                <span>Home Portal</span>
+            </a>
+            <a href="#" class="flex items-center space-x-3 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-600 hover:bg-slate-100 hover:text-sfcGreen-800">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                </svg>
+                <span>Learning Materials</span>
+            </a>
+            <a href="#" class="flex items-center space-x-3 px-3 py-2.5 rounded-lg text-sm font-semibold text-sfcGreen-800 bg-sfcGreen-50 border border-sfcGreen-100">
+                <svg class="w-5 h-5 text-sfcGreen-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <span>Test Practice (Active)</span>
+            </a>
+            <a href="#" class="flex items-center space-x-3 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-600 hover:bg-slate-100 hover:text-sfcGreen-800">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <span>About College</span>
+            </a>
+        </nav>
+
+        <div class="p-4 border-t border-slate-200 bg-slate-50 text-xs text-slate-500 space-y-1">
+            <p class="font-semibold text-slate-700">Course Info:</p>
+            <p>NCM 103 – Fundamentals of Nursing Practice</p>
+            <p>Midterm Practice Examination</p>
+            <p class="text-slate-400 text-[10px] pt-2">Instructor: Rene S. Real, RN</p>
+        </div>
+    </aside>
+
+    <!-- Main Workspace Container -->
+    <main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8 flex flex-col lg:flex-row gap-6">
+        
+        <!-- Left / Primary Content Panel: Exam Question Box -->
+        <section class="flex-1 flex flex-col space-y-6">
+            
+            <!-- Exam Progress Bar & Header -->
+            <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm space-y-3">
+                <div class="flex justify-between items-center text-xs font-semibold text-slate-600">
+                    <span id="question-progress-text">Question 1 of 50</span>
+                    <span id="completion-percentage-text" class="text-sfcGreen-800 font-bold">0% Answered</span>
+                </div>
+                <!-- Progress Line -->
+                <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden border border-slate-200">
+                    <div id="progress-bar-fill" class="bg-sfcGreen-700 h-full w-0 transition-all duration-300"></div>
+                </div>
+            </div>
+
+            <!-- Single Question Card Container (Gestalt Figure-Ground Isolation) -->
+            <article class="bg-white rounded-xl border border-slate-200 shadow-sm p-6 sm:p-8 flex-1 flex flex-col justify-between space-y-6">
+                
+                <div class="space-y-6">
+                    <!-- Question Header & Badges -->
+                    <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+                        <span id="q-number-badge" class="bg-slate-100 text-slate-700 font-bold text-xs px-3 py-1 rounded-md border border-slate-200">
+                            Item #1
+                        </span>
+                        <div class="flex items-center space-x-2">
+                            <button id="flag-btn" onclick="toggleFlagCurrentQuestion()" class="flex items-center space-x-1 text-xs font-medium text-slate-500 hover:text-amber-600 px-2 py-1 rounded hover:bg-amber-50 transition-colors">
+                                <svg id="flag-icon" class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9"></path>
+                                </svg>
+                                <span id="flag-text">Flag for Review</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Question Stem Text -->
+                    <div id="question-text" class="text-base sm:text-lg font-semibold text-slate-900 leading-relaxed">
+                        <!-- Dynamic Question Prompt -->
+                    </div>
+
+                    <!-- Options Grid (Gestalt Law of Similarity & Continuity) -->
+                    <div id="options-container" class="space-y-3 pt-2">
+                        <!-- Dynamic Options injected here -->
+                    </div>
+
+                    <!-- Post-Submission Rationale Box (Hidden until exam submitted) -->
+                    <div id="rationale-box" class="hidden rounded-xl p-5 border text-xs sm:text-sm space-y-2 mt-4 transition-all">
+                        <div id="rationale-header" class="font-bold flex items-center space-x-2">
+                            <!-- Correct / Incorrect icon -->
+                            <span id="rationale-title">Rationale & Explanation</span>
+                        </div>
+                        <p id="rationale-text" class="text-slate-700 leading-relaxed">
+                            <!-- Detailed nursing rationale -->
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Footer Navigation Buttons -->
+                <div class="flex justify-between items-center border-t border-slate-100 pt-5 mt-4">
+                    <button id="prev-btn" onclick="navigateQuestion(-1)" class="px-4 py-2 rounded-lg border border-slate-200 text-slate-600 font-medium text-xs sm:text-sm hover:bg-slate-50 hover:text-slate-900 transition-colors disabled:opacity-40 disabled:cursor-not-allowed">
+                        &larr; Previous
+                    </button>
+
+                    <span class="text-xs text-slate-400 hidden sm:inline-block">Use arrow keys to navigate options</span>
+
+                    <button id="next-btn" onclick="navigateQuestion(1)" class="px-5 py-2 rounded-lg bg-sfcGreen-800 text-white font-medium text-xs sm:text-sm hover:bg-sfcGreen-900 transition-colors shadow-sm">
+                        Next &rarr;
+                    </button>
+                </div>
+
+            </article>
+
+        </section>
+
+        <!-- Right Side / Secondary Panel: Question Index Grid (Gestalt Closure & Proximity) -->
+        <aside class="w-full lg:w-80 bg-white rounded-xl border border-slate-200 shadow-sm p-5 flex flex-col space-y-4 self-start">
+            
+            <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+                <h3 class="font-bold text-slate-900 text-sm">Question Palette</h3>
+                <span id="palette-count" class="text-xs text-slate-500 font-medium">0 / 50</span>
+            </div>
+
+            <!-- Legend Indicators -->
+            <div class="grid grid-cols-2 gap-2 text-[11px] text-slate-600 font-medium pb-1">
+                <div class="flex items-center space-x-1.5">
+                    <span class="w-3 h-3 bg-sfcGreen-700 rounded-sm inline-block"></span>
+                    <span>Answered</span>
+                </div>
+                <div class="flex items-center space-x-1.5">
+                    <span class="w-3 h-3 bg-white border border-slate-300 rounded-sm inline-block"></span>
+                    <span>Unanswered</span>
+                </div>
+                <div class="flex items-center space-x-1.5">
+                    <span class="w-3 h-3 bg-amber-400 rounded-sm inline-block"></span>
+                    <span>Flagged</span>
+                </div>
+                <div class="flex items-center space-x-1.5">
+                    <span class="w-3 h-3 bg-sfcGreen-100 border-2 border-sfcGreen-800 rounded-sm inline-block"></span>
+                    <span>Current</span>
+                </div>
+            </div>
+
+            <!-- Filter Buttons -->
+            <div class="flex border-b border-slate-100 text-xs font-semibold text-slate-500 pb-2 space-x-2">
+                <button onclick="filterPalette('all')" class="palette-filter-btn px-2 py-1 rounded bg-slate-100 text-slate-800" data-filter="all">All</button>
+                <button onclick="filterPalette('unanswered')" class="palette-filter-btn px-2 py-1 rounded hover:bg-slate-100" data-filter="unanswered">Unanswered</button>
+                <button onclick="filterPalette('flagged')" class="palette-filter-btn px-2 py-1 rounded hover:bg-slate-100" data-filter="flagged">Flagged</button>
+            </div>
+
+            <!-- 50-Item Quick Select Grid -->
+            <div id="question-grid" class="grid grid-cols-5 gap-2 max-h-80 overflow-y-auto pr-1 pt-1">
+                <!-- Dynamically generated 1-50 grid buttons -->
+            </div>
+
+            <!-- Exam Action Summary Card -->
+            <div id="summary-card" class="bg-slate-50 border border-slate-200 rounded-lg p-3 text-xs space-y-1.5 text-slate-600">
+                <div class="flex justify-between">
+                    <span>Total Questions:</span>
+                    <span class="font-bold text-slate-800">50</span>
+                </div>
+                <div class="flex justify-between">
+                    <span>Answered:</span>
+                    <span id="summary-answered" class="font-bold text-sfcGreen-800">0</span>
+                </div>
+                <div class="flex justify-between">
+                    <span>Flagged:</span>
+                    <span id="summary-flagged" class="font-bold text-amber-600">0</span>
+                </div>
+            </div>
+
+        </aside>
+
+    </main>
+
+    <!-- Exam Scorecard Modal (Appears upon submission) -->
+    <div id="score-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm hidden">
+        <div class="bg-white rounded-2xl max-w-lg w-full p-6 sm:p-8 space-y-6 shadow-2xl border border-slate-100 transform transition-all">
+            
+            <div class="text-center space-y-2">
+                <div class="inline-flex p-3 rounded-full bg-sfcGreen-50 text-sfcGreen-800 mb-1">
+                    <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-2xl font-extrabold text-slate-900">Examination Completed</h3>
+                <p class="text-xs text-slate-500">St. Ferdinand College - College of Health Sciences</p>
+            </div>
+
+            <!-- Score Visual Circle & Breakdown -->
+            <div class="bg-slate-50 rounded-xl p-5 border border-slate-200 text-center space-y-3">
+                <div class="text-4xl font-black text-sfcGreen-900" id="modal-score-display">0 / 50</div>
+                <div class="text-xs font-semibold text-slate-500 uppercase tracking-wider" id="modal-percentage-display">0% Overall Score</div>
+                
+                <div id="modal-grade-badge" class="inline-block text-xs font-bold px-3 py-1 rounded-full bg-slate-200 text-slate-700">
+                    --
+                </div>
+            </div>
+
+            <!-- Detailed Metrics -->
+            <div class="grid grid-cols-3 gap-2 text-center text-xs">
+                <div class="p-3 bg-emerald-50 rounded-lg border border-emerald-100">
+                    <div id="modal-correct-count" class="font-extrabold text-emerald-800 text-base">0</div>
+                    <div class="text-emerald-600 text-[11px]">Correct</div>
+                </div>
+                <div class="p-3 bg-red-50 rounded-lg border border-red-100">
+                    <div id="modal-incorrect-count" class="font-extrabold text-red-800 text-base">0</div>
+                    <div class="text-red-600 text-[11px]">Incorrect</div>
+                </div>
+                <div class="p-3 bg-slate-100 rounded-lg border border-slate-200">
+                    <div id="modal-time-taken" class="font-extrabold text-slate-700 text-base">00:00</div>
+                    <div class="text-slate-500 text-[11px]">Time Spent</div>
+                </div>
+            </div>
+
+            <!-- Modal Action Buttons -->
+            <div class="space-y-2 pt-2">
+                <button onclick="closeModalAndReview()" class="w-full bg-sfcGreen-800 hover:bg-sfcGreen-900 text-white font-bold py-2.5 rounded-lg shadow-sm text-sm transition-colors">
+                    Review Questions & Rationales
+                </button>
+                <button onclick="resetExam()" class="w-full bg-white hover:bg-slate-50 text-slate-700 font-semibold py-2 rounded-lg border border-slate-300 text-xs transition-colors">
+                    Retake Examination
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Complete Exam Dataset & Logic JavaScript -->
+    <script>
+        // Full Exam Question Data Struct
+        const examQuestions = [
+            {
+                id: 1,
+                question: "Ms. Cabacungan complains of pain in her chest, difficulty of breathing and cough. The nurse would be correct if she documents these data as:",
+                options: [
+                    "Objective data",
+                    "Subjective data",
+                    "Observable data",
+                    "General information"
+                ],
+                correct: 1, // Index 1: Subjective data
+                rationale: "Subjective data (symptoms) are clear covert feelings, sensations, or complaints expressed directly by the client that cannot be directly measured or verified by the nurse. Chest pain, dyspnea, and cough complaints reported by the patient represent subjective findings."
+            },
+            {
+                id: 2,
+                question: "Which of the following assessment findings would be documented as Objective data?",
+                options: [
+                    "Leg pain and calf tenderness",
+                    "Dizziness and headache in PM",
+                    "Redness and swelling on arm",
+                    "Weakness and nausea"
+                ],
+                correct: 2,
+                rationale: "Objective data (signs) consist of overt, observable, and measurable information obtained through direct observation, inspection, or physical measurement. Redness (erythema) and swelling (edema) on an arm can be directly seen and assessed by the nurse."
+            },
+            {
+                id: 3,
+                question: "A nurse is performing a physical assessment on Male adult patient, which of the following would indicate a problem? <br><br>1) Clear bilateral lung sound &nbsp;&nbsp; 2) Jaundice &nbsp;&nbsp; 3) Erythema of lower extremities <br>4) Heart rate of 118bpm &nbsp;&nbsp; 5) Afebrile &nbsp;&nbsp; 6) Cyanosis on fingers &nbsp;&nbsp; 7) RR- 19breaths/min",
+                options: [
+                    "1, 3, 4 and 5",
+                    "2, 3, 4 and 6",
+                    "3, 4, 5, 7 and 1",
+                    "3, 2, 4, 6 and 1"
+                ],
+                correct: 1,
+                rationale: "Jaundice (2), Erythema of lower extremities (3), Tachycardia/HR 118 bpm (4), and Cyanosis of fingers (6) represent abnormal clinical findings indicating underlying organ dysfunction, infection, or tissue hypoxia."
+            },
+            {
+                id: 4,
+                question: "The nurse is organizing the assessment data elicited from her patient and groups related information together. The nurse is doing what phase of nursing process?",
+                options: [
+                    "Evaluation",
+                    "Assessment",
+                    "Outcome identification",
+                    "Implementation"
+                ],
+                correct: 1,
+                rationale: "Data organization and clustering related assessment information together is an integral component of the Assessment phase (specifically data organization prior to formulation of nursing diagnoses)."
+            },
+            {
+                id: 5,
+                question: "Which of the following is not an activity of the nurse during evaluation?",
+                options: [
+                    "Measuring goal attainment",
+                    "Revising care plan",
+                    "Collection of data relevant to the outcome criteria",
+                    "Performing nursing order"
+                ],
+                correct: 3,
+                rationale: "Performing nursing orders is an activity belonging to the Implementation phase of the nursing process. Evaluation involves comparing client responses against target outcome criteria, measuring goal achievement, and modifying the care plan."
+            },
+            {
+                id: 6,
+                question: "Bella Flores has just undergone surgery on her right lower leg. During the night, she required an analgesic to help her sleep. She doesn’t have appetite to eat but is able to take in liquids without nausea. Which of the following nursing diagnosis should be given highest priority?",
+                options: [
+                    "Impaired tissue perfusion",
+                    "Imbalance nutrition: less than body requirement",
+                    "Pain",
+                    "Impaired physical mobility"
+                ],
+                correct: 0,
+                rationale: "Following orthopedic/vascular surgery on a extremity, Impaired Tissue Perfusion (circulatory neurovascular compromise) poses the greatest threat to limb viability and takes highest priority over acute pain or nutritional alterations."
+            },
+            {
+                id: 7,
+                question: "A patient is being positioned by the nurse because of complaints of difficulty of breathing. The action of the nurse indicates what phase of nursing process?",
+                options: [
+                    "Evaluation",
+                    "Implementation",
+                    "Assessment",
+                    "Planning"
+                ],
+                correct: 1,
+                rationale: "Positioning a patient to facilitate respiratory expansion (e.g., Fowler's position) is the execution of a clinical intervention, which belongs to the Implementation phase."
+            },
+            {
+                id: 8,
+                question: "The first component of nursing diagnosis statement consists of:",
+                options: [
+                    "Etiology",
+                    "Problem",
+                    "Signs and symptoms",
+                    "Related factors"
+                ],
+                correct: 1,
+                rationale: "In a standard NANDA PES nursing diagnostic format (Problem + Etiology + Signs/Symptoms), the first component is always the Problem (diagnostic label)."
+            },
+            {
+                id: 9,
+                question: "In the nursing diagnosis 'impaired physical mobility related to joint stiffness as evidence by limited range of motion and difficulty turning', the etiology of the problem is?",
+                options: [
+                    "Limited range of motion",
+                    "Joint stiffness",
+                    "Physical mobility",
+                    "Difficulty turning"
+                ],
+                correct: 1,
+                rationale: "The 'related to' (r/t) clause in a nursing diagnosis identifies the Etiology (cause/contributing factor). Here, 'joint stiffness' is the etiology causing the impaired mobility."
+            },
+            {
+                id: 10,
+                question: "As an intervention for controlling pain of a postoperative patient, a nurse administers analgesic. This activity of the nurse is an example of a/an:",
+                options: [
+                    "Independent nursing action",
+                    "Dependent nursing action",
+                    "Collaborative nursing action",
+                    "Legal nursing action"
+                ],
+                correct: 1,
+                rationale: "Administering prescription medications (analgesics) requires a licensed physician's order; hence, it represents a Dependent nursing action."
+            },
+            {
+                id: 11,
+                question: "As a nurse taking the next shift, which of the following conditions should be prioritized?",
+                options: [
+                    "A 29yo post operative patient complaining of thirst",
+                    "A 17yo patient with left arm fracture secondary to mauling complaining of severe pain",
+                    "A neonate with respiratory rate of 40 breaths per minute",
+                    "A 37yo patient with body temperature of 37.6c"
+                ],
+                correct: 1,
+                rationale: "Severe unrelieved pain following a traumatic fracture can indicate acute neurovascular compromise or compartment syndrome, requiring immediate clinical assessment. Note: A neonate RR of 40 is normal (30-60 bpm), and temp 37.6°C is low-grade."
+            },
+            {
+                id: 12,
+                question: "Which of the following nursing diagnoses should be dealt with immediately?",
+                options: [
+                    "Impaired physical mobility",
+                    "Risk for infection",
+                    "High risk for fluid volume deficit",
+                    "Anxiety/fear"
+                ],
+                correct: 2,
+                rationale: "High risk for fluid volume deficit threatens hemodynamic stability and organ perfusion, posing an immediate biological risk based on Maslow's Hierarchy of Needs and ABC principles."
+            },
+            {
+                id: 13,
+                question: "On assessment, the nurse obtains the following findings: BP 140/90mmHg; PR 108bpm; RR 20; with DOB, headache, dizziness and expressed worries about her 17 y/o son left at home. Which of the possible problems would be of LEAST priority?",
+                options: [
+                    "BP 140/90",
+                    "Worries on her son",
+                    "Difficulty of breathing",
+                    "Headache and dizziness"
+                ],
+                correct: 1,
+                rationale: "Worries regarding her son represent a psychosocial need, which is lower in priority compared to physiological vital sign abnormalities and difficulty of breathing."
+            },
+            {
+                id: 14,
+                question: "In the diagnostic statement 'fluid volume excess r/t decreased venous return as manifested by edema on lower extremities' the etiology of the problem is:",
+                options: [
+                    "Edema",
+                    "Decreased venous return",
+                    "Excess fluid volume",
+                    "Impaired circulation"
+                ],
+                correct: 1,
+                rationale: "The etiology follows the 'related to' statement. In this diagnosis, 'decreased venous return' is the underlying cause of the fluid volume excess."
+            },
+            {
+                id: 15,
+                question: "Nursing diagnosis must meet specific criteria to reflect both the client’s problem and the possible etiology involved. Which of the following is an appropriately written nursing diagnosis?",
+                options: [
+                    "Acute Pain related to tissue ischemia",
+                    "Impaired skin integrity related to skin ulceration",
+                    "Ineffective airway clearance related to accu. of secre’ns",
+                    "Ineffective airway clearance related to pneumonia"
+                ],
+                correct: 0,
+                rationale: "'Acute Pain related to tissue ischemia' correctly links the human response (Acute Pain) to a pathophysiological etiology (tissue ischemia) without using medical diagnoses or redundant restatements."
+            },
+            {
+                id: 16,
+                question: "The nurse is providing care to a group client. For which would the nurse's use of critical thinking be a priority?",
+                options: [
+                    "Administering IV push meds to critically ill patients",
+                    "Educating a home health client about treatment options",
+                    "Teaching new parents car seat safety",
+                    "Assisting an orthopedic client with the proper use of crutches"
+                ],
+                correct: 0,
+                rationale: "Administering IV push medications to unstable, critically ill patients carries immediate high-risk life-safety implications requiring rapid clinical judgment, dosage calculations, and physiological monitoring."
+            },
+            {
+                id: 17,
+                question: "A patient recovering from a stroke does not want to perform prescribed shoulder exercise. What should the nurse say to the client that demonstrates critical thinking with creativity?",
+                options: [
+                    "You’ll get worse if you don’t do these exercises",
+                    "As soon as you get these into your routine, you’ll feel better",
+                    "Your physician wouldn’t have ordered these if they weren’t important",
+                    "Here’s a marker. See how many circles you can make on this board in 10 minutes."
+                ],
+                correct: 3,
+                rationale: "Converting repetitive exercises into an engaging visual board game encourages functional movement through creative play and positive motivation."
+            },
+            {
+                id: 18,
+                question: "A student nurse resists when encouraged to be creative when providing client care. What should the nurse educator say to encourage this student to be creative?",
+                options: [
+                    "Creativity allows unique solutions to unique problems",
+                    "Not all your answer is going to be from your textbook",
+                    "Creativity makes nursing more fun",
+                    "You’ll get bored if you don’t learn to be creative."
+                ],
+                correct: 0,
+                rationale: "Creativity in nursing allows nurses to generate individualized, flexible solutions tailored to unique patient circumstances that standard textbook protocols may not fully address."
+            },
+            {
+                id: 19,
+                question: "A client with PhD in epidemiology has been to numerous doctors and has had numerous laboratory tests, all of which were abnormal and exploratory surgery, but no one is able to explain the etiology of his problem. The patient also states that he has a rare form of neurological disorder. Which statement should the nurse make that demonstrates critical thinking?",
+                options: [
+                    "Why don’t you just tell your physician what you think you have?",
+                    "Did you bring your prior tests and results with you, so we don’t repeat anything?",
+                    "If you know what you have, what do you want from us?",
+                    "Describe what test you’ve had and explain the symptoms of this disorder."
+                ],
+                correct: 3,
+                rationale: "Encouraging the patient to describe prior diagnostic workups and specific clinical symptoms demonstrates open-minded data gathering and active analytical investigation."
+            },
+            {
+                id: 20,
+                question: "A nurse measures a patient’s pulse rate and discovers that it is higher than normal. The nurse should document this finding as:",
+                options: [
+                    "Tachypnea",
+                    "Hypotension",
+                    "Arrhythmia",
+                    "Tachycardia"
+                ],
+                correct: 3,
+                rationale: "Tachycardia is defined as an abnormally elevated heart/pulse rate (>100 beats per minute in adults)."
+            },
+            {
+                id: 21,
+                question: "A walk-in patient visits the clinic, complaining of abdominal pain and diarrhea. After taking the patient’s vital signs, which phase of the nursing process is the nurse implementing?",
+                options: [
+                    "Assessment",
+                    "Diagnosis",
+                    "Planning",
+                    "Implementation"
+                ],
+                correct: 0,
+                rationale: "Obtaining vital signs and interviewing the patient regarding complaints represents data collection, which is the Assessment phase."
+            },
+            {
+                id: 22,
+                question: "The following term is best described as a systematic, rational method of planning and providing nursing care for individuals, families, groups, and communities:",
+                options: [
+                    "Assessment",
+                    "Nursing Process",
+                    "Diagnosis",
+                    "Evaluation"
+                ],
+                correct: 1,
+                rationale: "The Nursing Process is a systematic, rational, and person-centered method of planning and delivering individualized nursing care."
+            },
+            {
+                id: 23,
+                question: "Which action by a new staff nurse indicates that FURTHER teaching about complementary and alternative therapy may be needed?",
+                options: [
+                    "The nurse massages the legs of a patient who has a left foot stasis ulcer",
+                    "The nurse checks a blood glucose on a patient with diabetes who takes aloe vera",
+                    "The nurse suggests the use of acupressure to a patient with tension headache",
+                    "The nurse shows a family how to use hand massage to calm an agitated patient."
+                ],
+                correct: 0,
+                rationale: "Massaging lower extremities in patients with vascular stasis ulcers or deep vein thrombosis risk is contraindicated as it can dislodge thrombi or exacerbate vascular ischemia."
+            },
+            {
+                id: 24,
+                question: "A patient undergoing chemotherapy complains of nausea and asks the nurse whether there are any complementary and alternative therapies that may help. Which therapy should the nurse recommend to the patient?",
+                options: [
+                    "Green tea",
+                    "Acupuncture",
+                    "Chiropractic therapy",
+                    "Tai chi"
+                ],
+                correct: 1,
+                rationale: "Acupuncture (and acupressure at the P6 Neiguan point) is an evidence-based complementary therapy recognized for effectively alleviating chemotherapy-induced nausea and vomiting."
+            },
+            {
+                id: 25,
+                question: "What is required before you perform hand hygiene? Select all that apply: <br>1. Ring should not have jewels or stones <br>2. Fingers should be short <br>3. Assess hands for visible soil <br>4. Remove bracelet",
+                options: [
+                    "1, 2, 3",
+                    "2 and 4",
+                    "3 and 4",
+                    "All of the above"
+                ],
+                correct: 3,
+                rationale: "Prior to hand hygiene: Rings with stones trap micro-organisms, long nails harbor pathogens, assessing for visible soil dictates water vs gel, and removing wrist jewelry ensures full cleansing."
+            },
+            {
+                id: 26,
+                question: "Which of the following refers to a patient who enters a hospital with a known infection?",
+                options: [
+                    "Nosocomial Infection",
+                    "Iatrogenic Infection",
+                    "Community-acquired Infection",
+                    "Idiopathic Infection"
+                ],
+                correct: 2,
+                rationale: "An infection present or incubating prior to hospital admission is classified as a Community-acquired Infection."
+            },
+            {
+                id: 27,
+                question: "A patient comes to the emergency department complaining of nausea and vomiting. What should the nurse ask the patient about first?",
+                options: [
+                    "Family history of Diabetes",
+                    "Medications the patient taking",
+                    "Operations the patient has had in the past",
+                    "Severity and duration of the illness"
+                ],
+                correct: 3,
+                rationale: "Assessing the onset, severity, and duration of current chief complaints (OLDCARTS) provides essential immediate assessment data."
+            },
+            {
+                id: 28,
+                question: "An alert, oriented patient is admitted to the hospital with chest pain. From whom should the nurse collect the primary data on this patient?",
+                options: [
+                    "Family member",
+                    "Physician",
+                    "Another nurse",
+                    "Patient"
+                ],
+                correct: 3,
+                rationale: "The patient who is conscious, alert, and oriented is always the primary source of assessment data."
+            },
+            {
+                id: 29,
+                question: "As a nurse, what is the primary purpose of the nursing diagnosis?",
+                options: [
+                    "Resolving patient confusion",
+                    "Communicating patients need",
+                    "Meeting accreditation requirements",
+                    "Articulating the nursing scope of practice"
+                ],
+                correct: 1,
+                rationale: "The primary purpose of nursing diagnosis is to identify and communicate specific patient care needs and responses to health problems to direct targeted nursing care."
+            },
+            {
+                id: 30,
+                question: "A nurse is following the principles of medical asepsis when performing a patient care in the hospital setting. Which nursing action performed by the nurse follow these recommended guidelines?",
+                options: [
+                    "The nurse carried the soiled bed linens close to the body to prevent spreading microorganisms into the air",
+                    "The nurse placed soiled linens and hospital gowns on the floor when making the bed",
+                    "The nurse moves the tables away from the nurse’s body while wiping it off after a meal",
+                    "The nurse cleans the most soiled items in the patient’s bathroom first and follows with the cleaner items."
+                ],
+                correct: 2,
+                rationale: "Wiping equipment away from the body prevents contamination of uniform attire. Linen should held away from uniform, never placed on the floor, and cleaning moves from clean to dirty."
+            },
+            {
+                id: 31,
+                question: "A nurse has opened the sterile supplies and put on two sterile gloves to complete a sterile dressing change, a procedure that requires surgical asepsis. The nurse must?",
+                options: [
+                    "Keep splashes on the sterile field to a minimum",
+                    "Cover the nose and mouth with gloved hands if a sneeze is imminent",
+                    "Use forceps soaked in a disinfectant",
+                    "Consider the outer 1inch of sterile field as contaminated."
+                ],
+                correct: 3,
+                rationale: "In surgical asepsis, a 1-inch (2.5 cm) margin surrounding the edge of a sterile drape or field is considered unsterile/contaminated."
+            },
+            {
+                id: 32,
+                question: "The nurse caring for patient in a hospital setting institutes CDC standard precaution recommendation for which category of patients?",
+                options: [
+                    "Only patients with diagnosed infections",
+                    "Only patients with visible blood, body fluids or sweat",
+                    "Only patients with nonintact skin",
+                    "All patients receiving care in the hospitals"
+                ],
+                correct: 3,
+                rationale: "Standard Precautions apply universally to ALL patients receiving care in healthcare facilities regardless of their diagnosis or presumed infection status."
+            },
+            {
+                id: 33,
+                question: "Using the principles of standard precautions, the nurse would wear gloves in what nursing interventions?",
+                options: [
+                    "Providing a back massage",
+                    "Feeding a client",
+                    "Providing hair care",
+                    "Providing oral hygiene"
+                ],
+                correct: 3,
+                rationale: "Providing oral hygiene brings the nurse into direct contact with mucous membranes and saliva/body fluids, requiring gloves under Standard Precautions."
+            },
+            {
+                id: 34,
+                question: "The ability of the body to defend itself against specific invading agents such as bacteria, toxins, viruses and foreign bodies:",
+                options: [
+                    "Hormones",
+                    "Secretion",
+                    "Immunity",
+                    "Glands"
+                ],
+                correct: 2,
+                rationale: "Immunity is the physiological mechanism that endows the human body with the ability to resist pathogens and toxic foreign substances."
+            },
+            {
+                id: 35,
+                question: "Physical Hazards in the environment which threaten a person’s safety and often result in physical or psychological injury or death include:",
+                options: [
+                    "Poison",
+                    "Falls",
+                    "Fire",
+                    "All of the above"
+                ],
+                correct: 3,
+                rationale: "Poisons, accidental falls, and fires are primary environmental safety hazards leading to trauma or death."
+            },
+            {
+                id: 36,
+                question: "The nurse caring for a patient in a long-term care facility knows that there are factors that place certain patients at a higher risk for falls. Which patients would the nurse consider to be in this category?",
+                options: [
+                    "A patient who is older than 60 years",
+                    "A patient who has postural hypotension",
+                    "A patient who is taking antibiotics",
+                    "A patient who is experiencing nausea from chemotherapy"
+                ],
+                correct: 1,
+                rationale: "Postural (orthostatic) hypotension causes sudden cerebral hypoperfusion and dizziness upon standing, dramatically elevating fall risk."
+            },
+            {
+                id: 37,
+                question: "A school nurse is teaching parents about home safety and fires. What information would be accurate to include in the teaching plan?",
+                options: [
+                    "Most fatal fires occur when people are cooking",
+                    "Most people who die in fire, die of smoke inhalation",
+                    "More fires occur in homes occupied by single parents",
+                    "Don’t close the windows and doors if there is Fire"
+                ],
+                correct: 1,
+                rationale: "In residential fires, smoke inhalation and asphyxiation from carbon monoxide/toxic gases cause far more fatalities than direct thermal burns."
+            },
+            {
+                id: 38,
+                question: "A nurse is assessing the following children. Which child would the nurse identify as having the greatest risk for choking and suffocating?",
+                options: [
+                    "A toddler playing with 9yo brother’s construction set",
+                    "A 4yo eating yogurt for lunch",
+                    "An infant covered with small blanket and asleep in the crib",
+                    "A 3yo drinking a glass of juice"
+                ],
+                correct: 0,
+                rationale: "Toddlers naturally explore objects orally and construction sets contain small detachable plastic parts presenting severe airway choking hazards."
+            },
+            {
+                id: 39,
+                question: "When describing safety issues and related mortality to a local senior citizens group, what the nurse identifies as the leading cause of hospitalization admission for trauma in older adults?",
+                options: [
+                    "Fires",
+                    "Exposure to temperature extremes",
+                    "Intimate partner violence",
+                    "Falls"
+                ],
+                correct: 3,
+                rationale: "Falls represent the leading cause of trauma-related hospital admissions and accidental injury mortality among older adults."
+            },
+            {
+                id: 40,
+                question: "A nurse smells smoke and subsequently discovers a fire in a garbage can in a common area on the hospital unit. What is the nurse’s priority action in this situation?",
+                options: [
+                    "Attempt to extinguish the fire",
+                    "Rescue anyone who is in immediate danger",
+                    "Evacuate clients and staff",
+                    "Activate the fire alarm on the unit"
+                ],
+                correct: 1,
+                rationale: "Following the RACE protocol (Rescue, Alarm, Confine, Extinguish/Evacuate), the immediate first priority is always to RESCUE anyone in immediate danger."
+            },
+            {
+                id: 41,
+                question: "A nurse is providing instructions to the mother of a toddler regarding the prevention of burn injuries in the toddler. Which of the following instructions is of the highest priority to provide to the mother?",
+                options: [
+                    "Keep coffee cup on the counter above the child’s reach",
+                    "Teach the toddler about fire safety",
+                    "Instruct the toddler about the consequence of burn",
+                    "Cool hot liquid before giving them to the child"
+                ],
+                correct: 0,
+                rationale: "Environmental hazard modification (keeping hot liquids completely out of reach) provides immediate protection for toddlers who lack cognitive developmental understanding of danger."
+            },
+            {
+                id: 42,
+                question: "A nurse responds to the call bell and finds another nurse evacuating the client from the room due to fire. Which of the following actions should the nurse take next?",
+                options: [
+                    "Extinguish the fire",
+                    "Pull the fire alarm lever",
+                    "Confine fire",
+                    "Evacuate the unit"
+                ],
+                correct: 1,
+                rationale: "Because Rescue (R) is already being performed by the first nurse, the second nurse must immediately perform the next RACE step: ALARM (A) by activating the fire alarm."
+            },
+            {
+                id: 43,
+                question: "If seizures are not well-controlled, safety precautions include restriction or direct supervision by others for certain activities:",
+                options: [
+                    "Driving",
+                    "Swimming",
+                    "Using electrical equipment or machinery",
+                    "All of the above"
+                ],
+                correct: 3,
+                rationale: "Uncontrolled seizure disorders pose severe injury or drowning hazards during driving, swimming, or operating heavy power machinery."
+            },
+            {
+                id: 44,
+                question: "A nurse is assessing a client’s ability to perform activities of daily living. Which action would the nurse have the client perform as part of this assessment process?",
+                options: [
+                    "Ask the client to interact with family members",
+                    "Close the eyes and hold the arms out to the sides",
+                    "Stand on one foot",
+                    "Put both hands together behind the head"
+                ],
+                correct: 3,
+                rationale: "Putting hands behind the head assesses shoulder joint range of motion and upper extremity flexibility essential for self-care ADLs like dressing and hair grooming."
+            },
+            {
+                id: 45,
+                question: "A nurse is caring for a client who is at high risk of dehydration. Which parameter would the nurse use to assess whether this patient is dehydrated?",
+                options: [
+                    "Orthostatic hypotension",
+                    "A 10 percent gain in body weight",
+                    "Skin turgor >2seconds",
+                    "Bipedal Edema"
+                ],
+                correct: 2,
+                rationale: "Sluggish skin turgor (tenting lasting >2 seconds) indicates fluid loss in the dermal tissues, reflecting intracellular/extracellular dehydration."
+            },
+            {
+                id: 46,
+                question: "A nurse has given a client a nursing diagnosis of Ineffective Coping because of her response to an injury. The nurse helps the client to recognize individual strengths in this situation. Which outcome would MOST likely be expected as a result of these interventions?",
+                options: [
+                    "The client will effectively be able to spend time alone",
+                    "The client will think about methods she already uses to help her manage her feelings",
+                    "The client will not try to harm herself or develop suicidal ideation",
+                    "The client will recognize that she can cope and does not need help"
+                ],
+                correct: 1,
+                rationale: "Identifying personal strengths empowers the client to draw upon proven coping mechanisms they have successfully utilized in past stressful situations."
+            },
+            {
+                id: 47,
+                question: "A patient has been given a nursing diagnosis of Alteration in Comfort related to a back injury. Which nursing intervention would be most appropriate in this situation?",
+                options: [
+                    "Eliminate environmental stressors and other sources of discomfort",
+                    "Teach the patient to notify the nurse when the pain medication starts working",
+                    "Assess the most likely cause of the patient’s pain",
+                    "Encourage the patient to use mind-body therapy to control pain instead of analgesia"
+                ],
+                correct: 0,
+                rationale: "Modifying environmental stressors (noise, lighting, temperature, positioning) directly promotes comfort and reduces pain exacerbations."
+            },
+            {
+                id: 48,
+                question: "The nurse is caring for a client with cancer. The client has discussed treatment options with the provider and agreed upon a plan that involves chemotherapy. The client tells the nurse that he is nervous about the side effects of the chemotherapy. Which of the following responses from the nurse is most appropriate?",
+                options: [
+                    "\"You are one of many people who will lose their hair due to chemotherapy treatments\"",
+                    "\"I encourage you to discuss these concerns with the provider\"",
+                    "\"There should be a local support group you can join to discuss these feelings related to chemotherapy\"",
+                    "“I have time to discuss this with you. What side effects come to mind?”"
+                ],
+                correct: 3,
+                rationale: "Offering dedicated time and inviting the client to express specific concerns demonstrates therapeutic communication, presence, and active listening."
+            },
+            {
+                id: 49,
+                question: "A nurse case manager is working with a diabetic client to ensure that the client has the supplies needed to manage the condition at home. The case manager has developed a plan of care for the client and is listing appropriate outcomes related to the client’s self-care skills at home. Which of the following examples is most applicable in this situation?",
+                options: [
+                    "Client will have normal blood glucose levels before discharge",
+                    "The client will be free from pain before dismissal from the healthcare center",
+                    "Client will demonstrate how to check blood glucose and respond appropriately to results before dismissal to home",
+                    "The client's family will verbalize the client's self-care skills before discharge"
+                ],
+                correct: 2,
+                rationale: "Measurable behavioral outcomes evaluate actual psychomotor skill mastery (demonstrating glucose monitoring and describing appropriate interventions) before discharge home."
+            },
+            {
+                id: 50,
+                question: "A client has been hospitalized for symptoms of abdominal pain and diarrhea following exacerbation of stress. The nurse is teaching the client about ways to minimize environmental stress in her life. Which statement from the client indicates that teaching has been effective?",
+                options: [
+                    "I need to remember to check my voicemail instead of always answering the phone",
+                    "I will try to eat more fat in my diet since my body is able to digest it easily",
+                    "I will listen to talk radio in the car to distract myself from my problems",
+                    "I am going to organize my home so that I do not have so much clutter lying around"
+                ],
+                correct: 3,
+                rationale: "Decluttering and organizing one's physical home environment directly reduces daily environmental stressors and sensory overload."
+            }
+        ];
+
+        // Global Exam Application State
+        let currentQuestionIndex = 0;
+        let userAnswers = new Array(examQuestions.length).fill(null);
+        let flaggedQuestions = new Set();
+        let isSubmitted = false;
+        let timerSeconds = 3600; // 60 minutes
+        let timerInterval = null;
+        let activeFilter = 'all';
+
+        // DOM Element Cache
+        const questionTextEl = document.getElementById('question-text');
+        const optionsContainerEl = document.getElementById('options-container');
+        const qNumberBadgeEl = document.getElementById('q-number-badge');
+        const questionProgressTextEl = document.getElementById('question-progress-text');
+        const completionPercentageTextEl = document.getElementById('completion-percentage-text');
+        const progressBarFillEl = document.getElementById('progress-bar-fill');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const flagBtn = document.getElementById('flag-btn');
+        const flagTextEl = document.getElementById('flag-text');
+        const flagIconEl = document.getElementById('flag-icon');
+        const questionGridEl = document.getElementById('question-grid');
+        const summaryAnsweredEl = document.getElementById('summary-answered');
+        const summaryFlaggedEl = document.getElementById('summary-flagged');
+        const paletteCountEl = document.getElementById('palette-count');
+        const rationaleBoxEl = document.getElementById('rationale-box');
+        const rationaleTitleEl = document.getElementById('rationale-title');
+        const rationaleTextEl = document.getElementById('rationale-text');
+
+        // Initializer
+        window.onload = function() {
+            renderQuestionGrid();
+            loadQuestion(0);
+            startTimer();
+            setupKeyboardNav();
+        };
+
+        // Navigation Drawer Toggle
+        function toggleDrawer() {
+            const drawer = document.getElementById('drawer-menu');
+            const backdrop = document.getElementById('drawer-backdrop');
+            const isHidden = drawer.classList.contains('-translate-x-full');
+            
+            if (isHidden) {
+                drawer.classList.remove('-translate-x-full');
+                backdrop.classList.remove('hidden');
+            } else {
+                drawer.classList.add('-translate-x-full');
+                backdrop.classList.add('hidden');
+            }
+        }
+        document.getElementById('sidebar-toggle').addEventListener('click', toggleDrawer);
+
+        // Render Sidebar 1-50 Question Palette Grid
+        function renderQuestionGrid() {
+            questionGridEl.innerHTML = '';
+            examQuestions.forEach((q, idx) => {
+                const btn = document.createElement('button');
+                btn.id = `grid-btn-${idx}`;
+                btn.onclick = () => jumpToQuestion(idx);
+                btn.className = getGridButtonClass(idx);
+                btn.innerText = idx + 1;
+                questionGridEl.appendChild(btn);
+            });
+            updateSummaryMetrics();
+        }
+
+        // Determine CSS classes for Question Palette Grid (Gestalt Similarity & Contrast)
+        function getGridButtonClass(idx) {
+            let base = "h-9 w-full rounded font-semibold text-xs flex items-center justify-center transition-all border ";
+            
+            if (idx === currentQuestionIndex) {
+                base += "border-sfcGreen-800 border-2 font-bold ring-2 ring-sfcGreen-200 ";
+            } else {
+                base += "border-slate-200 ";
+            }
+
+            if (isSubmitted) {
+                if (userAnswers[idx] === examQuestions[idx].correct) {
+                    return base + "bg-emerald-600 text-white border-emerald-700";
+                } else if (userAnswers[idx] !== null) {
+                    return base + "bg-red-500 text-white border-red-600";
+                } else {
+                    return base + "bg-slate-200 text-slate-500";
+                }
+            }
+
+            if (flaggedQuestions.has(idx)) {
+                return base + "bg-amber-400 text-slate-900 font-extrabold border-amber-500";
+            }
+            if (userAnswers[idx] !== null) {
+                return base + "bg-sfcGreen-800 text-white";
+            }
+            return base + "bg-white text-slate-700 hover:bg-slate-100";
+        }
+
+        // Load Question View
+        function loadQuestion(index) {
+            currentQuestionIndex = index;
+            const q = examQuestions[index];
+
+            // Update Badges & Text
+            qNumberBadgeEl.innerText = `Item #${q.id}`;
+            questionTextEl.innerHTML = q.question;
+
+            // Render Choice Buttons
+            optionsContainerEl.innerHTML = '';
+            const labels = ['A', 'B', 'C', 'D'];
+
+            q.options.forEach((optText, optIdx) => {
+                const btn = document.createElement('button');
+                btn.onclick = () => selectOption(optIdx);
+                btn.className = getOptionButtonClass(optIdx);
+                
+                let stateIcon = '';
+                if (isSubmitted) {
+                    if (optIdx === q.correct) {
+                        stateIcon = `<svg class="w-5 h-5 text-emerald-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>`;
+                    } else if (userAnswers[index] === optIdx) {
+                        stateIcon = `<svg class="w-5 h-5 text-red-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-10.707a1 1 0 00-1.414-1.414L10 8.586 7.707 6.293a1 1 0 00-1.414 1.414L8.586 10l-2.293 2.293a1 1 0 101.414 1.414L10 11.414l2.293 2.293a1 1 0 001.414-1.414L11.414 10l2.293-2.293z" clip-rule="evenodd"></path></svg>`;
+                    }
+                }
+
+                btn.innerHTML = `
+                    <div class="flex items-start space-x-3 text-left w-full">
+                        <span class="w-6 h-6 rounded-md flex items-center justify-center font-bold text-xs flex-shrink-0 mt-0.5 ${getLabelBadgeClass(optIdx)}">
+                            ${labels[optIdx]}
+                        </span>
+                        <span class="text-sm font-medium leading-relaxed flex-1">${optText}</span>
+                        ${stateIcon}
+                    </div>
+                `;
+                optionsContainerEl.appendChild(btn);
+            });
+
+            // Handle Flag button state
+            if (flaggedQuestions.has(index)) {
+                flagTextEl.innerText = "Flagged";
+                flagIconEl.classList.add('text-amber-500', 'fill-current');
+            } else {
+                flagTextEl.innerText = "Flag for Review";
+                flagIconEl.classList.remove('text-amber-500', 'fill-current');
+            }
+
+            // Handle Rationale display if submitted
+            if (isSubmitted) {
+                rationaleBoxEl.classList.remove('hidden');
+                rationaleTextEl.innerText = q.rationale;
+                if (userAnswers[index] === q.correct) {
+                    rationaleBoxEl.className = "rounded-xl p-5 border border-emerald-200 bg-emerald-50/70 text-emerald-900 text-xs sm:text-sm space-y-1.5 mt-4";
+                    rationaleTitleEl.innerHTML = `<span class="text-emerald-700 font-bold">✓ Correct Answer!</span>`;
+                } else {
+                    rationaleBoxEl.className = "rounded-xl p-5 border border-red-200 bg-red-50/70 text-red-900 text-xs sm:text-sm space-y-1.5 mt-4";
+                    rationaleTitleEl.innerHTML = `<span class="text-red-700 font-bold">✕ Incorrect Selection</span>`;
+                }
+            } else {
+                rationaleBoxEl.classList.add('hidden');
+            }
+
+            // Button Disabling & Text
+            prevBtn.disabled = (index === 0);
+            nextBtn.innerText = (index === examQuestions.length - 1) ? (isSubmitted ? "Finish Review" : "Review & Submit") : "Next \u2192";
+
+            updateProgressBar();
+            renderQuestionGrid();
+        }
+
+        // Option Styling helper
+        function getOptionButtonClass(optIdx) {
+            const selected = (userAnswers[currentQuestionIndex] === optIdx);
+            const correctOpt = (examQuestions[currentQuestionIndex].correct === optIdx);
+            let base = "w-full p-4 rounded-xl border text-slate-800 transition-all flex items-center justify-between ";
+
+            if (isSubmitted) {
+                if (correctOpt) {
+                    return base + "bg-emerald-50 border-emerald-500 ring-2 ring-emerald-300 font-semibold";
+                }
+                if (selected && !correctOpt) {
+                    return base + "bg-red-50 border-red-400 ring-1 ring-red-200";
+                }
+                return base + "bg-white border-slate-200 opacity-60";
+            }
+
+            if (selected) {
+                return base + "bg-sfcGreen-50 border-sfcGreen-800 ring-2 ring-sfcGreen-200 font-semibold text-sfcGreen-950";
+            }
+            return base + "bg-white border-slate-200 hover:border-slate-300 hover:bg-slate-50/80";
+        }
+
+        function getLabelBadgeClass(optIdx) {
+            const selected = (userAnswers[currentQuestionIndex] === optIdx);
+            if (selected) {
+                return "bg-sfcGreen-800 text-white";
+            }
+            return "bg-slate-100 text-slate-600 border border-slate-200";
+        }
+
+        // Option Selection Handler
+        function selectOption(optIdx) {
+            if (isSubmitted) return;
+            userAnswers[currentQuestionIndex] = optIdx;
+            loadQuestion(currentQuestionIndex);
+        }
+
+        // Flag Question
+        function toggleFlagCurrentQuestion() {
+            if (flaggedQuestions.has(currentQuestionIndex)) {
+                flaggedQuestions.delete(currentQuestionIndex);
+            } else {
+                flaggedQuestions.add(currentQuestionIndex);
+            }
+            loadQuestion(currentQuestionIndex);
+        }
+
+        // Navigation Controls
+        function navigateQuestion(direction) {
+            const target = currentQuestionIndex + direction;
+            if (target >= 0 && target < examQuestions.length) {
+                loadQuestion(target);
+            } else if (target === examQuestions.length && !isSubmitted) {
+                confirmExamSubmit();
+            }
+        }
+
+        function jumpToQuestion(index) {
+            loadQuestion(index);
+        }
+
+        // Progress Calculations
+        function updateProgressBar() {
+            const answeredCount = userAnswers.filter(a => a !== null).length;
+            const percentage = Math.round((answeredCount / examQuestions.length) * 100);
+            
+            questionProgressTextEl.innerText = `Question ${currentQuestionIndex + 1} of ${examQuestions.length}`;
+            completionPercentageTextEl.innerText = `${percentage}% Answered`;
+            progressBarFillEl.style.width = `${percentage}%`;
+        }
+
+        function updateSummaryMetrics() {
+            const answeredCount = userAnswers.filter(a => a !== null).length;
+            summaryAnsweredEl.innerText = answeredCount;
+            summaryFlaggedEl.innerText = flaggedQuestions.size;
+            paletteCountEl.innerText = `${answeredCount} / ${examQuestions.length}`;
+        }
+
+        // Palette Filtering
+        function filterPalette(filter) {
+            activeFilter = filter;
+            document.querySelectorAll('.palette-filter-btn').forEach(btn => {
+                if (btn.getAttribute('data-filter') === filter) {
+                    btn.classList.add('bg-slate-800', 'text-white');
+                    btn.classList.remove('hover:bg-slate-100');
+                } else {
+                    btn.classList.remove('bg-slate-800', 'text-white');
+                    btn.classList.add('hover:bg-slate-100');
+                }
+            });
+
+            examQuestions.forEach((q, idx) => {
+                const btn = document.getElementById(`grid-btn-${idx}`);
+                if (!btn) return;
+
+                if (filter === 'all') {
+                    btn.style.display = 'flex';
+                } else if (filter === 'unanswered') {
+                    btn.style.display = (userAnswers[idx] === null) ? 'flex' : 'none';
+                } else if (filter === 'flagged') {
+                    btn.style.display = flaggedQuestions.has(idx) ? 'flex' : 'none';
+                }
+            });
+        }
+
+        // Timer Implementation
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                if (timerSeconds > 0) {
+                    timerSeconds--;
+                    const mins = Math.floor(timerSeconds / 60);
+                    const secs = timerSeconds % 60;
+                    document.getElementById('timer-display').innerText = 
+                        `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+                } else {
+                    clearInterval(timerInterval);
+                    alert("Time has elapsed! Submitting your exam automatically.");
+                    submitExam();
+                }
+            }, 1000);
+        }
+
+        // Keyboard Shortcut Navigation
+        function setupKeyboardNav() {
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowRight') navigateQuestion(1);
+                if (e.key === 'ArrowLeft') navigateQuestion(-1);
+                if (['a', 'b', 'c', 'd'].includes(e.key.toLowerCase())) {
+                    const idx = ['a', 'b', 'c', 'd'].indexOf(e.key.toLowerCase());
+                    selectOption(idx);
+                }
+            });
+        }
+
+        // Submit & Grading Logic
+        function confirmExamSubmit() {
+            if (isSubmitted) {
+                document.getElementById('score-modal').classList.remove('hidden');
+                return;
+            }
+
+            const unanswered = userAnswers.filter(a => a === null).length;
+            let msg = "Are you sure you want to submit your exam now?";
+            if (unanswered > 0) {
+                msg = `You still have ${unanswered} unanswered question(s). Are you sure you want to submit?`;
+            }
+
+            if (confirm(msg)) {
+                submitExam();
+            }
+        }
+
+        function submitExam() {
+            isSubmitted = true;
+            clearInterval(timerInterval);
+
+            // Compute Score
+            let correctCount = 0;
+            examQuestions.forEach((q, idx) => {
+                if (userAnswers[idx] === q.correct) {
+                    correctCount++;
+                }
+            });
+
+            const scorePercent = Math.round((correctCount / examQuestions.length) * 100);
+            const timeSpent = 3600 - timerSeconds;
+            const spentMins = Math.floor(timeSpent / 60);
+            const spentSecs = timeSpent % 60;
+
+            // Populate Modal
+            document.getElementById('modal-score-display').innerText = `${correctCount} / ${examQuestions.length}`;
+            document.getElementById('modal-percentage-display').innerText = `${scorePercent}% Score`;
+            document.getElementById('modal-correct-count').innerText = correctCount;
+            document.getElementById('modal-incorrect-count').innerText = examQuestions.length - correctCount;
+            document.getElementById('modal-time-taken').innerText = `${spentMins}m ${spentSecs}s`;
+
+            const gradeBadge = document.getElementById('modal-grade-badge');
+            if (scorePercent >= 75) {
+                gradeBadge.innerText = "PASSED - Excellent Performance";
+                gradeBadge.className = "inline-block text-xs font-bold px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-200";
+            } else {
+                gradeBadge.innerText = "REMEDIAL - Requires Further Review";
+                gradeBadge.className = "inline-block text-xs font-bold px-3 py-1 rounded-full bg-red-100 text-red-800 border border-red-200";
+            }
+
+            document.getElementById('submit-exam-btn').innerText = "View Results";
+            document.getElementById('score-modal').classList.remove('hidden');
+
+            loadQuestion(currentQuestionIndex);
+        }
+
+        function closeModalAndReview() {
+            document.getElementById('score-modal').classList.add('hidden');
+        }
+
+        function resetExam() {
+            if (confirm("Reset test practice? All answers and flags will be cleared.")) {
+                isSubmitted = false;
+                userAnswers = new Array(examQuestions.length).fill(null);
+                flaggedQuestions.clear();
+                timerSeconds = 3600;
+                document.getElementById('score-modal').classList.add('hidden');
+                document.getElementById('submit-exam-btn').innerText = "Submit Exam";
+                clearInterval(timerInterval);
+                startTimer();
+                loadQuestion(0);
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NCM 109 Interactive Exam</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        sfcGreen: '#1b4d3e',
+                        sfcHover: '#153e32',
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #f1f5f9; }
+        .dark .custom-scrollbar::-webkit-scrollbar-track { background: #0f172a; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #1b4d3e; border-radius: 4px; }
+    </style>
+</head>
+<body class="bg-slate-100 text-slate-800 dark:bg-slate-900 dark:text-slate-100 min-h-screen flex flex-col transition-colors duration-200">
+
+    <!-- Header Navigation Bar -->
+    <header class="bg-emerald-950 text-white border-b-4 border-amber-400 sticky top-0 z-50 shadow-md">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap justify-between items-center gap-4">
+            <!-- Left: Logo and Institution -->
+            <div class="flex items-center space-x-3">
+                <button id="menu-btn" onclick="toggleSidebar()" class="p-2 rounded-lg text-emerald-200 hover:bg-emerald-900 focus:outline-none" aria-label="Toggle Navigation">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+                <div class="w-12 h-12 rounded-full bg-white p-1 flex-shrink-0 flex items-center justify-center border-2 border-amber-400">
+                    <img src="1000054448.png" alt="SFC Logo" class="w-full h-full object-contain rounded-full" onerror="this.onerror=null; this.src='https://placehold.co/100x100/1b4d3e/ffffff?text=SFC';">
+                </div>
+                <div>
+                    <h1 class="text-base sm:text-lg font-bold tracking-tight text-white flex items-center gap-2 leading-tight">
+                        SAINT FERDINAND COLLEGE
+                    </h1>
+                    <p class="text-xs text-amber-300 font-medium">College of Nursing &bull;</p>
+                </div>
+            </div>
+
+            <!-- Right: Exam Details & Instructor Info -->
+            <div class="hidden md:flex items-center space-x-4">
+                <div class="text-right text-xs border-r border-emerald-800 pr-4">
+                    <span class="text-emerald-300 uppercase tracking-wider font-semibold block text-[10px]">Course Code & Title</span>
+                    <span class="font-bold text-white text-sm">NCM 109 – Care of Mother, Child & Adolescent</span>
+                </div>
+                <div class="flex items-center space-x-3 bg-emerald-900/80 px-3 py-1.5 rounded-lg border border-emerald-700/50">
+                    <div class="w-9 h-9 rounded-full bg-amber-400 text-emerald-950 flex items-center justify-center font-bold">
+                        <i class="fa-solid fa-user-nurse text-base"></i>
+                    </div>
+                    <div class="text-left text-xs">
+                        <span class="text-emerald-300 text-[10px] uppercase tracking-wider block font-semibold">Instructor</span>
+                        <span class="font-bold text-white">Rene S. Real, RN</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- Mobile Drawer / Navigation Overlay -->
+    <div id="sidebar-overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 hidden transition-opacity"></div>
+    <aside id="sidebar" class="fixed top-0 left-0 w-72 h-full bg-white dark:bg-slate-800 shadow-2xl z-50 transform -translate-x-full transition-transform duration-300 flex flex-col justify-between">
+        <div class="p-6 space-y-6">
+            <div class="flex justify-between items-center border-b pb-4 dark:border-slate-700">
+                <div class="flex items-center space-x-2">
+                    <i class="fa-solid fa-graduation-cap text-emerald-800 dark:text-emerald-400 text-xl"></i>
+                    <span class="font-bold text-slate-800 dark:text-white">Navigation</span>
+                </div>
+                <button onclick="toggleSidebar()" class="text-slate-500 hover:text-slate-800 dark:hover:text-white p-1">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+            <nav class="space-y-2">
+                <a href="#home" onclick="toggleSidebar()" class="flex items-center space-x-3 p-3 rounded-lg text-slate-700 dark:text-slate-200 hover:bg-emerald-50 dark:hover:bg-slate-700 hover:text-emerald-800 transition-colors">
+                    <i class="fa-solid fa-house text-emerald-700 dark:text-emerald-400 w-5"></i>
+                    <span class="font-medium">Home / Instructions</span>
+                </a>
+                <a href="#exam-area" onclick="toggleSidebar()" class="flex items-center space-x-3 p-3 rounded-lg text-slate-700 dark:text-slate-200 hover:bg-emerald-50 dark:hover:bg-slate-700 hover:text-emerald-800 transition-colors">
+                    <i class="fa-solid fa-file-pen text-emerald-700 dark:text-emerald-400 w-5"></i>
+                    <span class="font-medium">Take Exam</span>
+                </a>
+                <button onclick="resetExam(); toggleSidebar();" class="w-full text-left flex items-center space-x-3 p-3 rounded-lg text-amber-700 dark:text-amber-400 hover:bg-amber-50 dark:hover:bg-slate-700 transition-colors">
+                    <i class="fa-solid fa-rotate-right text-amber-600 w-5"></i>
+                    <span class="font-medium">Reset Answers</span>
+                </button>
+            </nav>
+        </div>
+    </aside>
+
+    <!-- Main Content Container -->
+    <main class="flex-1 max-w-7xl w-full mx-auto p-4 md:p-6 grid grid-cols-1 lg:grid-cols-4 gap-6">
+
+        <!-- Left Column: Student Info & Interactive Exam Grid (3 Columns on Large Screens) -->
+        <div class="lg:col-span-3 space-y-6">
+
+            <!-- Student Detail Banner Card -->
+            <div id="home" class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-5 md:p-6 space-y-4">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b pb-4 dark:border-slate-700">
+                    <div>
+                        <span class="bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                            PRACTICE EXAMINATION &bull; NCM 109
+                        </span>
+                        <h2 class="text-xl md:text-2xl font-bold text-slate-900 dark:text-white mt-1">
+                            Care of Mother, Child and Adolescent – At Risk
+                        </h2>
+                    </div>
+                    <!-- Dark Mode & Actions -->
+                    <div class="flex items-center space-x-2">
+                        <button onclick="toggleDarkMode()" class="p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 transition-colors" title="Toggle Theme">
+                            <i class="fa-solid fa-moon dark:hidden"></i>
+                            <i class="fa-solid fa-sun hidden dark:inline"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Input Fields for Student Info -->
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs md:text-sm">
+                    <div>
+                        <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Student Full Name</label>
+                        <input type="text" id="studentName" placeholder="e.g. Juan Dela Cruz" class="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 focus:ring-2 focus:ring-emerald-700 focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Year & Section</label>
+                        <input type="text" id="studentSection" placeholder="e.g. BSN 2-1" class="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 focus:ring-2 focus:ring-emerald-700 focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Date</label>
+                        <input type="text" id="examDate" readonly class="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 font-mono">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exam Container -->
+            <div id="exam-area" class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 space-y-6">
+                
+                <!-- Single Question Display Card -->
+                <div class="flex justify-between items-center border-b pb-3 dark:border-slate-700">
+                    <span id="questionCounter" class="text-xs font-bold text-emerald-800 dark:text-emerald-400 uppercase tracking-wider">
+                        Question 1 of 50
+                    </span>
+                    <div class="flex items-center space-x-2">
+                        <button onclick="bookmarkQuestion()" id="bookmarkBtn" class="text-slate-400 hover:text-amber-500 text-sm p-1" title="Bookmark Question">
+                            <i class="fa-regular fa-bookmark text-base"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Question Text -->
+                <div class="space-y-4">
+                    <h3 id="questionText" class="text-base md:text-lg font-semibold text-slate-900 dark:text-white leading-relaxed">
+                        Loading question...
+                    </h3>
+
+                    <!-- Options Container -->
+                    <div id="optionsContainer" class="space-y-2.5 pt-2">
+                        <!-- Options generated dynamically via JS -->
+                    </div>
+                </div>
+
+                <!-- Explanation Box (Shows after submission or review) -->
+                <div id="explanationBox" class="hidden p-4 rounded-xl bg-amber-50 dark:bg-slate-900 border border-amber-200 dark:border-slate-700 text-xs md:text-sm space-y-1">
+                    <div class="font-bold text-amber-800 dark:text-amber-400 flex items-center gap-1.5">
+                        <i class="fa-solid fa-circle-info"></i> Clinical Rationale:
+                    </div>
+                    <p id="explanationText" class="text-slate-700 dark:text-slate-300 leading-relaxed"></p>
+                </div>
+
+                <!-- Navigation Controls -->
+                <div class="flex justify-between items-center pt-4 border-t dark:border-slate-700">
+                    <button id="prevQuestionBtn" onclick="navigateQuestion(-1)" class="px-4 py-2 rounded-xl border border-slate-300 dark:border-slate-600 font-medium text-xs md:text-sm text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700 transition-all flex items-center gap-2">
+                        <i class="fa-solid fa-arrow-left"></i> Previous
+                    </button>
+
+                    <button id="nextQuestionBtn" onclick="navigateQuestion(1)" class="px-5 py-2 rounded-xl bg-emerald-800 hover:bg-emerald-700 text-white font-medium text-xs md:text-sm transition-all flex items-center gap-2 shadow">
+                        Next <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Right Column: Question Navigator & Scoreboard Sidebar -->
+        <div class="lg:col-span-1 space-y-6">
+            
+            <!-- Quick Question Matrix Grid -->
+            <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-5 space-y-4 sticky top-24">
+                <div class="flex justify-between items-center border-b pb-3 dark:border-slate-700">
+                    <h4 class="font-bold text-xs uppercase tracking-wider text-slate-700 dark:text-slate-300">
+                        Question Navigator
+                    </h4>
+                    <span id="answeredCount" class="text-xs bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 px-2 py-0.5 rounded font-bold">
+                        0/50 Answered
+                    </span>
+                </div>
+
+                <!-- 50 Button Grid -->
+                <div id="questionMatrix" class="grid grid-cols-5 gap-1.5 max-h-64 overflow-y-auto custom-scrollbar p-1">
+                    <!-- Matrix buttons rendered dynamically -->
+                </div>
+
+                <!-- Legend -->
+                <div class="grid grid-cols-2 gap-2 text-[10px] text-slate-500 dark:text-slate-400 pt-2 border-t dark:border-slate-700">
+                    <div class="flex items-center gap-1.5">
+                        <span class="w-3 h-3 rounded bg-emerald-700 inline-block"></span> Answered
+                    </div>
+                    <div class="flex items-center gap-1.5">
+                        <span class="w-3 h-3 rounded border border-slate-300 dark:border-slate-600 inline-block"></span> Unanswered
+                    </div>
+                </div>
+
+                <!-- Submit Exam Button -->
+                <button onclick="submitExam()" class="w-full py-3 bg-amber-500 hover:bg-amber-600 text-emerald-950 font-bold rounded-xl shadow transition-all text-sm flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-paper-plane"></i> Finish & Grade Exam
+                </button>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Score Modal Overlay -->
+    <div id="scoreModal" class="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white dark:bg-slate-800 rounded-2xl max-w-lg w-full p-6 md:p-8 space-y-6 shadow-2xl border border-slate-200 dark:border-slate-700">
+            <div class="text-center space-y-2">
+                <div class="w-16 h-16 bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 rounded-full flex items-center justify-center mx-auto text-2xl font-bold">
+                    <i class="fa-solid fa-trophy"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-slate-900 dark:text-white">Examination Results</h3>
+                <p id="modalStudentName" class="text-xs text-slate-500 dark:text-slate-400">Saint Ferdinand College - COLLEGE of Nursing</p>
+            </div>
+
+            <!-- Score Display Box -->
+            <div class="bg-slate-50 dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-700 text-center space-y-1">
+                <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Final Score</span>
+                <div class="text-4xl md:text-5xl font-extrabold text-emerald-800 dark:text-emerald-400" id="finalScoreDisplay">
+                    0 / 50
+                </div>
+                <p id="percentageDisplay" class="text-sm font-semibold text-amber-600 dark:text-amber-400">0% Grade</p>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="grid grid-cols-2 gap-3">
+                <button onclick="closeModalAndReview()" class="py-2.5 border border-slate-300 dark:border-slate-600 rounded-xl font-bold text-xs text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">
+                    Review Rationales
+                </button>
+                <button onclick="resetExam(); closeModal();" class="py-2.5 bg-emerald-800 hover:bg-emerald-700 text-white rounded-xl font-bold text-xs transition-colors shadow">
+                    Retake Examination
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script Data & Logic -->
+    <script>
+        // Set Exam Date to current
+        document.getElementById('examDate').value = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+
+        // Questions Data Array (Parsed from Exam Source)
+        const examQuestions = [
+            {
+                q: "What is the primary goal of Maternal and Child Health Nursing?",
+                options: ["Detecting and diagnosing genetic disorders", "Ensuring hospital-based deliveries", "Promotion and maintenance of optimal family health", "Reducing healthcare costs"],
+                correct: 2,
+                rationale: "The primary objective of Maternal and Child Health Nursing is the promotion and maintenance of optimal family health to ensure well-being across life stages."
+            },
+            {
+                q: "Which of the following is a key role of a maternal and child health nurse?",
+                options: ["Administering vaccines to the entire population", "Advocating to protect the rights of all family members, including the fetus", "Conducting research on pharmaceutical drugs", "Managing healthcare insurance programs"],
+                correct: 1,
+                rationale: "Advocacy for the family unit—including the rights of the unborn fetus—is a cornerstone nursing role in MCN."
+            },
+            {
+                q: "What does the Infant Mortality Rate (IMR) measure?",
+                options: ["Deaths of children under 5 years old per 1,000 live births", "Deaths of infants under 1 year old per 1,000 live births", "Total number of stillbirths per 1,000 pregnancies", "Total number of maternal deaths per 100,000 live births"],
+                correct: 1,
+                rationale: "IMR specifically calculates infant deaths before age 1 per 1,000 live births in a given year."
+            },
+            {
+                q: "What is the Crude Birth Rate (CBR)?",
+                options: ["Annual number of deaths per 1,000 population", "Annual number of live births per 1,000 population", "Deaths of infants per 1,000 live births", "Number of maternal deaths per 100,000 live births"],
+                correct: 1,
+                rationale: "CBR measures the total number of live births per 1,000 population in a year."
+            },
+            {
+                q: "What is the purpose of genetic counseling?",
+                options: ["To diagnose existing medical conditions", "To help families understand inherited health risks", "To provide medication for genetic disorders", "To replace medical treatment"],
+                correct: 1,
+                rationale: "Genetic counseling aims to educate and support families regarding genetic disorders and risk patterns."
+            },
+            {
+                q: "What is Nuchal Translucency Screening used for?",
+                options: ["Detecting fetal infections", "Evaluating chromosomal abnormalities", "Measuring amniotic fluid volume", "Screening for maternal hypertension"],
+                correct: 1,
+                rationale: "Nuchal translucency ultrasound screens for fetal chromosomal anomalies such as Down syndrome."
+            },
+            {
+                q: "What are chromosomes?",
+                options: ["Genetic structures found in the brain", "Protein molecules responsible for muscle development", "Threadlike structures in the nucleus that carry genetic information", "Viruses that cause genetic disorders"],
+                correct: 2,
+                rationale: "Chromosomes are nuclear structures composed of DNA that store cellular genetic instructions."
+            },
+            {
+                q: "What test measures Alpha-Fetoprotein (AFP) and Pregnancy-Associated Plasma Protein A (PAPP-A) to evaluate chromosomal disorders in the fetus?",
+                options: ["Amniocentesis", "Maternal Serum Screening", "Newborn Metabolic Test", "Ultrasound"],
+                correct: 1,
+                rationale: "Maternal serum screening evaluates biomarkers like AFP and PAPP-A to estimate aneuploidy risk."
+            },
+            {
+                q: "What is the term for severe and unremitting nausea and vomiting that persist after the first trimester?",
+                options: ["Ectopic Pregnancy", "Gestational Diabetes", "Hyperemesis Gravidarum", "Placenta Previa"],
+                correct: 2,
+                rationale: "Hyperemesis Gravidarum involves relentless nausea/vomiting resulting in dehydration and ketonuria."
+            },
+            {
+                q: "What laboratory finding is commonly associated with Hyperemesis Gravidarum?",
+                options: ["Decreased hCG levels", "Decreased skin turgor", "Increased hemoglobin levels", "Ketonuria"],
+                correct: 3,
+                rationale: "Fat catabolism due to prolonged starvation produces ketones, presenting as ketonuria."
+            },
+            {
+                q: "Which of the following is a risk factor for recurrent pregnancy loss?",
+                options: ["Chorioamnionitis", "Gestational Diabetes", "Placenta Previa", "Preeclampsia"],
+                correct: 0,
+                rationale: "Intrauterine infections such as chorioamnionitis weaken membranes and trigger recurrent pregnancy loss."
+            },
+            {
+                q: "What is the most common site of ectopic pregnancy implantation?",
+                options: ["Ampulla of the Fallopian Tube", "Cervix", "Ovary", "Uterus"],
+                correct: 0,
+                rationale: "Approximately 95% of ectopic pregnancies implant in the fallopian tube, most frequently in the ampulla."
+            },
+            {
+                q: "What stage of labor begins with full cervical dilation and ends with the delivery of the baby?",
+                options: ["First Stage", "Second Stage", "Third Stage", "Fourth Stage"],
+                correct: 1,
+                rationale: "The second stage covers full dilation (10 cm) through complete expulsion of the fetus."
+            },
+            {
+                q: "What condition is characterized by a painless, bright red vaginal bleeding in the third trimester?",
+                options: ["Abruptio Placenta", "Placenta Previa", "Preterm Labor", "Uterine Rupture"],
+                correct: 1,
+                rationale: "Placenta previa classically presents with painless, bright red third-trimester bleeding."
+            },
+            {
+                q: "What is the priority nursing action for a patient diagnosed with complete placenta previa?",
+                options: ["Administer oxytocin to induce labor", "Encourage ambulation to stimulate contractions", "Place the patient on strict bed rest", "Perform a vaginal examination to check cervical dilation"],
+                correct: 2,
+                rationale: "Strict bed rest prevents placental dislodgement; digital vaginal exams are strictly contraindicated."
+            },
+            {
+                q: "What is the recommended maternal position for a woman experiencing umbilical cord compression during labor?",
+                options: ["Knee-chest position", "Lithotomy position", "Supine position", "Trendelenburg position"],
+                correct: 0,
+                rationale: "Knee-chest or Trendelenburg positions relieve pressure off the umbilical cord."
+            },
+            {
+                q: "What is the most common cause of postpartum hemorrhage?",
+                options: ["Cervical Tear", "Retained Placental Fragments", "Uterine Atony", "Vaginal Hematoma"],
+                correct: 2,
+                rationale: "Uterine atony accounts for up to 80% of immediate postpartum hemorrhage cases."
+            },
+            {
+                q: "Which type of lochia is expected during the first 3 days postpartum?",
+                options: ["Lochia Alba", "Lochia Rubra", "Lochia Serosa", "No Lochia"],
+                correct: 1,
+                rationale: "Lochia Rubra consists of bloody discharge present during postpartum days 1 to 3."
+            },
+            {
+                q: "What is the best way to prevent postpartum infection?",
+                options: ["Administer prophylactic antibiotics", "Encourage perineal hygiene", "Increase fluid intake", "Promote early ambulation"],
+                correct: 1,
+                rationale: "Proper perineal hygiene and handwashing prevent ascending lower tract infections."
+            },
+            {
+                q: "What is the first sign of postpartum hemorrhage?",
+                options: ["Decreased urine output", "Drop in blood pressure", "Firm fundus", "Slow heart rate"],
+                correct: 1,
+                rationale: "Systemic changes like hypotension or excessive bright red trickling/boggy fundus signify PPH."
+            },
+            {
+                q: "What is a major responsibility of a maternal and child health nurse when assisting high-risk pregnancies?",
+                options: ["Identifying deviations from normal pregnancy", "Limiting patient education to avoid stress", "Preventing hospital deliveries to save resources", "Referring all cases to specialists without assessment"],
+                correct: 0,
+                rationale: "Early identification of maternal-fetal risk factors and deviations allows prompt intervention."
+            },
+            {
+                q: "A maternal health nurse is helping a family cope with pregnancy complications. What is her role?",
+                options: ["Detecting and treating health deviations", "Encouraging home-based childbirth in all cases", "Limiting care to the newborn only", "Preventing emotional involvement in care"],
+                correct: 0,
+                rationale: "Nurses assess health complications and coordinate supportive management."
+            },
+            {
+                q: "Which region recorded the highest Maternal Mortality Rate (MMR) in 2020?",
+                options: ["BARMM", "CARAGA", "NCR", "SOCCSKSARGEN"],
+                correct: 0,
+                rationale: "BARMM historically reported the highest MMR due to limited healthcare infrastructure."
+            },
+            {
+                q: "What is a major contributor to the decline of IMR in recent years?",
+                options: ["Decreased vaccination rates", "Improved neonatal care and health programs", "Increased home births", "Reduced breastfeeding rates"],
+                correct: 1,
+                rationale: "Enhanced neonatal intensive care and community healthcare access reduced infant mortality."
+            },
+            {
+                q: "What is a common reason for conducting genetic counseling?",
+                options: ["Family history of genetic disorders", "Presence of gestational diabetes", "Routine pregnancy monitoring", "Suspected nutritional deficiencies"],
+                correct: 0,
+                rationale: "Known family histories of inherited conditions indicate genetic risk counseling."
+            },
+            {
+                q: "A pregnant woman is scheduled for a Nuchal Translucency Scan at 12 weeks. What is the primary purpose of this test?",
+                options: ["Assessing the amount of amniotic fluid", "Checking for chromosomal abnormalities like Down syndrome", "Determining fetal sex", "Measuring fetal growth"],
+                correct: 1,
+                rationale: "Increased nuchal fold thickness indicates risk for trisomy 21 and other chromosomal defects."
+            },
+            {
+                q: "During a genetic counseling session, a family is found to have a history of an X-linked genetic disorder. What does this mean?",
+                options: ["It is only passed from father to son", "It is more likely to affect males than females", "It cannot be inherited by future generations", "It is caused by environmental factors"],
+                correct: 1,
+                rationale: "Males (XY) expressing a mutant X-chromosome gene develop X-linked disorders because they lack a second X."
+            },
+            {
+                q: "A nurse is explaining the importance of genetic testing to a couple. Which statement best describes the role of genetic assessment in pregnancy?",
+                options: ["It confirms the presence of an inherited disorder before birth", "It guarantees that a baby will be born healthy", "It prevents all genetic disorders", "It replaces the need for prenatal care"],
+                correct: 0,
+                rationale: "Genetic screening/diagnostic tests confirm or rule out fetal genetic anomalies in utero."
+            },
+            {
+                q: "A pregnant woman presents with dark brown vaginal discharge, an absence of fetal heart tones, and an ultrasound showing a 'snowflake pattern.' What is the most likely diagnosis?",
+                options: ["Abruptio Placenta", "Gestational Trophoblastic Disease", "Incompetent Cervix", "Threatened Abortion"],
+                correct: 1,
+                rationale: "A hydatidiform mole (GTD) displays a characteristic 'snowflake' or vesicular pattern on ultrasound."
+            },
+            {
+                q: "A 30-year-old pregnant client complains of severe lower abdominal pain and dizziness. Blood pressure is dropping, and the abdomen is tender. Which condition should be suspected?",
+                options: ["Abruptio Placenta", "Ectopic Pregnancy", "Placenta Previa", "Uterine Rupture"],
+                correct: 1,
+                rationale: "Unilateral pelvic pain, dizziness, and signs of hypovolemic shock suggest a ruptured ectopic pregnancy."
+            },
+            {
+                q: "A patient with a history of multiple induced abortions is at risk for which pregnancy complication?",
+                options: ["Cervical Incompetence", "Hyperemesis Gravidarum", "Placenta Previa", "Preterm Labor"],
+                correct: 0,
+                rationale: "Cervical dilation procedures during abortions can weaken cervical tissue, predisposing to incompetence."
+            },
+            {
+                q: "A woman diagnosed with a missed miscarriage at 16 weeks gestation is at risk for which serious complication?",
+                options: ["Chorioamnionitis", "Disseminated Intravascular Coagulation (DIC)", "Eclampsia", "Placental Abruption"],
+                correct: 1,
+                rationale: "Retained dead fetus tissue releases thromboplastin, consuming clotting factors and causing DIC."
+            },
+            {
+                q: "A woman in labor presents with continuous abdominal pain, vaginal bleeding, and a rigid uterus. What complication should be suspected?",
+                options: ["Abruptio Placenta", "Placenta Previa", "Preterm Labor", "Uterine Atony"],
+                correct: 0,
+                rationale: "Premature placental separation produces dark bleeding, intense pain, and a board-like, rigid uterus."
+            },
+            {
+                q: "A woman in labor suddenly experiences severe lower abdominal pain, shoulder pain, dizziness, and rapid pulse. What is the most likely cause?",
+                options: ["Ectopic Pregnancy Rupture", "Placenta Previa", "Uterine Rupture", "Umbilical Cord Prolapse"],
+                correct: 2,
+                rationale: "Uterine rupture causes sudden knife-like abdominal pain, referred shoulder pain from blood irritating the diaphragm, and hypovolemia."
+            },
+            {
+                q: "Which of the following is a priority nursing intervention for a patient with abruptio placenta?",
+                options: ["Monitor fetal heart rate continuously", "Perform a vaginal examination", "Position the patient in a high Fowler’s position", "Teach the patient breathing exercises"],
+                correct: 0,
+                rationale: "Continuous fetal monitoring assesses immediate fetal compromise resulting from placental separation."
+            },
+            {
+                q: "A laboring mother develops Cullen’s sign. What complication does this indicate?",
+                options: ["Amniotic Fluid Embolism", "Placenta Previa", "Ruptured Ectopic Pregnancy", "Uterine Atony"],
+                correct: 2,
+                rationale: "Cullen's sign (periumbilical ecchymosis) indicates severe intraperitoneal hemorrhage from a ruptured ectopic pregnancy."
+            },
+            {
+                q: "A postpartum woman presents with excessive vaginal bleeding, a boggy uterus, and a rapid pulse. What is the most appropriate nursing intervention?",
+                options: ["Administer IV fluids and oxytocin", "Encourage the patient to ambulate", "Monitor the patient and recheck in an hour", "Prepare the patient for immediate discharge"],
+                correct: 0,
+                rationale: "Fundal massage paired with IV oxytocics contracts the boggy atonic uterus to stop postpartum hemorrhage."
+            },
+            {
+                q: "A postpartum woman is experiencing a fever, foul-smelling lochia, and uterine tenderness. Which condition is most likely?",
+                options: ["Endometritis", "Mastitis", "Postpartum Hemorrhage", "Uterine Atony"],
+                correct: 0,
+                rationale: "Postpartum uterine infection (endometritis) produces fever, purulent foul lochia, and pelvic pain."
+            },
+            {
+                q: "What is the most appropriate management for a postpartum client experiencing urinary retention?",
+                options: ["Encourage the client to drink more fluids", "Have the client perform deep breathing exercises", "Perform intermittent catheterization if needed", "Wait for spontaneous urination"],
+                correct: 2,
+                rationale: "Catheterization prevents bladder distention, which otherwise displaces the uterus and worsens bleeding."
+            },
+            {
+                q: "Which of the following is a priority nursing intervention for a woman with postpartum depression?",
+                options: ["Encourage her to rest and sleep", "Offer counseling and emotional support", "Prescribe antidepressants immediately", "Separate her from the newborn to decrease stress"],
+                correct: 1,
+                rationale: "Providing emotional support, active listening, and counseling options forms essential nursing care."
+            },
+            {
+                q: "A maternal health nurse is working with a family from an ethnic group with limited access to healthcare. What strategy should be prioritized?",
+                options: ["Encouraging them to seek alternative traditional treatments", "Providing culturally sensitive health education and advocacy", "Restricting access to prenatal vitamins due to cost concerns", "Using a strict medical approach with no cultural considerations"],
+                correct: 1,
+                rationale: "Culturally sensitive advocacy bridges healthcare gaps and respects client beliefs."
+            },
+            {
+                q: "A maternal and child health nurse is designing a health education campaign in a region with a high maternal mortality rate. What would be the most effective focus?",
+                options: ["Increasing hospital deliveries through financial incentives", "Promoting contraceptive use only", "Raising awareness about early prenatal care and emergency signs", "Supporting home births for cultural preservation"],
+                correct: 2,
+                rationale: "Early prenatal screening and recognizing danger signs significantly reduce maternal mortality."
+            },
+            {
+                q: "A pregnant woman has a low PAPP-A level during her first-trimester screening. What condition should be suspected?",
+                options: ["Chromosomal abnormalities such as Down syndrome", "Gestational Diabetes", "Neural Tube Defects", "Placenta Previa"],
+                correct: 0,
+                rationale: "Decreased PAPP-A in early gestation correlates with Down syndrome and placental insufficiency."
+            },
+            {
+                q: "A family with a history of genetic disorders is considering having children. What is the best nursing intervention during genetic counseling?",
+                options: ["Educate the family about the risks and available genetic testing options", "Encourage them to avoid having children", "Reassure them that genetic disorders are always treatable", "Suggest alternative parenting methods, such as adoption"],
+                correct: 0,
+                rationale: "Nurses provide non-directive, factual guidance on genetic risk factors and testing options."
+            },
+            {
+                q: "A pregnant woman at 32 weeks presents with sharp abdominal pain, a board-like uterus, and absent fetal heart tones. What condition should be suspected?",
+                options: ["Abruptio Placenta", "Cervical Incompetence", "Placenta Previa", "Preterm Labor"],
+                correct: 0,
+                rationale: "Severe abruptio placenta causes painful uterine rigidity and acute fetal distress/demise."
+            },
+            {
+                q: "A woman diagnosed with recurrent pregnancy loss due to an incompetent cervix undergoes a cerclage procedure. What should the nurse monitor for post-procedure?",
+                options: ["Hypotension and dizziness", "Increased vaginal bleeding and contractions", "Low fetal heart rate", "Sudden weight loss"],
+                correct: 1,
+                rationale: "Post-cerclage monitoring centers on spotting preterm labor, uterine irritability, or infection."
+            },
+            {
+                q: "A laboring woman at 38 weeks suddenly experiences sharp abdominal pain, cessation of contractions, and absent fetal heart tones. What is the most likely diagnosis?",
+                options: ["Amniotic Fluid Embolism", "Placenta Previa", "Uterine Rupture", "Vasa Previa"],
+                correct: 2,
+                rationale: "Abrupt loss of contraction rhythm accompanied by severe pain signals catastrophic uterine rupture."
+            },
+            {
+                q: "A laboring patient presents with painless, excessive vaginal bleeding and an ultrasound confirms placenta previa covering more than 30% of the cervix. What is the most appropriate intervention?",
+                options: ["Cesarean section delivery", "Induction of labor", "Manual removal of the placenta", "Vaginal delivery with oxytocin augmentation"],
+                correct: 0,
+                rationale: "Major or complete placenta previa blocks the birth canal and requires Cesarean delivery."
+            },
+            {
+                q: "A postpartum client suddenly experiences chest pain, shortness of breath, and a feeling of impending doom. What is the most likely diagnosis?",
+                options: ["Amniotic Fluid Embolism", "Postpartum Hemorrhage", "Severe Preeclampsia", "Uterine Inversion"],
+                correct: 0,
+                rationale: "Amniotic fluid entering maternal circulation causes acute pulmonary collapse and feelings of impending doom."
+            },
+            {
+                q: "A woman 5 days postpartum presents with a swollen, painful breast, fever, and flu-like symptoms. What is the most likely cause, and what is the best management?",
+                options: ["Endometritis, administer broad-spectrum antibiotics", "Mastitis, encourage frequent breastfeeding and warm compress", "Postpartum Hemorrhage, perform fundal massage", "Urinary Tract Infection, increase oral fluid intake"],
+                correct: 1,
+                rationale: "Mastitis presents with localized breast inflammation and flu symptoms; continued breastfeeding prevents stasis."
+            }
+        ];
+
+        // Global Exam State Variables
+        let userAnswers = new Array(examQuestions.length).fill(null);
+        let bookmarked = new Array(examQuestions.length).fill(false);
+        let currentQIndex = 0;
+        let isSubmitted = false;
+
+        // Initialize App
+        window.onload = function() {
+            renderMatrix();
+            loadQuestion(0);
+        };
+
+        // Render Question Matrix Sidebar
+        function renderMatrix() {
+            const matrixContainer = document.getElementById('questionMatrix');
+            matrixContainer.innerHTML = '';
+
+            examQuestions.forEach((_, idx) => {
+                const btn = document.createElement('button');
+                btn.id = `matrix-btn-${idx}`;
+                btn.onclick = () => jumpToQuestion(idx);
+                btn.className = `h-8 w-full font-bold text-xs rounded transition-all flex items-center justify-center ${getMatrixStyle(idx)}`;
+                btn.innerText = idx + 1;
+                matrixContainer.appendChild(btn);
+            });
+
+            updateAnsweredCount();
+        }
+
+        function getMatrixStyle(idx) {
+            if (idx === currentQIndex) {
+                return 'ring-2 ring-amber-400 bg-emerald-900 text-white font-extrabold';
+            }
+            if (userAnswers[idx] !== null) {
+                return 'bg-emerald-700 text-white font-bold';
+            }
+            return 'border border-slate-300 dark:border-slate-600 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300';
+        }
+
+        // Load Active Question
+        function loadQuestion(idx) {
+            currentQIndex = idx;
+            const qData = examQuestions[idx];
+
+            document.getElementById('questionCounter').innerText = `Question ${idx + 1} of ${examQuestions.length}`;
+            document.getElementById('questionText').innerText = `${idx + 1}. ${qData.q}`;
+            
+            // Bookmark Icon
+            const bookmarkBtn = document.getElementById('bookmarkBtn');
+            if (bookmarked[idx]) {
+                bookmarkBtn.innerHTML = `<i class="fa-solid fa-bookmark text-amber-500 text-base"></i>`;
+            } else {
+                bookmarkBtn.innerHTML = `<i class="fa-regular fa-bookmark text-base"></i>`;
+            }
+
+            // Options Rendering
+            const optionsContainer = document.getElementById('optionsContainer');
+            optionsContainer.innerHTML = '';
+
+            const optionLetters = ['A', 'B', 'C', 'D'];
+            qData.options.forEach((optText, optIdx) => {
+                const optionBtn = document.createElement('button');
+                optionBtn.onclick = () => selectOption(optIdx);
+                optionBtn.disabled = isSubmitted;
+
+                let btnStyles = "w-full text-left p-3.5 rounded-xl border transition-all text-xs md:text-sm font-medium flex items-start gap-3 ";
+
+                if (isSubmitted) {
+                    if (optIdx === qData.correct) {
+                        btnStyles += "bg-emerald-100 dark:bg-emerald-950 border-emerald-600 text-emerald-900 dark:text-emerald-300 font-bold";
+                    } else if (userAnswers[idx] === optIdx) {
+                        btnStyles += "bg-rose-100 dark:bg-rose-950 border-rose-500 text-rose-900 dark:text-rose-300";
+                    } else {
+                        btnStyles += "bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 opacity-60";
+                    }
+                } else if (userAnswers[idx] === optIdx) {
+                    btnStyles += "bg-emerald-50 dark:bg-slate-700 border-emerald-700 dark:border-emerald-500 text-emerald-900 dark:text-emerald-200 font-semibold shadow-sm";
+                } else {
+                    btnStyles += "bg-slate-50 dark:bg-slate-800/80 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700";
+                }
+
+                optionBtn.className = btnStyles;
+                optionBtn.innerHTML = `
+                    <span class="w-6 h-6 rounded-full flex items-center justify-center bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-200 text-xs font-bold flex-shrink-0">
+                        ${optionLetters[optIdx]}
+                    </span>
+                    <span class="mt-0.5 leading-relaxed">${optText}</span>
+                `;
+                optionsContainer.appendChild(optionBtn);
+            });
+
+            // Handle Rationale Explanation Display
+            const explanationBox = document.getElementById('explanationBox');
+            if (isSubmitted) {
+                explanationBox.classList.remove('hidden');
+                document.getElementById('explanationText').innerText = qData.rationale;
+            } else {
+                explanationBox.classList.add('hidden');
+            }
+
+            // Prev/Next Disabled States
+            document.getElementById('prevQuestionBtn').disabled = (idx === 0);
+            document.getElementById('nextQuestionBtn').disabled = (idx === examQuestions.length - 1);
+
+            renderMatrix();
+        }
+
+        // Option Selection Logic
+        function selectOption(optIdx) {
+            if (isSubmitted) return;
+            userAnswers[currentQIndex] = optIdx;
+            loadQuestion(currentQIndex);
+        }
+
+        // Navigation Helper
+        function navigateQuestion(delta) {
+            const nextIdx = currentQIndex + delta;
+            if (nextIdx >= 0 && nextIdx < examQuestions.length) {
+                loadQuestion(nextIdx);
+            }
+        }
+
+        function jumpToQuestion(idx) {
+            loadQuestion(idx);
+        }
+
+        function bookmarkQuestion() {
+            bookmarked[currentQIndex] = !bookmarked[currentQIndex];
+            loadQuestion(currentQIndex);
+        }
+
+        function updateAnsweredCount() {
+            const count = userAnswers.filter(a => a !== null).length;
+            document.getElementById('answeredCount').innerText = `${count}/50 Answered`;
+        }
+
+        // Exam Evaluation & Grading
+        function submitExam() {
+            const unanswered = userAnswers.filter(a => a === null).length;
+            if (unanswered > 0 && !isSubmitted) {
+                if (!confirm(`You still have ${unanswered} unanswered question(s). Are you sure you want to finish and submit your examination?`)) {
+                    return;
+                }
+            }
+
+            isSubmitted = true;
+
+            let score = 0;
+            examQuestions.forEach((q, idx) => {
+                if (userAnswers[idx] === q.correct) {
+                    score++;
+                }
+            });
+
+            const percentage = Math.round((score / examQuestions.length) * 100);
+            const studentName = document.getElementById('studentName').value.trim() || 'Student';
+
+            document.getElementById('finalScoreDisplay').innerText = `${score} / ${examQuestions.length}`;
+            document.getElementById('percentageDisplay').innerText = `${percentage}% Overall Grade`;
+            document.getElementById('modalStudentName').innerText = `${studentName} - Saint Ferdinand College`;
+
+            document.getElementById('scoreModal').classList.remove('hidden');
+            loadQuestion(currentQIndex);
+        }
+
+        function closeModal() {
+            document.getElementById('scoreModal').classList.add('hidden');
+        }
+
+        function closeModalAndReview() {
+            closeModal();
+            loadQuestion(0);
+        }
+
+        function resetExam() {
+            if (confirm("Are you sure you want to reset all selected answers and retake the test?")) {
+                userAnswers = new Array(examQuestions.length).fill(null);
+                bookmarked = new Array(examQuestions.length).fill(false);
+                isSubmitted = false;
+                loadQuestion(0);
+            }
+        }
+
+        // UI Interactions
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebar-overlay');
+            sidebar.classList.toggle('-translate-x-full');
+            overlay.classList.toggle('hidden');
+        }
+
+        function toggleDarkMode() {
+            document.documentElement.classList.toggle('dark');
+        }
+    </script>
+</body>
+</html>
