@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SFC Nursing Research - Chapter 4 Interactive Study Guide</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        sfc: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#064e3b',
+                            950: '#022c22',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .shadow-custom { box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1); }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 4px; }
+        .dark ::-webkit-scrollbar-track { background: #1f2937; }
+        ::-webkit-scrollbar-thumb { background: #059669; border-radius: 4px; }
+    </style>
+</head>
+<body class="bg-slate-100 text-slate-800 dark:bg-slate-900 dark:text-slate-100 min-h-screen flex flex-col transition-colors duration-200">
+
+    <!-- TOP HEADER -->
+    <header class="bg-sfc-900 text-white border-b-4 border-amber-400 sticky top-0 z-50 shadow-md">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap justify-between items-center gap-4">
+            <div class="flex items-center space-x-3">
+                <div class="w-12 h-12 rounded-full bg-white p-1 flex-shrink-0 flex items-center justify-center border-2 border-amber-400">
+                    <img src="1000054448.png" alt="SFC Logo" class="w-full h-full object-contain rounded-full">
+                </div>
+                <div>
+                    <h1 class="text-lg md:text-xl font-bold tracking-tight text-white flex items-center gap-2">
+                        SAINT FERDINAND COLLEGE
+                        <span class="text-xs px-2 py-0.5 rounded bg-sfc-700 text-amber-300 border border-amber-400/40 font-normal hidden sm:inline-block">College of Nursing</span>
+                    </h1>
+                    <p class="text-xs text-sfc-100 font-medium">NCM115: Nursing Research &bull; Chapter 4 Study Guide</p>
+                </div>
+            </div>
+
+            <div class="flex items-center space-x-3 bg-sfc-800/80 px-3 py-1.5 rounded-lg border border-sfc-600/50">
+                <div class="w-10 h-10 rounded-full bg-amber-100 border-2 border-amber-400 flex items-center justify-center text-sfc-900 font-bold">
+                    <i class="fa-solid fa-user-doctor text-lg"></i>
+                </div>
+                <div class="text-left text-xs">
+                    <span class="text-emerald-300 text-[10px] uppercase tracking-wider block font-semibold">Research Instructor</span>
+                    <span class="font-bold text-white text-sm">RENE S. REAL, RN</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- NAVIGATION TOOLBAR -->
+    <section class="bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 shadow-sm sticky top-[68px] z-40">
+        <div class="max-w-7xl mx-auto px-4 py-2.5 flex flex-wrap justify-between items-center gap-3">
+            <div class="flex items-center space-x-2">
+                <button id="prevBtn" onclick="changePage(-1)" class="px-3 py-1.5 rounded-md bg-sfc-700 hover:bg-sfc-800 text-white font-medium text-sm flex items-center gap-1 transition-all disabled:opacity-50">
+                    <i class="fa-solid fa-chevron-left text-xs"></i> Prev
+                </button>
+                <div class="flex items-center space-x-1.5 bg-slate-100 dark:bg-slate-700 px-2 py-1 rounded-md border border-slate-300 dark:border-slate-600">
+                    <span class="text-xs text-slate-500 dark:text-slate-400 font-medium">Section</span>
+                    <select id="pageSelect" onchange="jumpToPage(this.value)" class="bg-transparent text-sm font-bold text-sfc-800 dark:text-emerald-400 focus:outline-none cursor-pointer">
+                    </select>
+                    <span class="text-xs text-slate-500 dark:text-slate-400 font-medium">of 5</span>
+                </div>
+                <button id="nextBtn" onclick="changePage(1)" class="px-3 py-1.5 rounded-md bg-sfc-700 hover:bg-sfc-800 text-white font-medium text-sm flex items-center gap-1 transition-all disabled:opacity-50">
+                    Next <i class="fa-solid fa-chevron-right text-xs"></i>
+                </button>
+            </div>
+
+            <div class="flex-1 max-w-xs relative">
+                <input type="text" id="searchInput" oninput="handleSearch()" placeholder="Search topics, sources, matrices..." 
+                    class="w-full pl-8 pr-3 py-1.5 text-xs rounded-md border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 focus:ring-2 focus:ring-sfc-600 focus:outline-none">
+                <i class="fa-solid fa-magnifying-glass absolute left-2.5 top-2.5 text-xs text-slate-400"></i>
+            </div>
+
+            <div class="flex items-center space-x-2">
+                <button onclick="toggleDarkMode()" title="Toggle Theme" class="p-2 rounded-md border border-slate-300 dark:border-slate-600 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300">
+                    <i class="fa-solid fa-moon dark:hidden"></i>
+                    <i class="fa-solid fa-sun hidden dark:inline"></i>
+                </button>
+                <button onclick="window.print()" title="Print Module" class="p-2 rounded-md border border-slate-300 dark:border-slate-600 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300">
+                    <i class="fa-solid fa-print"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- MAIN CANVAS -->
+    <main class="flex-1 max-w-7xl w-full mx-auto p-4 md:p-6 flex flex-col items-center">
+        <!-- BINDER RINGS -->
+        <div class="w-full max-w-5xl flex justify-around items-center px-8 -mb-3 z-20">
+            <div class="w-4 h-8 bg-gradient-to-r from-slate-400 via-slate-200 to-slate-500 rounded-full border border-slate-600 shadow-md"></div>
+            <div class="w-4 h-8 bg-gradient-to-r from-slate-400 via-slate-200 to-slate-500 rounded-full border border-slate-600 shadow-md"></div>
+            <div class="w-4 h-8 bg-gradient-to-r from-slate-400 via-slate-200 to-slate-500 rounded-full border border-slate-600 shadow-md"></div>
+            <div class="w-4 h-8 bg-gradient-to-r from-slate-400 via-slate-200 to-slate-500 rounded-full border border-slate-600 shadow-md"></div>
+            <div class="w-4 h-8 bg-gradient-to-r from-slate-400 via-slate-200 to-slate-500 rounded-full border border-slate-600 shadow-md"></div>
+        </div>
+
+        <!-- CONTENT BOARD -->
+        <div id="flipchartBoard" class="w-full max-w-5xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl shadow-custom p-6 md:p-8 min-h-[680px] flex flex-col justify-between transition-all duration-300">
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-white dark:bg-slate-800 border-t border-slate-200 dark:border-slate-700 py-3 text-center text-xs text-slate-500 dark:text-slate-400">
+        <p>Saint Ferdinand College - College of Nursing | NCM115: Nursing Research[cite: 4, 5]</p>
+        <p class="mt-0.5">Instructional Content Prepared by Prof. RENE S. REAL, RN &copy; 2026[cite: 5].</p>
+    </footer>
+
+    <!-- SCRIPT LOGIC -->
+    <script>
+        let currentPage = 1;
+        const totalPages = 5;
+
+        const pagesData = [
+            {
+                page: 1,
+                title: "Module Overview & Learning Objectives",
+                category: "Course Syllabus & Front Matter",
+                content: `
+                    <div class="space-y-4">
+                        <div class="p-4 rounded-xl bg-sfc-50 dark:bg-slate-900/50 border-l-4 border-sfc-600 text-slate-700 dark:text-slate-200">
+                            <h3 class="font-bold text-sfc-900 dark:text-emerald-400 text-lg mb-1"><i class="fa-solid fa-graduation-cap text-sfc-600 mr-2"></i>NCM115: Nursing Research</h3>
+                            <p class="text-sm leading-relaxed">
+                                <strong>Chapter 4: The Research Process – Conceptual Phase & Literature Review[cite: 5].</strong> Designed for Bachelor of Science in Nursing (BSN) Level III students at Saint Ferdinand College, College of Nursing, Ilagan City, Isabela under the instruction of <strong>Prof. RENE S. REAL, RN</strong>[cite: 5].
+                            </p>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="p-4 rounded-lg bg-slate-50 dark:bg-slate-700/40 border border-slate-200 dark:border-slate-600">
+                                <h4 class="font-bold text-emerald-800 dark:text-emerald-300 text-sm mb-2 flex items-center gap-2">
+                                    <i class="fa-solid fa-book-open text-sfc-600"></i> Primary Textbook Reference[cite: 5]
+                                </h4>
+                                <ul class="list-disc list-inside text-xs space-y-1 text-slate-600 dark:text-slate-300">
+                                    <li><strong>Title:</strong> Introduction to Nursing Research: A Guide to Evidence-Based Practice[cite: 5]</li>
+                                    <li><strong>Publisher:</strong> Ultimate Learning Series[cite: 5]</li>
+                                    <li><strong>Foreword by:</strong> Dr. Eufemia F. Octaviano (Former Chairman, PRC Board of Nursing)[cite: 5]</li>
+                                    <li><strong>Special Feature:</strong> Marlon Garzo Saria, PhD, RN, FAAN[cite: 5]</li>
+                                </ul>
+                            </div>
+
+                            <div class="p-4 rounded-lg bg-slate-50 dark:bg-slate-700/40 border border-slate-200 dark:border-slate-600">
+                                <h4 class="font-bold text-emerald-800 dark:text-emerald-300 text-sm mb-2 flex items-center gap-2">
+                                    <i class="fa-solid fa-bullseye text-amber-500"></i> Module Learning Objectives[cite: 5]
+                                </h4>
+                                <ul class="list-disc list-inside text-xs space-y-1 text-slate-600 dark:text-slate-300">
+                                    <li>Demonstrate understanding of RRL purposes[cite: 5].</li>
+                                    <li>Differentiate Conceptual vs. Research Literature[cite: 5].</li>
+                                    <li>Apply systematic methods in locating & evaluating studies[cite: 5].</li>
+                                    <li>Formulate conceptual frameworks compliant with EBP[cite: 5].</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                page: 2,
+                title: "Introduction & Purposes of Review of Related Literature",
+                category: "Chapter 4 Foundations",
+                content: `
+                    <div class="space-y-4 text-xs md:text-sm">
+                        <div class="p-4 rounded-xl bg-sfc-50 dark:bg-slate-900/50 border-l-4 border-sfc-600 text-slate-700 dark:text-slate-200">
+                            <h3 class="font-bold text-sfc-900 dark:text-emerald-400 text-base mb-1">1. Introduction to Review of Related Literature (RRL)[cite: 6]</h3>
+                            <p class="italic leading-relaxed">
+                                "The review of related literature is a written summary of existing knowledge based on a research problem obtained from an in-depth search on non-research and research references. It includes a statement indicating what the present study will add to what is already known, serving as a written, analytic summary of research findings on a topic of interest and providing essential context."[cite: 6]
+                            </p>
+                        </div>
+
+                        <div class="p-4 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 space-y-3">
+                            <h4 class="font-bold text-emerald-800 dark:text-emerald-400 text-sm">2. Purposes and Importance of Literature Review[cite: 6]</h4>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                <div class="p-3 bg-slate-50 dark:bg-slate-700/50 rounded border">
+                                    <strong>1. Problem Identification:</strong> Guides the researcher in selecting a better research problem or topic[cite: 6].
+                                </div>
+                                <div class="p-3 bg-slate-50 dark:bg-slate-700/50 rounded border">
+                                    <strong>2. Enhancing Understanding:</strong> Helps the investigator understand the topic thoroughly for rigorous execution[cite: 6].
+                                </div>
+                                <div class="p-3 bg-slate-50 dark:bg-slate-700/50 rounded border">
+                                    <strong>3. Preventing Duplication:</strong> Ensures there is no unintentional duplication of published studies[cite: 6].
+                                </div>
+                                <div class="p-3 bg-slate-50 dark:bg-slate-700/50 rounded border">
+                                    <strong>4. Locating Resources:</strong> Guides the researcher in locating sources of related clinical information[cite: 6].
+                                </div>
+                                <div class="p-3 bg-slate-50 dark:bg-slate-700/50 rounded border">
+                                    <strong>5. Designing Methodology:</strong> Assists in selecting appropriate research design, sampling, and instrumentation[cite: 6].
+                                </div>
+                                <div class="p-3 bg-slate-50 dark:bg-slate-700/50 rounded border">
+                                    <strong>6. Comparative Analysis:</strong> Facilitates comparison between current findings and past research[cite: 6].
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                page: 3,
+                title: "Literature Classification & Source Distinction",
+                category: "Empirical vs. Conceptual Sources",
+                content: `
+                    <div class="space-y-4 text-xs md:text-sm">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="p-4 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 space-y-2">
+                                <h4 class="font-bold text-emerald-800 dark:text-emerald-400 text-sm">1. Conceptual Literature (Related Literature)[cite: 6]</h4>
+                                <p class="text-slate-600 dark:text-slate-300">
+                                    Composed of discussions of facts, concepts, theories, and principles to which the study is related. Found in books, encyclopedias, professional journals, and magazines providing theoretical scaffolding[cite: 6].
+                                </p>
+                            </div>
+                            <div class="p-4 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 space-y-2">
+                                <h4 class="font-bold text-emerald-800 dark:text-emerald-400 text-sm">2. Research Literature (Related Studies)[cite: 6]</h4>
+                                <p class="text-slate-600 dark:text-slate-300">
+                                    Consists of empirical studies, inquiries, or investigations already conducted. Typically includes unpublished materials like manuscripts, theses, and dissertations[cite: 6].
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="p-4 rounded-xl bg-emerald-50/50 dark:bg-emerald-950/20 border border-emerald-200 dark:border-emerald-800 space-y-2">
+                                <h4 class="font-bold text-emerald-900 dark:text-emerald-300 text-sm">Primary Sources (Preferred)[cite: 6]</h4>
+                                <p class="text-slate-700 dark:text-slate-300">Direct descriptions of empirical studies written by original researchers[cite: 6].</p>
+                                <ul class="list-disc list-inside text-xs space-y-1 text-slate-600 dark:text-slate-300">
+                                    <li>Original research articles in peer-reviewed journals[cite: 6]</li>
+                                    <li>Dissertations, theses, and grant reports[cite: 6]</li>
+                                    <li>Oral research presentations at clinical symposia[cite: 6]</li>
+                                </ul>
+                            </div>
+                            <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-700/40 border border-slate-200 dark:border-slate-600 space-y-2">
+                                <h4 class="font-bold text-slate-800 dark:text-slate-200 text-sm">Secondary Sources[cite: 6]</h4>
+                                <p class="text-slate-700 dark:text-slate-300">Descriptions or syntheses prepared by someone other than the original investigator[cite: 6].</p>
+                                <ul class="list-disc list-inside text-xs space-y-1 text-slate-600 dark:text-slate-300">
+                                    <li>Literature review articles and meta-analyses[cite: 6]</li>
+                                    <li>Textbook summaries and systematic reviews[cite: 6]</li>
+                                    <li>Critiques and reaction papers by clinical experts[cite: 6]</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                page: 4,
+                title: "Execution Steps & Review Matrices Taxonomy",
+                category: "Methodology & Synthesis",
+                content: `
+                    <div class="space-y-4 text-xs md:text-sm">
+                        <div class="p-4 rounded-xl bg-sfc-50 dark:bg-slate-900/50 border border-sfc-200 dark:border-slate-700 space-y-3">
+                            <h4 class="font-bold text-sfc-900 dark:text-emerald-400 text-sm">Major Steps in Conducting an RRL[cite: 7]</h4>
+                            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-center text-xs">
+                                <div class="p-2.5 bg-white dark:bg-slate-800 rounded border"><strong>Step 1</strong><br>Locating Relevant Literature[cite: 7]</div>
+                                <div class="p-2.5 bg-white dark:bg-slate-800 rounded border"><strong>Step 2</strong><br>Abstracting & Recording[cite: 7]</div>
+                                <div class="p-2.5 bg-white dark:bg-slate-800 rounded border"><strong>Step 3</strong><br>Critiquing & Evaluating[cite: 7, 8]</div>
+                                <div class="p-2.5 bg-white dark:bg-slate-800 rounded border"><strong>Step 4</strong><br>Preparing Written Review[cite: 7, 8]</div>
+                            </div>
+                        </div>
+
+                        <div class="p-4 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 space-y-3">
+                            <h4 class="font-bold text-emerald-800 dark:text-emerald-400 text-sm">Taxonomy of Literature Review Matrices[cite: 7]</h4>
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-left text-xs border-collapse">
+                                    <thead>
+                                        <tr class="bg-sfc-900 text-white">
+                                            <th class="p-2 border">Matrix Type[cite: 7]</th>
+                                            <th class="p-2 border">Core Analytical Question[cite: 7]</th>
+                                            <th class="p-2 border">Primary Data Extracted & Purpose[cite: 7]</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="border-b">
+                                            <td class="p-2 border font-bold">Methodologic Matrix[cite: 7]</td>
+                                            <td class="p-2 border italic">"How have researchers studied this research question?"[cite: 7]</td>
+                                            <td class="p-2 border">Focuses on study designs, sampling methods, instruments, and statistical procedures[cite: 7].</td>
+                                        </tr>
+                                        <tr class="border-b bg-slate-50 dark:bg-slate-700/30">
+                                            <td class="p-2 border font-bold">Result Matrix[cite: 7]</td>
+                                            <td class="p-2 border italic">"What have the researchers found across studies?"[cite: 7]</td>
+                                            <td class="p-2 border">Organizes empirical findings, statistical significance, effect sizes, and clinical outcomes[cite: 7].</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="p-2 border font-bold">Evaluation Matrix[cite: 7]</td>
+                                            <td class="p-2 border italic">"How much confidence do we have in the evidence?"[cite: 7]</td>
+                                            <td class="p-2 border">Evaluates methodological quality, risk of bias, threats to validity, and study limitations[cite: 7].</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                page: 5,
+                title: "Evaluation, Synthesis & Framework Development",
+                category: "Theoretical & Conceptual Frameworks",
+                content: `
+                    <div class="space-y-4 text-xs md:text-sm">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="p-4 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 space-y-2">
+                                <h4 class="font-bold text-emerald-800 dark:text-emerald-400 text-sm">Theoretical Framework[cite: 8]</h4>
+                                <p class="text-slate-600 dark:text-slate-300">
+                                    Based on an existing, formal theory (e.g., Roy's Adaptation Model, Orem's Self-Care Theory). Broad, systemic view explaining relationships among abstract concepts across contexts[cite: 8].
+                                </p>
+                            </div>
+                            <div class="p-4 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 space-y-2">
+                                <h4 class="font-bold text-emerald-800 dark:text-emerald-400 text-sm">Conceptual Framework[cite: 8]</h4>
+                                <p class="text-slate-600 dark:text-slate-300">
+                                    Roots in specific concepts and operational links constructed by the researcher for a specific study. Narrower rationale formulated when no single formal theory covers the research question[cite: 8].
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="p-4 rounded-xl bg-sfc-50 dark:bg-slate-900/50 border border-sfc-200 dark:border-slate-700 space-y-2">
+                            <h4 class="font-bold text-sfc-900 dark:text-emerald-400 text-sm">Characteristics of Nursing Research Theories[cite: 8]</h4>
+                            <p class="text-slate-700 dark:text-slate-300">
+                                A robust theory in nursing research exhibits a <strong>Systemic View</strong>: Consists of interrelated constructs, definitions, and propositions that systematically view nursing phenomena[cite: 8]. Clinical fieldwork provides real-world context on current clinical trends, diagnostic procedures, and patient perspectives[cite: 8].
+                            </p>
+                        </div>
+                    </div>
+                `
+            }
+        ];
+
+        window.onload = function() {
+            populatePageSelect();
+            renderPage(currentPage);
+        };
+
+        function renderPage(pageNum) {
+            const board = document.getElementById('flipchartBoard');
+            const data = pagesData.find(p => p.page === pageNum);
+            if (!data) return;
+
+            board.innerHTML = `
+                <div>
+                    <div class="flex flex-wrap justify-between items-center border-b border-slate-200 dark:border-slate-700 pb-3 mb-4">
+                        <div>
+                            <span class="text-[11px] font-bold uppercase tracking-wider text-sfc-600 dark:text-emerald-400 block">${data.category}</span>
+                            <h2 class="text-xl md:text-2xl font-extrabold text-slate-900 dark:text-white">${data.title}</h2>
+                        </div>
+                        <span class="px-3 py-1 rounded-full bg-sfc-100 dark:bg-sfc-950 text-sfc-800 dark:text-emerald-300 font-mono text-xs font-bold border border-sfc-300 dark:border-sfc-800 mt-1 sm:mt-0">
+                            Section ${data.page} / 5
+                        </span>
+                    </div>
+                    <div class="overflow-y-auto max-h-[520px] pr-1">
+                        ${data.content}
+                    </div>
+                </div>
+                <div class="pt-4 border-t border-slate-200 dark:border-slate-700 mt-4 flex justify-between items-center text-xs text-slate-500 dark:text-slate-400">
+                    <span>Saint Ferdinand College - College of Nursing &bull; Prof. RENE S. REAL, RN[cite: 5]</span>
+                    <span class="italic">NCM115 Nursing Research Study Guide[cite: 5]</span>
+                </div>
+            `;
+
+            document.getElementById('pageSelect').value = pageNum;
+            updateNavButtons();
+        }
+
+        function populatePageSelect() {
+            const select = document.getElementById('pageSelect');
+            select.innerHTML = '';
+            for (let i = 1; i <= totalPages; i++) {
+                const opt = document.createElement('option');
+                opt.value = i;
+                opt.textContent = `Section ${i}`;
+                select.appendChild(opt);
+            }
+        }
+
+        function changePage(delta) {
+            const newPage = currentPage + delta;
+            if (newPage >= 1 && newPage <= totalPages) {
+                currentPage = newPage;
+                renderPage(currentPage);
+            }
+        }
+
+        function jumpToPage(val) {
+            currentPage = parseInt(val);
+            renderPage(currentPage);
+        }
+
+        function updateNavButtons() {
+            document.getElementById('prevBtn').disabled = currentPage === 1;
+            document.getElementById('nextBtn').disabled = currentPage === totalPages;
+        }
+
+        function handleSearch() {
+            const query = document.getElementById('searchInput').value.toLowerCase().trim();
+            if (!query) return;
+            const match = pagesData.find(p => 
+                p.title.toLowerCase().includes(query) || 
+                p.category.toLowerCase().includes(query) || 
+                p.content.toLowerCase().includes(query)
+            );
+            if (match) {
+                currentPage = match.page;
+                renderPage(currentPage);
+            }
+        }
+
+        function toggleDarkMode() {
+            document.documentElement.classList.toggle('dark');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saint Ferdinand College - College of Nursing Portal</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        sfcGreen: '#1b4d3e',
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans scroll-smooth">
+
+    <!-- Header / Navigation Bar -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-4">
+                <button id="menu-btn" class="p-2 rounded-lg text-slate-600 hover:bg-slate-100 focus:outline-none" aria-label="Toggle Menu">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+                <div class="flex items-center space-x-3">
+                    <img src="1000054448.png" alt="Saint Ferdinand College Logo" class="w-12 h-12 object-contain rounded-full shadow-sm">
+                    <div>
+                        <h1 class="text-base sm:text-lg font-bold text-emerald-900 leading-tight">Saint Ferdinand College</h1>
+                        <p class="text-xs sm:text-sm font-medium text-slate-500">College of Nursing</p>
+                    </div>
+                </div>
+            </div>
+
+            <nav class="hidden md:flex items-center space-x-8 font-medium">
+                <a href="#home" class="text-emerald-800 border-b-2 border-emerald-800 pb-1">Home</a>
+                <a href="#learning-materials" class="text-slate-600 hover:text-emerald-800 transition-colors">Learning Materials</a>
+                <a href="#test-practice" class="text-slate-600 hover:text-emerald-800 transition-colors">Test Practice</a>
+                <a href="#about" class="text-slate-600 hover:text-emerald-800 transition-colors">About</a>
+            </nav>
+        </div>
+
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-slate-100 px-4 pt-2 pb-4 space-y-2 shadow-lg">
+            <a href="#home" class="block px-3 py-2 rounded-md text-base font-medium text-emerald-800 bg-emerald-50">Home</a>
+            <a href="#learning-materials" class="block px-3 py-2 rounded-md text-base font-medium text-slate-600 hover:bg-slate-50 hover:text-emerald-800">Learning Materials</a>
+            <a href="#test-practice" class="block px-3 py-2 rounded-md text-base font-medium text-slate-600 hover:bg-slate-50 hover:text-emerald-800">Test Practice</a>
+            <a href="#about" class="block px-3 py-2 rounded-md text-base font-medium text-slate-600 hover:bg-slate-50 hover:text-emerald-800">About</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
+        <div class="text-center max-w-3xl mx-auto space-y-6">
+            <span class="bg-emerald-100 text-emerald-800 text-xs sm:text-sm font-semibold px-3 py-1 rounded-full uppercase tracking-wider">Welcome Future Nurses</span>
+            <h2 class="text-4xl sm:text-5xl font-bold text-slate-900 tracking-tight">
+                Saint Ferdinand College - College of Nursing Portal
+            </h2>
+            <p class="text-lg text-slate-600">
+                Access full uncompressed course modules, interactive clinical flipcharts, and test practice suites.
+            </p>
+            <div class="flex justify-center space-x-4 pt-4">
+                <a href="#learning-materials" class="bg-emerald-800 text-white font-medium px-6 py-3 rounded-lg shadow hover:bg-emerald-700 transition-colors">Select a Learning Module</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Learning Materials Section -->
+    <section id="learning-materials" class="bg-white py-16 border-t border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+            <div class="border-b pb-4">
+                <span class="text-xs font-bold text-emerald-700 uppercase tracking-wider">Full Access Learning Portal</span>
+                <h3 class="text-2xl font-bold text-slate-900">Course Study Modules</h3>
+                <p class="text-sm text-slate-500">Select a course module below to launch the full-length source reader or interactive flipchart.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Module Card 1: Nursing Research -->
+                <div class="p-8 rounded-2xl bg-slate-50 border border-slate-200 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between space-y-6">
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center">
+                            <span class="bg-emerald-100 text-emerald-800 font-bold text-xs px-3 py-1 rounded-full uppercase">Course Module 1</span>
+                            <span class="text-xs text-slate-400 font-medium">BSN Level III</span>
+                        </div>
+                        <h4 class="text-2xl font-bold text-slate-900">NCM115: Nursing Research</h4>
+                        <p class="text-xs font-bold text-emerald-700">Chapter 4: The Research Process – Conceptual Phase & Literature Review</p>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Access the complete Chapter 4 study guide. Covers RRL objectives, Conceptual vs. Research literature, Primary/Secondary sources, Execution Steps, and Review Matrices.
+                        </p>
+                        <div class="text-xs text-slate-500 border-t pt-3">
+                            <p><strong>Instructor:</strong> Prof. RENE S. REAL, RN</p>
+                        </div>
+                    </div>
+                    <a href="research-module.html" target="_blank" class="w-full text-center bg-emerald-800 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl shadow transition-colors block">
+                        Launch Full Research Module &rarr;
+                    </a>
+                </div>
+
+                <!-- Module Card 2: Traumatic Brain Injury -->
+                <div class="p-8 rounded-2xl bg-slate-50 border border-slate-200 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between space-y-6">
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center">
+                            <span class="bg-amber-100 text-amber-800 font-bold text-xs px-3 py-1 rounded-full uppercase">Course Module 2</span>
+                            <span class="text-xs text-slate-400 font-medium">Interactive Flipchart</span>
+                        </div>
+                        <h4 class="text-2xl font-bold text-slate-900">Medical-Surgical Nursing: TBI Care</h4>
+                        <p class="text-xs font-bold text-amber-700">Traumatic Brain Injury Clinical Management Interactive 20-Page Flipchart</p>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Launch the full interactive flipchart. Features GCS assessment calculators, Monro-Kellie pathophysiology, Cushing's Triad, EVD leveling, and NCLEX quiz suite.
+                        </p>
+                        <div class="text-xs text-slate-500 border-t pt-3">
+                            <p><strong>Course Faculty:</strong> Prof. RENE S. REAL, RN</p>
+                        </div>
+                    </div>
+                    <a href="TRAUMATIC BRAIN INJURY.html" target="_blank" class="w-full text-center bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 rounded-xl shadow transition-colors block">
+                        Launch Full Interactive TBI Flipchart &rarr;
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Test Practice Section -->
+    <section id="test-practice" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center space-y-3">
+            <h3 class="text-2xl font-bold text-slate-900">Test Practice Suite</h3>
+            <p class="text-slate-600 text-sm">Select a module above to launch its dedicated NCLEX knowledge check exam.</p>
+        </div>
+    </section>
+
+    <!-- Detailed About Section -->
+    <section id="about" class="bg-emerald-950 text-white py-20 border-t-4 border-amber-400">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+            
+            <!-- About Header -->
+            <div class="text-center max-w-3xl mx-auto space-y-3">
+                <span class="bg-emerald-800 text-amber-300 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider border border-amber-400/30">Institutional Profile</span>
+                <h3 class="text-3xl sm:text-4xl font-extrabold text-white">About Saint Ferdinand College - College of Nursing</h3>
+                <p class="text-sm text-emerald-200">Ilagan City, Isabela &bull; Established 1962</p>
+            </div>
+
+            <!-- Core Pillars Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Mission -->
+                <div class="p-6 rounded-2xl bg-emerald-900/80 border border-emerald-700/60 space-y-3 shadow-lg">
+                    <div class="w-10 h-10 rounded-lg bg-amber-400 text-emerald-950 flex items-center justify-center font-bold text-lg">
+                        <i class="fa-solid fa-bullseye"></i>
+                    </div>
+                    <h4 class="text-lg font-bold text-amber-300">Mission</h4>
+                    <p class="text-xs text-emerald-100 leading-relaxed">
+                        Saint Ferdinand College as an evangelizing arm of the church provides relevant knowledge, enhances practical skills and inculcates Christian values that promote personal development and social responsibility among people in the school and community.
+
+                    </p>
+                </div>
+
+                <!-- Vision -->
+                <div class="p-6 rounded-2xl bg-emerald-900/80 border border-emerald-700/60 space-y-3 shadow-lg">
+                    <div class="w-10 h-10 rounded-lg bg-amber-400 text-emerald-950 flex items-center justify-center font-bold text-lg">
+                        <i class="fa-solid fa-eye"></i>
+                    </div>
+                    <h4 class="text-lg font-bold text-amber-300">Our Vision</h4>
+                    <p class="text-xs text-emerald-100 leading-relaxed">
+                        Saint Ferdinand College is a dynamic Catholic Educational Institution that develops individuals of competence and character through holistic educationand dedicated service toward a just and humane society.
+
+                    </p>
+                </div>
+
+                <!-- Core Values -->
+                <div class="p-6 rounded-2xl bg-emerald-900/80 border border-emerald-700/60 space-y-3 shadow-lg">
+                    <div class="w-10 h-10 rounded-lg bg-amber-400 text-emerald-950 flex items-center justify-center font-bold text-lg">
+                        <i class="fa-solid fa-hands-holding-child"></i>
+                    </div>
+                    <h4 class="text-lg font-bold text-amber-300">Core Values </h4>
+                    <p class="text-xs text-emerald-100 leading-relaxed">
+                        <strong>S</strong>piritulity <strong>T</strong>eamwork <strong>E</strong>xcellence <strong>P</strong>rofessionalism <strong>S</strong>ervice
+                    </p>
+                </div>
+            </div>
+
+            <!-- Footer Institutional Info Box -->
+            <div class="p-8 rounded-2xl bg-emerald-900 border border-emerald-800 flex flex-col md:flex-row justify-between items-center gap-6 text-xs text-emerald-100">
+                <div class="space-y-1">
+                    <p class="font-bold text-sm text-amber-300">Saint Ferdinand College - College of Nursing</p>
+                    <p>Santa Ana St., Sta. Barbara, City of Ilagan, 3300 Isabela, Philippines</p>
+                    <p>College of Nursing &bull; Academic Portal</p>
+                </div>
+                <div class="text-right space-y-1">
+                    <p><strong>Established:</strong> 1962</p>
+                    <p><strong>Inquiries:</strong> sfchcdepartment@gmail.com</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Script for Mobile Menu -->
+    <script>
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>
