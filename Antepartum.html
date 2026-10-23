@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maternal and Child Health: Comprehensive Antepartum Care</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+9        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+        /* Custom scrollbar for webkit */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8; 
+        }
+        /* Style for active nav item */
+        .nav-item.active {
+            background-color: #e0f2fe;
+            color: #0369a1;
+            font-weight: 600;
+            border-right: 4px solid #0284c7;
+        }
+    </style>
+</head>
+<body class="text-slate-800 antialiased selection:bg-sky-200 selection:text-sky-900">
+
+    <div class="flex flex-col md:flex-row min-h-screen">
+        
+        <!-- Mobile Header (Visible only on small screens) -->
+        <div class="md:hidden sticky top-0 z-50 bg-white border-b border-slate-200 p-4 shadow-sm flex justify-between items-center">
+            <h1 class="text-lg font-bold text-sky-800 truncate">Antepartum Care Module</h1>
+            <button id="mobile-menu-btn" class="p-2 bg-sky-100 text-sky-700 rounded-md focus:outline-none focus:ring-2 focus:ring-sky-500">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Sidebar Navigation -->
+        <aside id="sidebar" class="w-full md:w-72 bg-white border-r border-slate-200 flex-shrink-0 md:sticky md:top-0 md:h-screen overflow-y-auto transition-all duration-300 hidden md:block">
+            <div class="p-6">
+                <div class="flex items-center gap-3 mb-8">
+                    <div class="w-10 h-10 rounded-full bg-sky-100 flex items-center justify-center text-sky-600">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h2 class="text-sm font-semibold tracking-wider text-slate-500 uppercase">Module 4</h2>
+                        <p class="font-bold text-slate-800 leading-tight">Maternal & Child Health</p>
+                    </div>
+                </div>
+
+                <nav class="flex flex-col space-y-1">
+                    <a href="#adaptation" class="nav-item block px-4 py-3 rounded-l-lg text-sm text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors">
+                        1. Adaptation & Signs
+                    </a>
+                    <a href="#assessments" class="nav-item block px-4 py-3 rounded-l-lg text-sm text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors">
+                        2. Antepartum Assessments
+                    </a>
+                    <a href="#infections" class="nav-item block px-4 py-3 rounded-l-lg text-sm text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors">
+                        3. Infections & Complications
+                    </a>
+                    <a href="#preparation" class="nav-item block px-4 py-3 rounded-l-lg text-sm text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors">
+                        4. Childbirth Preparation
+                    </a>
+                </nav>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 bg-slate-50">
+            <div class="max-w-4xl mx-auto px-6 py-10 md:py-16">
+                
+                <!-- Module Header -->
+                <header class="mb-12 border-b border-slate-200 pb-8">
+                    <span class="inline-block px-3 py-1 bg-sky-100 text-sky-700 text-xs font-semibold rounded-full mb-4 tracking-wide">E-Learning Chapter</span>
+                    <h1 class="text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-4">Comprehensive Antepartum Care</h1>
+                    <p class="text-lg text-slate-600 leading-relaxed max-w-2xl">
+                        This module covers the essential physical and psychological changes during pregnancy, comprehensive antepartum assessments, management of potential complications, and effective childbirth preparation methods.
+                    </p>
+                </header>
+
+                <!-- Section 1: Maternal Adaptation & Signs of Pregnancy -->
+                <section id="adaptation" class="mb-16 scroll-mt-24">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-8 h-8 rounded-md bg-sky-600 text-white flex items-center justify-center font-bold">1</div>
+                        <h2 class="text-2xl md:text-3xl font-bold text-slate-900">Maternal Adaptation & Signs of Pregnancy</h2>
+                    </div>
+                    
+                    <div class="prose prose-slate max-w-none">
+                        <p class="text-slate-600 mb-6">Pregnancy involves profound physiological and psychological changes. Recognizing the signs of pregnancy is the first step in antepartum care.</p>
+
+                        <h3 class="text-xl font-semibold text-slate-800 mb-4 border-l-4 border-sky-500 pl-3">Signs of Pregnancy</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                            <!-- Presumptive -->
+                            <div class="bg-white rounded-xl p-5 shadow-sm border border-slate-200 hover:shadow-md transition-shadow">
+                                <h4 class="text-lg font-bold text-amber-600 mb-2 flex items-center gap-2">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                    Presumptive
+                                </h4>
+                                <p class="text-sm text-slate-500 mb-3">Subjective changes experienced by the woman.</p>
+                                <ul class="text-sm space-y-2 text-slate-700">
+                                    <li class="flex items-start gap-2"><span class="text-sky-500">•</span> Breast changes (tenderness, fullness)</li>
+                                    <li class="flex items-start gap-2"><span class="text-sky-500">•</span> Amenorrhea (absence of menstruation)</li>
+                                    <li class="flex items-start gap-2"><span class="text-sky-500">•</span> Morning sickness (nausea/vomiting)</li>
+                                </ul>
+                            </div>
+                            
+                            <!-- Probable -->
+                            <div class="bg-white rounded-xl p-5 shadow-sm border border-slate-200 hover:shadow-md transition-shadow">
+                                <h4 class="text-lg font-bold text-sky-600 mb-2 flex items-center gap-2">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path></svg>
+                                    Probable
+                                </h4>
+                                <p class="text-sm text-slate-500 mb-3">Objective findings assessed by the examiner.</p>
+                                <ul class="text-sm space-y-2 text-slate-700">
+                                    <li class="flex items-start gap-2"><span class="text-sky-500">•</span> <strong>Goodell's Sign:</strong> Softening of the cervix</li>
+                                    <li class="flex items-start gap-2"><span class="text-sky-500">•</span> <strong>Chadwick's Sign:</strong> Purplish hue of vagina</li>
+                                    <li class="flex items-start gap-2"><span class="text-sky-500">•</span> <strong>Hegar's Sign:</strong> Softening lower uterine segment</li>
+                                    <li class="flex items-start gap-2"><span class="text-sky-500">•</span> Braxton-Hicks contractions</li>
+                                </ul>
+                            </div>
+
+                            <!-- Positive -->
+                            <div class="bg-white rounded-xl p-5 shadow-sm border border-slate-200 hover:shadow-md transition-shadow">
+                                <h4 class="text-lg font-bold text-emerald-600 mb-2 flex items-center gap-2">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                    Positive
+                                </h4>
+                                <p class="text-sm text-slate-500 mb-3">Absolute proof of pregnancy.</p>
+                                <ul class="text-sm space-y-2 text-slate-700">
+                                    <li class="flex items-start gap-2"><span class="text-sky-500">•</span> Visualization by <strong>Ultrasound</strong></li>
+                                    <li class="flex items-start gap-2"><span class="text-sky-500">•</span> Detection of Fetal Heart Tones (<strong>FHT</strong>)</li>
+                                    <li class="flex items-start gap-2"><span class="text-sky-500">•</span> Active fetal movement palpated by examiner</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <h3 class="text-xl font-semibold text-slate-800 mb-4 mt-8 border-l-4 border-purple-500 pl-3">Systemic & Reproductive Changes</h3>
+                        <div class="bg-white rounded-xl border border-slate-200 p-6 shadow-sm mb-6">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <h4 class="font-semibold text-slate-800 mb-2">Reproductive System</h4>
+                                    <ul class="list-disc pl-5 text-sm text-slate-600 space-y-1">
+                                        <li><strong>Cervix:</strong> Goodell's sign (softening), Chadwick's sign (bluish-purple discoloration due to increased vascularity).</li>
+                                        <li><strong>Uterus:</strong> Hegar's sign (softening of the isthmus).</li>
+                                        <li><strong>Breasts:</strong> Fullness, tingling, darkening of the areola, prominent Montgomery's tubercles.</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-slate-800 mb-2">Systemic Changes</h4>
+                                    <ul class="list-disc pl-5 text-sm text-slate-600 space-y-1">
+                                        <li><strong>Renal:</strong> Frequent urination (especially 1st and 3rd trimesters), trace glycosuria, and transient proteinuria.</li>
+                                        <li><strong>Musculoskeletal:</strong> Lordosis (exaggerated forward curvature of the spine) to compensate for shifted center of gravity.</li>
+                                        <li><strong>Gastrointestinal:</strong> Increased risk of hemorrhoids. <em>Intervention:</em> Encourage high-fiber diet, adequate hydration, and warm sitz baths.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-indigo-50 rounded-xl p-5 border-l-4 border-indigo-500">
+                            <h4 class="font-bold text-indigo-900 mb-1">Psychological Adaptation</h4>
+                            <p class="text-sm text-indigo-800">
+                                <strong>1st Trimester:</strong> The primary psychological task is <em>Acceptance</em>. The mother commonly focuses on herself and the reality of the pregnancy, summarizing the phase with the statement: <strong>"I AM PREGNANT."</strong>
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 2: Antepartum Assessments -->
+                <section id="assessments" class="mb-16 scroll-mt-24">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-8 h-8 rounded-md bg-sky-600 text-white flex items-center justify-center font-bold">2</div>
+                        <h2 class="text-2xl md:text-3xl font-bold text-slate-900">Antepartum Assessments</h2>
+                    </div>
+
+                    <div class="prose prose-slate max-w-none space-y-8">
+                        
+                        <!-- Estimating Gestational Age -->
+                        <div>
+                            <h3 class="text-xl font-semibold text-slate-800 mb-4 border-b border-slate-200 pb-2">Estimating Gestational Age</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="bg-sky-50 rounded-lg p-5 border border-sky-100">
+                                    <h4 class="font-bold text-sky-900 mb-2">Naegele's Rule</h4>
+                                    <p class="text-sm text-slate-700 mb-2">Used to calculate the Estimated Date of Confinement (EDC/EDD).</p>
+                                    <div class="bg-white p-3 rounded font-mono text-sm text-center border border-slate-200 text-slate-800 shadow-sm">
+                                        Formula 1: LMP + 9 months + 7 days<br>
+                                        <span class="text-slate-400">or</span><br>
+                                        Formula 2: LMP - 3 months + 7 days + 1 year
+                                    </div>
+                                </div>
+                                <div class="space-y-4">
+                                    <div class="bg-white rounded-lg p-4 border border-slate-200 shadow-sm">
+                                        <h4 class="font-bold text-slate-800 text-sm">McDonald's Rule</h4>
+                                        <p class="text-sm text-slate-600">Measures the length of the fundus (in cm) from the symphysis pubis to estimate gestational age between 18-32 weeks.</p>
+                                    </div>
+                                    <div class="bg-white rounded-lg p-4 border border-slate-200 shadow-sm">
+                                        <h4 class="font-bold text-slate-800 text-sm">Ultrasound</h4>
+                                        <p class="text-sm text-slate-600">The most accurate method for early pregnancy dating (Crown-Rump Length in 1st trimester).</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <!-- Immunizations -->
+                            <div>
+                                <h3 class="text-xl font-semibold text-slate-800 mb-4 border-b border-slate-200 pb-2">Immunizations</h3>
+                                <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+                                    <h4 class="font-bold text-slate-800 mb-2 flex items-center gap-2">
+                                        <svg class="w-5 h-5 text-rose-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                                        Tetanus Toxoid (TT)
+                                    </h4>
+                                    <p class="text-sm text-slate-600 mb-3">Provides protection against maternal and neonatal tetanus.</p>
+                                    <ul class="text-sm space-y-1 text-slate-700 bg-slate-50 p-3 rounded-lg border border-slate-100">
+                                        <li><strong>TT1:</strong> As early as possible (0% protection)</li>
+                                        <li><strong>TT2:</strong> 4 weeks after TT1 (80% for 3 years)</li>
+                                        <li><strong>TT3:</strong> 6 months after TT2 (95% for 5 years)</li>
+                                        <li><strong>TT4:</strong> 1 year after TT3 (99% for 10 years)</li>
+                                        <li><strong>TT5:</strong> 1 year after TT4 (99% for <strong>Lifetime</strong>)</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- Baseline Data & Placental Grading -->
+                            <div>
+                                <h3 class="text-xl font-semibold text-slate-800 mb-4 border-b border-slate-200 pb-2">Baseline & Grading</h3>
+                                <div class="space-y-4">
+                                    <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-sm">
+                                        <h4 class="font-bold text-slate-800 text-sm mb-1">Baseline Data & Roll-over Test</h4>
+                                        <p class="text-sm text-slate-600">Vital signs are recorded as a baseline. The <strong>Roll-over test</strong> checks for the risk of pre-eclampsia by monitoring blood pressure changes when turning from lateral recumbent to supine position.</p>
+                                    </div>
+                                    <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-sm">
+                                        <h4 class="font-bold text-slate-800 text-sm mb-1">Placental Grading</h4>
+                                        <ul class="text-sm text-slate-600 list-disc pl-4 space-y-1">
+                                            <li><strong>Grade 0:</strong> Immature (early pregnancy)</li>
+                                            <li><strong>Grade 1-2:</strong> Maturing</li>
+                                            <li><strong>Grade 3:</strong> Fully mature (extensive calcification, common at term)</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Weight Gain -->
+                        <div class="mt-8">
+                            <h3 class="text-xl font-semibold text-slate-800 mb-4 border-l-4 border-emerald-500 pl-3">Weight Gain Guidelines</h3>
+                            <div class="bg-white overflow-hidden rounded-xl border border-slate-200 shadow-sm">
+                                <table class="min-w-full divide-y divide-slate-200">
+                                    <thead class="bg-slate-50">
+                                        <tr>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Trimester</th>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Expected Weight Gain</th>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Notes</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="bg-white divide-y divide-slate-200 text-sm">
+                                        <tr>
+                                            <td class="px-6 py-4 whitespace-nowrap font-medium text-slate-900">First Trimester</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-slate-600">2 - 4 lbs (Total)</td>
+                                            <td class="px-6 py-4 text-slate-600">Minimal gain due to nausea/fetal size.</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-6 py-4 whitespace-nowrap font-medium text-slate-900">Second Trimester</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-slate-600">1 lb / week</td>
+                                            <td class="px-6 py-4 text-slate-600">Rapid fetal tissue and fluid expansion.</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-6 py-4 whitespace-nowrap font-medium text-slate-900">Third Trimester</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-slate-600">1 lb / week</td>
+                                            <td class="px-6 py-4 text-slate-600">Fetal fat deposition and growth.</td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot class="bg-emerald-50">
+                                        <tr>
+                                            <td colspan="3" class="px-6 py-4 text-sm text-emerald-800">
+                                                <strong>Total Target:</strong> Minimum 20-25 lbs | Optimum 25-35 lbs (for a normal BMI woman).
+                                            </td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+
+                <!-- Section 3: Infections & Complications -->
+                <section id="infections" class="mb-16 scroll-mt-24">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-8 h-8 rounded-md bg-sky-600 text-white flex items-center justify-center font-bold">3</div>
+                        <h2 class="text-2xl md:text-3xl font-bold text-slate-900">Infections & Complications</h2>
+                    </div>
+
+                    <div class="space-y-6">
+                        <!-- Vaginal Infections -->
+                        <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+                            <div class="bg-rose-50 px-6 py-4 border-b border-rose-100">
+                                <h3 class="text-lg font-bold text-rose-900">Vaginal Infections</h3>
+                            </div>
+                            <div class="p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="relative pl-4 border-l-2 border-rose-200">
+                                    <h4 class="font-bold text-slate-800">Vaginitis</h4>
+                                    <p class="text-sm text-slate-600 mt-1"><strong>Pathogen:</strong> <em>Trichomonas vaginalis</em></p>
+                                    <p class="text-sm text-slate-600"><strong>Signs:</strong> Frothy, yellowish-green discharge, intense itching.</p>
+                                    <p class="text-sm text-slate-600 mt-2"><span class="inline-block px-2 py-1 bg-slate-100 text-xs rounded font-semibold text-slate-700">Treatment</span> Metronidazole (Flagyl)</p>
+                                </div>
+                                <div class="relative pl-4 border-l-2 border-rose-200">
+                                    <h4 class="font-bold text-slate-800">Candidiasis</h4>
+                                    <p class="text-sm text-slate-600 mt-1"><strong>Pathogen:</strong> <em>Candida albicans</em> (Fungal)</p>
+                                    <p class="text-sm text-slate-600"><strong>Signs:</strong> Thick, white, cheese-like vaginal patches.</p>
+                                    <p class="text-sm text-slate-600 mt-2"><span class="inline-block px-2 py-1 bg-slate-100 text-xs rounded font-semibold text-slate-700">Treatment</span> Nystatin / Antifungals</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Systemic/Viral Infections -->
+                        <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+                            <div class="bg-orange-50 px-6 py-4 border-b border-orange-100">
+                                <h3 class="text-lg font-bold text-orange-900">Systemic & Viral Infections</h3>
+                            </div>
+                            <div class="p-6">
+                                <ul class="divide-y divide-slate-100">
+                                    <li class="py-3">
+                                        <div class="flex items-start">
+                                            <span class="w-24 flex-shrink-0 font-bold text-slate-800 text-sm">Hepatitis A & B</span>
+                                            <span class="text-sm text-slate-600">Viral liver infections. Hep B can be transmitted vertically; neonates receive HBIG and vaccine at birth.</span>
+                                        </div>
+                                    </li>
+                                    <li class="py-3">
+                                        <div class="flex items-start">
+                                            <span class="w-24 flex-shrink-0 font-bold text-slate-800 text-sm">HIV</span>
+                                            <span class="text-sm text-slate-600">Risk of vertical transmission (mother to child). Managed with antiretroviral therapy (ART) during pregnancy.</span>
+                                        </div>
+                                    </li>
+                                    <li class="py-3">
+                                        <div class="flex items-start">
+                                            <span class="w-24 flex-shrink-0 font-bold text-slate-800 text-sm">Syphilis</span>
+                                            <span class="text-sm text-slate-600">Bacterial infection crossing the placenta after 16 weeks, causing congenital syphilis. Treated with Penicillin.</span>
+                                        </div>
+                                    </li>
+                                    <li class="py-3">
+                                        <div class="flex items-start">
+                                            <span class="w-24 flex-shrink-0 font-bold text-slate-800 text-sm">Rubella</span>
+                                            <span class="text-sm text-slate-600">German Measles. Highly teratogenic in the 1st trimester. Classic fetal defect: <strong>Congenital Heart Disease</strong> (also cataracts, deafness).</span>
+                                        </div>
+                                    </li>
+                                    <li class="py-3">
+                                        <div class="flex items-start">
+                                            <span class="w-24 flex-shrink-0 font-bold text-slate-800 text-sm">Cytomegalovirus</span>
+                                            <span class="text-sm text-slate-600">Often asymptomatic in the mother, but can cause severe fetal malformation, microcephaly, and neurological damage.</span>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 4: Childbirth Preparation -->
+                <section id="preparation" class="mb-16 scroll-mt-24">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-8 h-8 rounded-md bg-sky-600 text-white flex items-center justify-center font-bold">4</div>
+                        <h2 class="text-2xl md:text-3xl font-bold text-slate-900">Childbirth Preparation</h2>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <!-- Physical Exercises -->
+                        <div>
+                            <h3 class="text-xl font-semibold text-slate-800 mb-4 border-b border-slate-200 pb-2">Physical Exercises</h3>
+                            <div class="space-y-4">
+                                <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex items-start gap-3">
+                                    <div class="w-8 h-8 rounded bg-teal-100 text-teal-600 flex items-center justify-center flex-shrink-0">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-slate-800 text-sm">Kegel's Exercise</h4>
+                                        <p class="text-xs text-slate-600 mt-1">Strengthens the pubococcygeal muscle, preventing urinary incontinence and aiding in delivery.</p>
+                                    </div>
+                                </div>
+                                <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex items-start gap-3">
+                                    <div class="w-8 h-8 rounded bg-teal-100 text-teal-600 flex items-center justify-center flex-shrink-0">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path></svg>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-slate-800 text-sm">Pelvic Rocking / Tilt</h4>
+                                        <p class="text-xs text-slate-600 mt-1">Specifically aimed at relieving lower back pain caused by lordosis.</p>
+                                    </div>
+                                </div>
+                                <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex items-start gap-3">
+                                    <div class="w-8 h-8 rounded bg-teal-100 text-teal-600 flex items-center justify-center flex-shrink-0">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-slate-800 text-sm">Other Exercises</h4>
+                                        <p class="text-xs text-slate-600 mt-1">Tailor sitting (stretches perineum), Abdominal exercises, and Shoulder circling (relieves chest tension).</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Psychophysical Preparation -->
+                        <div>
+                            <h3 class="text-xl font-semibold text-slate-800 mb-4 border-b border-slate-200 pb-2">Psychophysical Preparation</h3>
+                            <div class="bg-blue-50 rounded-xl p-6 border border-blue-100 h-full">
+                                <h4 class="text-lg font-bold text-blue-900 mb-3">Bradley Method</h4>
+                                <p class="text-sm text-blue-800 mb-4">Often referred to as husband-coached childbirth, this method emphasizes a natural approach.</p>
+                                <ul class="space-y-3">
+                                    <li class="flex items-start gap-2 text-sm text-blue-900">
+                                        <svg class="w-5 h-5 text-blue-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                                        <strong>"Imitations of nature":</strong> Relies on natural breathing and relaxation techniques.
+                                    </li>
+                                    <li class="flex items-start gap-2 text-sm text-blue-900">
+                                        <svg class="w-5 h-5 text-blue-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                                        <strong>Active Husband/Partner Participation:</strong> The partner acts as the primary coach.
+                                    </li>
+                                    <li class="flex items-start gap-2 text-sm text-blue-900">
+                                        <svg class="w-5 h-5 text-blue-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                                        <strong>Environment:</strong> Prefers a darkly lighted, quiet room to enhance relaxation and inward focus.
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <footer class="mt-20 pt-8 border-t border-slate-200 text-center text-slate-500 text-sm">
+                    <p>Maternal and Child Health E-Learning Module. Developed for nursing & medical students.</p>
+                </footer>
+
+            </div>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Mobile Menu Toggle
+            const btn = document.getElementById('mobile-menu-btn');
+            const sidebar = document.getElementById('sidebar');
+            
+            btn.addEventListener('click', () => {
+                sidebar.classList.toggle('hidden');
+                sidebar.classList.toggle('absolute');
+                sidebar.classList.toggle('z-40');
+                sidebar.classList.toggle('h-screen');
+            });
+
+            // Intersection Observer for Active Nav Linking
+            const sections = document.querySelectorAll('section');
+            const navItems = document.querySelectorAll('.nav-item');
+
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px 0px -60% 0px', // Trigger when section is near top
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Remove active class from all
+                        navItems.forEach(item => item.classList.remove('active'));
+                        // Add active class to corresponding nav item
+                        const id = entry.target.getAttribute('id');
+                        const activeLink = document.querySelector(`.nav-item[href="#${id}"]`);
+                        if(activeLink) activeLink.classList.add('active');
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+            
+            // Set first section active by default
+            if(navItems.length > 0) {
+                navItems[0].classList.add('active');
+            }
+        });
+    </script>
+</body>
+</html>

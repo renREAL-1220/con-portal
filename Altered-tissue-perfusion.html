@@ -1,0 +1,1419 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit 6: Nursing Care of Clients with Altered Tissue Perfusion</title>
+    <!-- Chosen Palette: Warm Clinical Neutrals & Slate (Background: #F8FAFC / #FAF9F6, Slate: #0F172A, Primary: #1E3A8A, Accent: #DC2626, Emerald: #059669, Amber: #D97706) -->
+    <!-- Application Structure Plan:
+        1. Navigation Bar: Persistent controls for Slide View, Deep-Dive Reader, Dashboard Tools, and Quiz Lab; slide progress tracker; theme toggle.
+        2. Presentation Deck View (Interactive Slides): 10 core clinical modules formatted as lecture slides with bulleted key concepts, interactive expanders, clinical callouts, and key diagrams.
+        3. Slide Navigation System: Next/Prev, Jump-to-Slide menu, Keyboard arrows, full-screen capability, slide grid preview mode.
+        4. Interactive Diagnostic & Hemodynamic Tools:
+           - Interactive Dysrhythmia & CO Simulator (Chart.js)
+           - The 6 Ps Acute Limb Ischemia Bedside Assessment Matrix
+           - Tripartite Clinical Assessment Wizard
+           - Left vs. Right Heart Failure Dynamic Symptom Sorter
+           - Ischemic Cascade & Necrosis Timeline Chart (Chart.js)
+        5. NCLEX-Style Review & Clinical Scenario Quiz Lab: Immediate feedback, score tracking, detailed rationale for nursing students.
+    -->
+    <!-- Visualization & Content Choices:
+        - Chart.js Line Chart: Ischemic Viability vs Time Loss Continuum
+        - Chart.js Bar & Combination Chart: Heart Rate vs Stroke Volume & Cardiac Output Impact
+        - Chart.js Doughnut Chart: Target Organ Injury Distribution in Hypertensive Crisis
+        - Chart.js Radar Chart: Hemodynamic Profile Comparisons (Normal vs Cardiogenic Shock vs LHF vs RHF)
+        - Unicode / Styled HTML Cards for diagrams, flow charts, and clinical matrixes.
+        - STRICT COMPLIANCE: NO SVG graphics used. NO Mermaid JS used. All visuals rendered via standard Canvas / HTML / CSS / Tailwind.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        clinical: {
+                            50: '#f8fafc',
+                            100: '#f1f5f9',
+                            200: '#e2e8f0',
+                            700: '#334155',
+                            800: '#1e293b',
+                            900: '#0f172a',
+                            navy: '#1e3a8a',
+                            crimson: '#dc2626',
+                            emerald: '#059669',
+                            amber: '#d97706',
+                            slate: '#475569'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 650px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 320px;
+            max-height: 380px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .slide-transition {
+            transition: all 0.3s ease-in-out;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased min-h-screen flex flex-col justify-between selection:bg-blue-200 selection:text-blue-900">
+
+    <!-- TOP HEADER / CONTROL BAR -->
+    <header class="sticky top-0 z-50 bg-slate-900 text-white shadow-md border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-9 h-9 rounded-lg bg-blue-600 flex items-center justify-center font-bold text-lg text-white shadow-inner">
+                    🫀
+                </div>
+                <div>
+                    <h1 class="text-sm sm:text-base font-bold tracking-tight text-white leading-tight">Unit 6: Altered Tissue Perfusion</h1>
+                    <p class="text-xs text-slate-400 hidden sm:block">Clinical Pathophysiology & Advanced Nursing Management</p>
+                </div>
+            </div>
+
+            <!-- VIEW MODE TABS -->
+            <div class="flex items-center space-x-1 sm:space-x-2 bg-slate-800 p-1 rounded-lg text-xs font-medium">
+                <button id="btn-view-slides" onclick="switchView('slides')" class="px-3 py-1.5 rounded-md text-white bg-blue-600 shadow transition-all">
+                    📺 Slides
+                </button>
+                <button id="btn-view-grid" onclick="switchView('grid')" class="px-3 py-1.5 rounded-md text-slate-300 hover:text-white hover:bg-slate-700 transition-all">
+                    🪟 Overview
+                </button>
+                <button id="btn-view-tools" onclick="switchView('tools')" class="px-3 py-1.5 rounded-md text-slate-300 hover:text-white hover:bg-slate-700 transition-all">
+                    ⚡ Tools & Simulation
+                </button>
+                <button id="btn-view-quiz" onclick="switchView('quiz')" class="px-3 py-1.5 rounded-md text-slate-300 hover:text-white hover:bg-slate-700 transition-all">
+                    📝 NCLEX Quiz
+                </button>
+            </div>
+        </div>
+
+        <!-- PROGRESS BAR FOR SLIDE DECK -->
+        <div id="slide-progress-container" class="w-full bg-slate-800 h-1.5">
+            <div id="slide-progress-bar" class="bg-blue-500 h-1.5 transition-all duration-300" style="width: 10%;"></div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+
+        <!-- VIEW 1: PRESENTATION SLIDE DECK VIEW -->
+        <section id="view-slides" class="block space-y-6">
+            
+            <!-- SLIDE DECK CONTROL BAR -->
+            <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200 flex flex-wrap items-center justify-between gap-4">
+                <div class="flex items-center space-x-2">
+                    <button onclick="prevSlide()" class="px-3.5 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-sm rounded-lg border border-slate-300 transition flex items-center gap-1">
+                        ◀ Previous
+                    </button>
+                    <button onclick="nextSlide()" class="px-3.5 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm rounded-lg shadow transition flex items-center gap-1">
+                        Next ▶
+                    </button>
+                    <span class="text-xs sm:text-sm font-semibold text-slate-600 px-2">
+                        Slide <span id="current-slide-num" class="text-blue-600 font-bold">1</span> of <span id="total-slides-num">10</span>
+                    </span>
+                </div>
+
+                <!-- SLIDE JUMP SELECTOR -->
+                <div class="flex items-center space-x-2 w-full sm:w-auto">
+                    <label for="slide-select" class="text-xs font-semibold text-slate-500 uppercase tracking-wider hidden sm:inline">Jump to:</label>
+                    <select id="slide-select" onchange="goToSlide(parseInt(this.value))" class="bg-slate-50 border border-slate-300 text-slate-800 text-xs sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2 font-medium w-full sm:w-auto">
+                        <option value="1">1. Fundamentals & The Perfusion Triad</option>
+                        <option value="2">2. Acute Ischemic Heart Disease & Cascade</option>
+                        <option value="3">3. Angina Pectoris vs. Myocardial Infarction</option>
+                        <option value="4">4. Heart Failure: Forward vs. Backward Mechanics</option>
+                        <option value="5">5. Left vs. Right Heart Failure Diagnostics</option>
+                        <option value="6">6. Cardiogenic Shock & Multi-Organ Assessment</option>
+                        <option value="7">7. Peripheral Arterial Disease & The 6 Ps</option>
+                        <option value="8">8. Hypertensive Crises & Target Organ Damage</option>
+                        <option value="9">9. Cardiomyopathies & Dysrhythmias</option>
+                        <option value="10">10. Diagnostic Protocols & Tripartite Nursing Matrix</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- SLIDE DISPLAY CARD -->
+            <div id="slide-container" class="bg-white rounded-2xl shadow-md border border-slate-200 min-h-[580px] p-6 sm:p-10 flex flex-col justify-between relative overflow-hidden">
+                <!-- Dynamic Slide Content Injected Here by JS -->
+            </div>
+
+            <!-- SLIDE KEYBOARD HINT FOOTER -->
+            <div class="text-center text-xs text-slate-400 py-1">
+                💡 Tip: Use Left (◀) and Right (▶) arrow keys on your keyboard to navigate slides.
+            </div>
+        </section>
+
+        <!-- VIEW 2: OVERVIEW / ALL SLIDES GRID -->
+        <section id="view-grid" class="hidden space-y-6">
+            <div class="bg-slate-900 text-white p-6 rounded-2xl shadow-sm">
+                <h2 class="text-2xl font-bold">Module Overview & Slide Index</h2>
+                <p class="text-slate-300 text-sm mt-1">Select any module card below to jump directly to its slide presentation or review key highlights.</p>
+            </div>
+            <div id="grid-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Dynamic Grid Cards Injected Here -->
+            </div>
+        </section>
+
+        <!-- VIEW 3: INTERACTIVE TOOLS & CLINICAL SIMULATIONS -->
+        <section id="view-tools" class="hidden space-y-8">
+            <div class="bg-slate-900 text-white p-6 rounded-2xl shadow-sm">
+                <h2 class="text-2xl font-bold">Clinical Simulation & Interactive Decision Tools</h2>
+                <p class="text-slate-300 text-sm mt-1">Interactive hemodynamic calculators, rapid assessment decision matrixes, and cardiac physiology models based on Unit 6 lecture content.</p>
+            </div>
+
+            <!-- TOOL 1: 3-QUESTION TRIPARTITE NURSING ASSESSMENT WIZARD -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                <div class="border-b border-slate-200 pb-4 mb-4">
+                    <span class="bg-blue-100 text-blue-800 text-xs font-bold px-2.5 py-1 rounded-full uppercase">Tool 1: Bedside Assessment</span>
+                    <h3 class="text-xl font-bold text-slate-900 mt-2">Tripartite Clinical Assessment Diagnostic Wizard</h3>
+                    <p class="text-xs sm:text-sm text-slate-600">Answer the three fundamental questions of cardiac nursing to evaluate patient stability and identify primary failure domain.</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <!-- Step 1: Pump -->
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                        <h4 class="font-bold text-blue-900 text-sm flex items-center gap-2">
+                            <span>1. Is the Heart Pumping Effectively?</span>
+                        </h4>
+                        <p class="text-xs text-slate-500 mt-1">Check current hemodynamic indicators:</p>
+                        <div class="mt-3 space-y-2">
+                            <label class="block text-xs font-semibold text-slate-700">Systolic Blood Pressure (mmHg)</label>
+                            <input type="number" id="wiz-sbp" value="120" class="w-full text-xs p-2 border rounded-md" oninput="calculateTripartite()">
+                            
+                            <label class="block text-xs font-semibold text-slate-700">Heart Rate (bpm)</label>
+                            <input type="number" id="wiz-hr" value="78" class="w-full text-xs p-2 border rounded-md" oninput="calculateTripartite()">
+                            
+                            <label class="block text-xs font-semibold text-slate-700">Heart Rhythm & Sounds</label>
+                            <select id="wiz-rhythm" class="w-full text-xs p-2 border rounded-md" onchange="calculateTripartite()">
+                                <option value="normal">Normal Sinus Rhythm / Clear S1+S2</option>
+                                <option value="s3">S3 Gallop Present (LV Dysfunction)</option>
+                                <option value="afib">Atrial Fibrillation / Irregular</option>
+                                <option value="vtach">Sustained Ventricular Tachycardia</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Vessels / Delivery -->
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                        <h4 class="font-bold text-blue-900 text-sm flex items-center gap-2">
+                            <span>2. Is Blood Reaching the Tissues?</span>
+                        </h4>
+                        <p class="text-xs text-slate-500 mt-1">Check peripheral arterial perfusion:</p>
+                        <div class="mt-3 space-y-2">
+                            <label class="block text-xs font-semibold text-slate-700">Peripheral Pulses</label>
+                            <select id="wiz-pulses" class="w-full text-xs p-2 border rounded-md" onchange="calculateTripartite()">
+                                <option value="2">Normal (2+ Palpable)</option>
+                                <option value="1">Weak / Thready (1+)</option>
+                                <option value="0">Absent (0 - Doppler only)</option>
+                            </select>
+
+                            <label class="block text-xs font-semibold text-slate-700">Capillary Refill Time</label>
+                            <select id="wiz-cap" class="w-full text-xs p-2 border rounded-md" onchange="calculateTripartite()">
+                                <option value="normal">Brisk (&lt; 2 seconds)</option>
+                                <option value="delayed">Delayed (&gt; 3 seconds)</option>
+                            </select>
+
+                            <label class="block text-xs font-semibold text-slate-700">Hourly Urine Output (mL/hr)</label>
+                            <input type="number" id="wiz-urine" value="45" class="w-full text-xs p-2 border rounded-md" oninput="calculateTripartite()">
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Cellular Oxygenation -->
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                        <h4 class="font-bold text-blue-900 text-sm flex items-center gap-2">
+                            <span>3. Are Tissues Receiving Oxygen?</span>
+                        </h4>
+                        <p class="text-xs text-slate-500 mt-1">Check systemic metabolic status:</p>
+                        <div class="mt-3 space-y-2">
+                            <label class="block text-xs font-semibold text-slate-700">SpO2 Oxygen Saturation (%)</label>
+                            <input type="number" id="wiz-spo2" value="98" class="w-full text-xs p-2 border rounded-md" oninput="calculateTripartite()">
+
+                            <label class="block text-xs font-semibold text-slate-700">Mental Status / CNS</label>
+                            <select id="wiz-cns" class="w-full text-xs p-2 border rounded-md" onchange="calculateTripartite()">
+                                <option value="alert">Alert & Oriented x4</option>
+                                <option value="restless">Restless / Anxious / Mild Confusion</option>
+                                <option value="lethargic">Lethargic / Stuporous / Severe Hypoxia</option>
+                            </select>
+
+                            <label class="block text-xs font-semibold text-slate-700">Chest Discomfort / Angina</label>
+                            <select id="wiz-pain" class="w-full text-xs p-2 border rounded-md" onchange="calculateTripartite()">
+                                <option value="none">No Pain / Comfortable</option>
+                                <option value="ischemic">Active Ischemic Chest Discomfort</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- WIZARD OUTPUT RESULTS BOX -->
+                <div id="wiz-results" class="mt-6 p-4 rounded-xl bg-blue-50 border border-blue-200">
+                    <div class="flex items-center justify-between">
+                        <h4 class="font-bold text-blue-900 text-base">Assessment Diagnosis & Action Plan</h4>
+                        <span id="wiz-status-badge" class="bg-emerald-600 text-white font-bold text-xs px-3 py-1 rounded-full">Systemic Perfusion Adequate</span>
+                    </div>
+                    <p id="wiz-summary-text" class="text-xs sm:text-sm text-slate-700 mt-2">
+                        Parameters indicate stable hemodynamic equilibrium. Heart pump function, peripheral delivery, and tissue oxygenation are preserved.
+                    </p>
+                    <div id="wiz-recommendations" class="mt-3 text-xs text-blue-800 font-medium bg-white p-3 rounded-lg border border-blue-100">
+                        • Continue routine monitoring of vital signs every 4 hours.<br>
+                        • Re-evaluate urine output trends and pulse character.
+                    </div>
+                </div>
+            </div>
+
+            <!-- TOOL 2: DYSRHYTHMIA & CARDIAC OUTPUT SIMULATOR -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div>
+                    <span class="bg-purple-100 text-purple-800 text-xs font-bold px-2.5 py-1 rounded-full uppercase">Tool 2: Physiology Simulator</span>
+                    <h3 class="text-xl font-bold text-slate-900 mt-2">Heart Rate vs. Stroke Volume Hemodynamic Model</h3>
+                    <p class="text-xs text-slate-600 mt-1 mb-4">
+                        Formula: <strong class="text-slate-800">Cardiac Output ($CO$) = Stroke Volume ($SV$) × Heart Rate ($HR$)</strong>.<br>
+                        Note how extreme tachycardia severely curtails diastolic filling time, dropping stroke volume and overall perfusion!
+                    </p>
+
+                    <div class="space-y-4 bg-slate-50 p-4 rounded-xl border border-slate-200">
+                        <div>
+                            <div class="flex justify-between text-xs font-semibold mb-1">
+                                <span>Heart Rate (HR): <span id="sim-hr-val" class="text-blue-600 font-bold">75 bpm</span></span>
+                                <span id="sim-hr-label" class="text-emerald-600 font-bold">Normal Rate</span>
+                            </div>
+                            <input type="range" id="sim-hr-slider" min="30" max="180" value="75" step="5" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer" oninput="updateCoSimulator()">
+                        </div>
+
+                        <div class="grid grid-cols-3 gap-2 text-center pt-2">
+                            <div class="bg-white p-2 rounded border">
+                                <span class="text-[10px] uppercase text-slate-500 font-bold block">Stroke Volume</span>
+                                <span id="sim-sv-disp" class="text-base font-bold text-slate-800">70 mL</span>
+                            </div>
+                            <div class="bg-white p-2 rounded border">
+                                <span class="text-[10px] uppercase text-slate-500 font-bold block">Est. Cardiac Output</span>
+                                <span id="sim-co-disp" class="text-base font-bold text-blue-600">5.25 L/min</span>
+                            </div>
+                            <div class="bg-white p-2 rounded border">
+                                <span class="text-[10px] uppercase text-slate-500 font-bold block">Diastolic Fill Time</span>
+                                <span id="sim-fill-disp" class="text-base font-bold text-slate-800">0.53 sec</span>
+                            </div>
+                        </div>
+
+                        <div id="sim-physio-note" class="text-xs text-slate-600 bg-white p-3 rounded border border-slate-200">
+                            At normal resting rates (60–100 bpm), diastole is sufficiently long to permit full ventricular filling and coronary artery perfusion.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CHART CONTAINER FOR CO SIMULATOR -->
+                <div class="flex flex-col justify-center">
+                    <h4 class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2 text-center">Hemodynamic Response Curve</h4>
+                    <div class="chart-container">
+                        <canvas id="coChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TOOL 3: ACUTE ARTERIAL OCCLUSION "6 Ps" DIAGNOSTIC CHECKLIST -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                <div class="border-b border-slate-200 pb-4 mb-4">
+                    <span class="bg-crimson-100 text-red-800 text-xs font-bold px-2.5 py-1 rounded-full uppercase bg-red-100">Tool 3: Emergency Matrix</span>
+                    <h3 class="text-xl font-bold text-slate-900 mt-2">The 6 Ps Bedside Rapid Assessment Checklist</h3>
+                    <p class="text-xs sm:text-sm text-slate-600">Acute arterial occlusion requires urgent evaluation to prevent limb loss. Select present findings:</p>
+                </div>
+
+                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+                    <label class="flex flex-col items-center justify-between p-3 border rounded-xl bg-slate-50 cursor-pointer hover:bg-slate-100 transition text-center">
+                        <input type="checkbox" id="p-pain" class="mb-2 w-4 h-4 text-red-600 rounded" onchange="assess6Ps()">
+                        <span class="text-xs font-bold text-slate-900">1. Pain</span>
+                        <span class="text-[10px] text-slate-500 mt-1">Sudden, severe, unalleviated</span>
+                    </label>
+
+                    <label class="flex flex-col items-center justify-between p-3 border rounded-xl bg-slate-50 cursor-pointer hover:bg-slate-100 transition text-center">
+                        <input type="checkbox" id="p-pallor" class="mb-2 w-4 h-4 text-red-600 rounded" onchange="assess6Ps()">
+                        <span class="text-xs font-bold text-slate-900">2. Pallor</span>
+                        <span class="text-[10px] text-slate-500 mt-1">Chalk-white distal skin</span>
+                    </label>
+
+                    <label class="flex flex-col items-center justify-between p-3 border rounded-xl bg-slate-50 cursor-pointer hover:bg-slate-100 transition text-center">
+                        <input type="checkbox" id="p-pulseless" class="mb-2 w-4 h-4 text-red-600 rounded" onchange="assess6Ps()">
+                        <span class="text-xs font-bold text-slate-900">3. Pulselessness</span>
+                        <span class="text-[10px] text-slate-500 mt-1">Absent pulse distal to occlusion</span>
+                    </label>
+
+                    <label class="flex flex-col items-center justify-between p-3 border rounded-xl bg-slate-50 cursor-pointer hover:bg-slate-100 transition text-center">
+                        <input type="checkbox" id="p-paresthesia" class="mb-2 w-4 h-4 text-red-600 rounded" onchange="assess6Ps()">
+                        <span class="text-xs font-bold text-slate-900">4. Paresthesia</span>
+                        <span class="text-[10px] text-slate-500 mt-1">Numbness & tingling</span>
+                    </label>
+
+                    <label class="flex flex-col items-center justify-between p-3 border rounded-xl bg-slate-50 cursor-pointer hover:bg-slate-100 transition text-center">
+                        <input type="checkbox" id="p-paralysis" class="mb-2 w-4 h-4 text-red-600 rounded" onchange="assess6Ps()">
+                        <span class="text-xs font-bold text-slate-900">5. Paralysis</span>
+                        <span class="text-[10px] text-slate-500 mt-1">Inability to move digits (Advanced)</span>
+                    </label>
+
+                    <label class="flex flex-col items-center justify-between p-3 border rounded-xl bg-slate-50 cursor-pointer hover:bg-slate-100 transition text-center">
+                        <input type="checkbox" id="p-poikilo" class="mb-2 w-4 h-4 text-red-600 rounded" onchange="assess6Ps()">
+                        <span class="text-xs font-bold text-slate-900">6. Poikilothermia</span>
+                        <span class="text-[10px] text-slate-500 mt-1">Distal extremity cold to touch</span>
+                    </label>
+                </div>
+
+                <div id="p-result-box" class="mt-4 p-4 rounded-xl bg-slate-100 border border-slate-300">
+                    <span class="text-xs font-bold uppercase text-slate-500 block">Assessment Result:</span>
+                    <h4 id="p-result-title" class="text-base font-bold text-slate-800 mt-1">No Acute Occlusion Indicated</h4>
+                    <p id="p-result-desc" class="text-xs text-slate-600 mt-1">Select the presence of signs above to calculate urgency and immediate nursing action priority.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- VIEW 4: NCLEX-STYLE REVIEW & QUIZ LAB -->
+        <section id="view-quiz" class="hidden space-y-6">
+            <div class="bg-slate-900 text-white p-6 rounded-2xl shadow-sm flex flex-wrap justify-between items-center gap-4">
+                <div>
+                    <h2 class="text-2xl font-bold">NCLEX Clinical Practice & Knowledge Check</h2>
+                    <p class="text-slate-300 text-sm mt-1">Test your mastery of Unit 6 pathophysiologic concepts, hemodynamic diagnostics, and nursing interventions.</p>
+                </div>
+                <div class="bg-slate-800 px-4 py-2 rounded-xl text-center border border-slate-700">
+                    <span class="text-xs text-slate-400 block uppercase font-bold">Score</span>
+                    <span id="quiz-score" class="text-2xl font-bold text-blue-400">0 / 0</span>
+                </div>
+            </div>
+
+            <!-- QUIZ CONTAINER CARD -->
+            <div class="bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-slate-200">
+                <div id="quiz-card-content">
+                    <!-- Dynamic Question Injected Here -->
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-900 text-slate-400 py-6 text-xs border-t border-slate-800 mt-12">
+        <div class="max-w-7xl mx-auto px-4 text-center sm:flex sm:justify-between sm:items-center space-y-2 sm:space-y-0">
+            <div>
+                <strong class="text-slate-200">Unit 6: Nursing Care of Clients with Altered Tissue Perfusion</strong> — Interactive Presentation & Diagnostic Suite
+            </div>
+            <div class="text-slate-500">
+                Designed for Nursing Education & Clinical Pathophysiology Review
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        /* -------------------------------------------------------------------------- */
+        /* DATA & SLIDE DEFINITIONS                                                  */
+        /* -------------------------------------------------------------------------- */
+        const slidesData = [
+            {
+                id: 1,
+                module: "MODULE 1",
+                title: "Fundamentals of Tissue Perfusion & The Triadic System",
+                subtitle: "Core Mechanisms, Physiological Triad, and Ischemic Cascade",
+                content: `
+                    <div class="space-y-6">
+                        <p class="text-sm sm:text-base text-slate-700 leading-relaxed">
+                            <strong>Tissue perfusion</strong> is the fundamental physiological process delivering oxygenated blood, glucose, and essential substrates to metabolic tissues while removing cellular waste products. Systemic hemodynamic stability demands continuous, coordinated balance across a triadic cardiovascular structure:
+                        </p>
+
+                        <!-- TRIAD GRID CARD -->
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div class="bg-blue-50 p-4 rounded-xl border border-blue-200">
+                                <div class="text-2xl mb-1">🫀</div>
+                                <h4 class="font-bold text-blue-900 text-sm">1. The Heart (Pump)</h4>
+                                <p class="text-xs text-slate-600 mt-2">Generates kinetic pressure gradients and forward stroke volume to propel oxygenated blood into systemic arterial conduits.</p>
+                            </div>
+                            <div class="bg-amber-50 p-4 rounded-xl border border-amber-200">
+                                <div class="text-2xl mb-1">🫁</div>
+                                <h4 class="font-bold text-amber-900 text-sm">2. Blood Vessels (Conduits)</h4>
+                                <p class="text-xs text-slate-600 mt-2">Regulates systemic vascular resistance (SVR), arterial compliance, and localized capillary sphincter tone to direct distribution.</p>
+                            </div>
+                            <div class="bg-emerald-50 p-4 rounded-xl border border-emerald-200">
+                                <div class="text-2xl mb-1">🩸</div>
+                                <h4 class="font-bold text-emerald-900 text-sm">3. Circulating Blood (Volume)</h4>
+                                <p class="text-xs text-slate-600 mt-2">Serves as the vital vehicle containing hemoglobin-bound oxygen and substrates required for continuous aerobic ATP production.</p>
+                            </div>
+                        </div>
+
+                        <!-- PATHOPHYSIOLOGY FLOW -->
+                        <div class="bg-slate-900 text-white p-5 rounded-xl">
+                            <h4 class="font-bold text-xs uppercase tracking-widest text-blue-400 mb-2">The Cellular Hypoxia Cascade</h4>
+                            <div class="flex flex-wrap items-center justify-between text-xs gap-2 font-mono">
+                                <span class="bg-slate-800 px-2.5 py-1.5 rounded">Inadequate Blood Flow</span>
+                                <span>➔</span>
+                                <span class="bg-slate-800 px-2.5 py-1.5 rounded">Cellular Hypoxia</span>
+                                <span>➔</span>
+                                <span class="bg-slate-800 px-2.5 py-1.5 rounded text-amber-300">Anaerobic Glycolysis</span>
+                                <span>➔</span>
+                                <span class="bg-slate-800 px-2.5 py-1.5 rounded text-red-400">Lactic Acidosis & Cell Death</span>
+                            </div>
+                        </div>
+
+                        <!-- CLINICAL ANALOGY CALLOUT -->
+                        <div class="bg-slate-50 border-l-4 border-blue-600 p-4 rounded-r-xl">
+                            <h5 class="text-xs font-bold text-blue-900 uppercase">Core Clinical Analogy</h5>
+                            <p class="text-xs text-slate-700 mt-1">
+                                Think of a hospital water supply system: <strong>The Central Pump = Heart</strong>, <strong>Pipes = Arteries/Vessels</strong>, and <strong>Water = Intravascular Volume</strong>. If pump pressure collapses, pipes clog, or water runs dry, distant hospital rooms (systemic tissue beds) face immediate failure.
+                            </p>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 2,
+                module: "MODULE 2",
+                title: "Acute Ischemic Heart Disease & Ischemic Cascade",
+                subtitle: "Pathophysiology of Coronary Plaque Rupture & Tissue Viability",
+                content: `
+                    <div class="space-y-6">
+                        <p class="text-sm text-slate-700 leading-relaxed">
+                            <strong>Acute Ischemic Heart Disease</strong> occurs when coronary arterial blood flow fails to satisfy myocardial oxygen demand. Because cardiac myocytes rely almost exclusively on aerobic respiration, sudden blood supply interruption triggers immediate mechanical and electrical decompensation.
+                        </p>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- PATHOPHYSIOLOGY STEPPER -->
+                            <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                                <h4 class="font-bold text-slate-900 text-sm mb-3">Coronary Occlusion Progression</h4>
+                                <ol class="space-y-2 text-xs text-slate-700 font-medium">
+                                    <li class="flex items-start gap-2">
+                                        <span class="bg-blue-600 text-white font-bold w-5 h-5 rounded-full flex items-center justify-center text-[10px] shrink-0">1</span>
+                                        <span>Subendothelial lipid deposition creates coronary atherosclerotic plaque.</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <span class="bg-blue-600 text-white font-bold w-5 h-5 rounded-full flex items-center justify-center text-[10px] shrink-0">2</span>
+                                        <span>Hemodynamic stress or inflammation triggers plaque rupture or erosion.</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <span class="bg-blue-600 text-white font-bold w-5 h-5 rounded-full flex items-center justify-center text-[10px] shrink-0">3</span>
+                                        <span>Exposed collagen induces immediate platelet adhesion and aggregation.</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <span class="bg-blue-600 text-white font-bold w-5 h-5 rounded-full flex items-center justify-center text-[10px] shrink-0">4</span>
+                                        <span>Thrombus formation occludes vessel lumen ➔ Myocardial Ischemia.</span>
+                                    </li>
+                                </ol>
+                            </div>
+
+                            <!-- CHART CONTAINER FOR ISCHEMIA VS INFARCTION -->
+                            <div class="bg-white p-3 rounded-xl border border-slate-200 flex flex-col justify-center">
+                                <h4 class="text-xs font-bold text-slate-600 text-center mb-1">Tissue Viability vs. Time Loss Continuum</h4>
+                                <div class="chart-container">
+                                    <canvas id="ischemicChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- KEY DIFFERENCER BOX -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+                            <div class="p-3 bg-amber-50 border border-amber-300 rounded-lg">
+                                <strong class="text-amber-900 text-sm block mb-1">Reversible Myocardial Ischemia</strong>
+                                <p class="text-slate-700">Transient supply-demand imbalance. Cell membranes remain intact. Immediate reperfusion restores complete contractility without necrosis.</p>
+                            </div>
+                            <div class="p-3 bg-red-50 border border-red-300 rounded-lg">
+                                <strong class="text-red-900 text-sm block mb-1">Irreversible Myocardial Infarction</strong>
+                                <p class="text-slate-700">Sustained complete occlusion (&gt;20–30 min). Intracellular ATP depletion leads to membrane collapse, irreversible cell death, and scar tissue.</p>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 3,
+                module: "MODULE 3",
+                title: "Angina Pectoris versus Myocardial Infarction",
+                subtitle: "Clinical Distinctions, Pain Characterization & Assessment Protocols",
+                content: `
+                    <div class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- ANGINA CARD -->
+                            <div class="bg-slate-50 p-5 rounded-xl border-t-4 border-amber-500 shadow-sm">
+                                <span class="bg-amber-100 text-amber-800 text-[10px] font-bold px-2 py-0.5 rounded uppercase">Transient Ischemia</span>
+                                <h3 class="text-lg font-bold text-slate-900 mt-1">Angina Pectoris</h3>
+                                <ul class="mt-3 space-y-2 text-xs text-slate-700">
+                                    <li class="flex items-center gap-1.5"><span>⚡</span> <strong>Cause:</strong> Temporary mismatch between myocardial $O_2$ demand and supply.</li>
+                                    <li class="flex items-center gap-1.5"><span>⏱️</span> <strong>Onset:</strong> Provoked by exertional stress, emotional distress, or cold.</li>
+                                    <li class="flex items-center gap-1.5"><span>🛑</span> <strong>Relief:</strong> Subsides with rest or sublingual Nitroglycerin ($NTG$).</li>
+                                    <li class="flex items-center gap-1.5"><span>🔬</span> <strong>Tissue Status:</strong> Ischemic but NO permanent tissue necrosis.</li>
+                                </ul>
+                            </div>
+
+                            <!-- MI CARD -->
+                            <div class="bg-slate-50 p-5 rounded-xl border-t-4 border-red-600 shadow-sm">
+                                <span class="bg-red-100 text-red-800 text-[10px] font-bold px-2 py-0.5 rounded uppercase">Permanent Necrosis</span>
+                                <h3 class="text-lg font-bold text-slate-900 mt-1">Myocardial Infarction (MI)</h3>
+                                <ul class="mt-3 space-y-2 text-xs text-slate-700">
+                                    <li class="flex items-center gap-1.5"><span>⚡</span> <strong>Cause:</strong> Prolonged coronary artery thrombus occlusion.</li>
+                                    <li class="flex items-center gap-1.5"><span>⏱️</span> <strong>Onset:</strong> Can occur at rest; unprovoked; continuous duration.</li>
+                                    <li class="flex items-center gap-1.5"><span>🛑</span> <strong>Relief:</strong> Unrelieved by rest or standard Nitroglycerin; requires reperfusion.</li>
+                                    <li class="flex items-center gap-1.5"><span>🔬</span> <strong>Tissue Status:</strong> Irreversible cell death & biomarker elevation (Troponin).</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- CHEST PAIN CLINICAL ASSESSMENT MATRIX -->
+                        <div class="bg-blue-900 text-white p-5 rounded-xl">
+                            <h4 class="font-bold text-sm text-blue-300 mb-2">Comprehensive Chest Pain Assessment Checklist (PQRST)</h4>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
+                                <div class="bg-blue-800/60 p-2.5 rounded border border-blue-700">
+                                    <strong class="text-blue-200 block">Quality & Character</strong>
+                                    Pressure, tightness, heaviness, squeezing, or indigestion-like burning.
+                                </div>
+                                <div class="bg-blue-800/60 p-2.5 rounded border border-blue-700">
+                                    <strong class="text-blue-200 block">Radiation Pattern</strong>
+                                    Radiates frequently to left arm, shoulder, neck, lower jaw, or epigastrium.
+                                </div>
+                                <div class="bg-blue-800/60 p-2.5 rounded border border-blue-700">
+                                    <strong class="text-blue-200 block">Autonomic Signs</strong>
+                                    Diaphoresis, cool clammy skin, pallor, extreme anxiety, sense of impending doom.
+                                </div>
+                                <div class="bg-blue-800/60 p-2.5 rounded border border-blue-700">
+                                    <strong class="text-blue-200 block">Associated Dyspnea</strong>
+                                    Elevated LV end-diastolic pressure backs into lungs ➔ Acute dyspnea.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 4,
+                module: "MODULE 4",
+                title: "Heart Failure: Forward vs. Backward Failure Dynamics",
+                subtitle: "Hemodynamic Mechanics of Ventricular Pump Dysfunction",
+                content: `
+                    <div class="space-y-6">
+                        <p class="text-sm text-slate-700 leading-relaxed">
+                            <strong>Heart Failure</strong> is a complex clinical syndrome resulting from structural or functional impairment of ventricular filling or ejection. Systemic decompensation is best understood by contrasting <strong>Forward Failure</strong> and <strong>Backward Failure</strong> mechanics.
+                        </p>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- FORWARD FAILURE -->
+                            <div class="bg-slate-50 p-5 rounded-xl border border-slate-200">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <span class="p-1.5 bg-blue-600 text-white rounded-lg text-xs font-bold">➡️</span>
+                                    <h4 class="font-bold text-slate-900 text-base">Forward Failure Mechanics</h4>
+                                </div>
+                                <p class="text-xs text-slate-600 mb-3">Failure of the ventricle to pump adequate stroke volume forward into the arterial tree.</p>
+                                <div class="bg-white p-3 rounded-lg border border-slate-200 space-y-1.5 text-xs text-slate-700">
+                                    <div><strong>Primary Outcome:</strong> Low Cardiac Output ($CO$) & Arterial Hypoperfusion.</div>
+                                    <div><strong>Key Manifestations:</strong>
+                                        <ul class="list-disc list-inside text-slate-600 mt-1">
+                                            <li>Profound fatigue and skeletal muscle weakness</li>
+                                            <li>Decreased renal arterial flow ➔ Oliguria & azotemia</li>
+                                            <li>Cool extremities and delayed capillary refill</li>
+                                            <li>Altered mental status (CNS hypoperfusion)</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- BACKWARD FAILURE -->
+                            <div class="bg-slate-50 p-5 rounded-xl border border-slate-200">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <span class="p-1.5 bg-amber-600 text-white rounded-lg text-xs font-bold">⬅️</span>
+                                    <h4 class="font-bold text-slate-900 text-base">Backward Failure Mechanics</h4>
+                                </div>
+                                <p class="text-xs text-slate-600 mb-3">Inability to empty diastolic volume, forcing blood to back up upstream into venous beds.</p>
+                                <div class="bg-white p-3 rounded-lg border border-slate-200 space-y-1.5 text-xs text-slate-700">
+                                    <div><strong>Primary Outcome:</strong> Elevated Venous Hydrostatic Pressure & Congestion.</div>
+                                    <div><strong>Key Manifestations:</strong>
+                                        <ul class="list-disc list-inside text-slate-600 mt-1">
+                                            <li>Pulmonary venous congestion & alveolar edema (LV failure)</li>
+                                            <li>Systemic venous stasis & JVD (RV failure)</li>
+                                            <li>Dependent pitting edema & ascites</li>
+                                            <li>Hepatosplenomegaly & visceral organ swelling</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- MEMORY RULE -->
+                        <div class="bg-blue-50 border border-blue-200 p-4 rounded-xl text-center">
+                            <span class="text-xs font-bold text-blue-900 uppercase tracking-widest block">Student Memory Rule</span>
+                            <span class="text-sm font-extrabold text-blue-700 mt-1 block">
+                                FORWARD = Not enough blood goes out to systemic tissues.<br>
+                                BACKWARD = Blood accumulates behind the failing chamber!
+                            </span>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 5,
+                module: "MODULE 5",
+                title: "Left-Sided vs. Right-Sided Heart Failure Assessment",
+                subtitle: "Anatomical Differentiation, Symptomatology & Daily Weight Monitoring Protocols",
+                content: `
+                    <div class="space-y-6">
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left border-collapse text-xs">
+                                <thead>
+                                    <tr class="bg-slate-900 text-white">
+                                        <th class="p-3 font-bold rounded-tl-lg">Clinical Feature</th>
+                                        <th class="p-3 font-bold bg-blue-800">Left-Sided Heart Failure (LHF)</th>
+                                        <th class="p-3 font-bold bg-amber-800 rounded-tr-lg">Right-Sided Heart Failure (RHF)</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-slate-200 bg-white border border-slate-200">
+                                    <tr>
+                                        <td class="p-3 font-bold text-slate-900 bg-slate-50">Primary Etiology</td>
+                                        <td class="p-3 text-slate-700">Ischemic heart disease, hypertension, LV cardiomyopathy.</td>
+                                        <td class="p-3 text-slate-700">Secondary to chronic LHF, pulmonary HTN, cor pulmonale.</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-3 font-bold text-slate-900 bg-slate-50">Dominant Symptoms</td>
+                                        <td class="p-3 text-slate-700">Exertional dyspnea, orthopnea, paroxysmal nocturnal dyspnea (PND).</td>
+                                        <td class="p-3 text-slate-700">Peripheral edema, abdominal fullness, early satiety, weight gain.</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-3 font-bold text-slate-900 bg-slate-50">Physical Exam</td>
+                                        <td class="p-3 text-slate-700">Bilateral lung crackles (rales), S3 gallop, pulmonary edema.</td>
+                                        <td class="p-3 text-slate-700">Jugular Venous Distention (JVD), pitting ankle edema, hepatomegaly.</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-3 font-bold text-slate-900 bg-slate-50">Primary Target Bed</td>
+                                        <td class="p-3 font-bold text-blue-700">PULMONARY CIRCULATION ("L = LUNG")</td>
+                                        <td class="p-3 font-bold text-amber-700">SYSTEMIC VENOUS BED ("R = REST OF BODY")</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- DAILY WEIGHT PROTOCOL CARD -->
+                        <div class="bg-emerald-50 border border-emerald-300 p-4 rounded-xl">
+                            <h4 class="font-bold text-emerald-900 text-sm flex items-center gap-2">
+                                <span>⚖️ Critical Nursing Protocol: Daily Volumetric Weight Monitoring</span>
+                            </h4>
+                            <p class="text-xs text-slate-700 mt-1">
+                                Sudden daily weight increase indicates fluid retention long before overt clinical edema appears (1 liter of retained fluid = ~1 kg / 2.2 lbs).
+                            </p>
+                            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs font-semibold text-emerald-900 mt-3 text-center">
+                                <div class="bg-white p-2 rounded border border-emerald-200">1. Same Scale Daily</div>
+                                <div class="bg-white p-2 rounded border border-emerald-200">2. Same Morning Time</div>
+                                <div class="bg-white p-2 rounded border border-emerald-200">3. After First Voiding</div>
+                                <div class="bg-white p-2 rounded border border-emerald-200">4. Track Trends over Time</div>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 6,
+                module: "MODULE 6",
+                title: "Cardiogenic Shock & Multi-Organ Assessment",
+                subtitle: "Severe Primary Pump Failure Cascade & Systemic Surveillance Priorities",
+                content: `
+                    <div class="space-y-6">
+                        <p class="text-sm text-slate-700 leading-relaxed">
+                            <strong>Cardiogenic Shock</strong> represents the end-stage collapse of cardiac pump performance. Severe reduction in stroke volume drops cardiac output below the minimal threshold required to maintain vital organ perfusion.
+                        </p>
+
+                        <!-- MULTI-ORGAN SYSTEMIC MAP -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                            <div class="bg-slate-900 text-white p-4 rounded-xl border border-slate-800">
+                                <span class="text-xs font-bold text-blue-400 uppercase">🧠 Central Nervous System</span>
+                                <h5 class="font-bold text-sm mt-1">Cerebral Hypoxia</h5>
+                                <p class="text-xs text-slate-300 mt-1">Restlessness, anxiety, confusion, lethargy, eventual coma due to diminished cerebral arterial flow.</p>
+                            </div>
+                            <div class="bg-slate-900 text-white p-4 rounded-xl border border-slate-800">
+                                <span class="text-xs font-bold text-amber-400 uppercase">🫘 Renal System</span>
+                                <h5 class="font-bold text-sm mt-1">Acute Kidney Injury</h5>
+                                <p class="text-xs text-slate-300 mt-1">Oliguria (&lt;30 mL/hr) and nitrogenous waste retention (BUN/Cr elevation) secondary to low GFR.</p>
+                            </div>
+                            <div class="bg-slate-900 text-white p-4 rounded-xl border border-slate-800">
+                                <span class="text-xs font-bold text-emerald-400 uppercase">🫁 Integumentary</span>
+                                <h5 class="font-bold text-sm mt-1">Sympathetic Shunting</h5>
+                                <p class="text-xs text-slate-300 mt-1">Cold, pale, clammy skin and severe diaphoresis as blood is diverted to core vital organs.</p>
+                            </div>
+                            <div class="bg-slate-900 text-white p-4 rounded-xl border border-slate-800">
+                                <span class="text-xs font-bold text-red-400 uppercase">🫀 Cardiovascular</span>
+                                <h5 class="font-bold text-sm mt-1">Circulatory Collapse</h5>
+                                <p class="text-xs text-slate-300 mt-1">Severe hypotension (SBP &lt;90 mmHg), compensatory sinus tachycardia, weak thready pulses.</p>
+                            </div>
+                        </div>
+
+                        <!-- PRIORITY NURSING ACTION CALLOUT -->
+                        <div class="bg-red-50 border-l-4 border-red-600 p-4 rounded-r-xl">
+                            <h4 class="text-xs font-bold text-red-900 uppercase">Critical Nursing Priority Question in Shock</h4>
+                            <p class="text-xs sm:text-sm text-red-950 font-bold mt-1">
+                                "Is sufficient blood and oxygen reaching the brain, heart, kidneys, and vital organs right now?"
+                            </p>
+                            <p class="text-xs text-slate-600 mt-1">
+                                Continuously monitor continuous Arterial Line BP, ECG rhythm, hourly urine output, SpO2, and mental status response to vasoactive infusions.
+                            </p>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 7,
+                module: "MODULE 7",
+                title: "Peripheral Arterial Disease & Acute Arterial Occlusion",
+                subtitle: "Claudication Mechanics & Emergency '6 Ps' Ischemia Assessment",
+                content: `
+                    <div class="space-y-6">
+                        <p class="text-sm text-slate-700 leading-relaxed">
+                            <strong>Peripheral Arterial Disease (PAD)</strong> is chronic narrowing of systemic non-coronary arteries (most commonly lower extremity vessels) driven by subintimal atherosclerotic plaque accumulation.
+                        </p>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- INTERMITTENT CLAUDICATION -->
+                            <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                                <h4 class="font-bold text-slate-900 text-sm mb-2">Intermittent Claudication Mechanism</h4>
+                                <div class="text-xs text-slate-700 space-y-2">
+                                    <p>1. <strong>At Rest:</strong> Narrowed artery delivers just enough blood flow to meet minimal resting muscle metabolic demand.</p>
+                                    <p>2. <strong>During Walking:</strong> Exercise drives muscle $O_2$ demand up dramatically.</p>
+                                    <p>3. <strong>Flow Restriction:</strong> Fixed arterial stenosis cannot dilate to increase delivery ➔ Local muscle ischemia.</p>
+                                    <p>4. <strong>Lactic Acidosis:</strong> Muscle shifts to anaerobic metabolism, accumulating pain-stimulating metabolites ➔ Cramping pain.</p>
+                                    <p>5. <strong>Rest Relief:</strong> Resting lowers muscle oxygen demand, allowing metabolites to clear and pain to subside.</p>
+                                </div>
+                            </div>
+
+                            <!-- THE 6 PS OF ACUTE OCCLUSION -->
+                            <div class="bg-red-900 text-white p-4 rounded-xl flex flex-col justify-between">
+                                <div>
+                                    <div class="flex justify-between items-center mb-2">
+                                        <h4 class="font-bold text-sm text-red-200">Acute Arterial Occlusion: The 6 Ps</h4>
+                                        <span class="bg-red-800 text-red-100 text-[10px] font-bold px-2 py-0.5 rounded">Emergency</span>
+                                    </div>
+                                    <p class="text-xs text-red-100 mb-3">Sudden thrombus or embolus completely cuts off extremity arterial flow:</p>
+                                </div>
+                                <div class="grid grid-cols-2 gap-2 text-xs font-semibold">
+                                    <div class="bg-red-950/80 p-2 rounded border border-red-800">1. Pain (Sudden & Severe)</div>
+                                    <div class="bg-red-950/80 p-2 rounded border border-red-800">2. Pallor (Chalk White)</div>
+                                    <div class="bg-red-950/80 p-2 rounded border border-red-800">3. Pulselessness (Absent)</div>
+                                    <div class="bg-red-950/80 p-2 rounded border border-red-800">4. Paresthesia (Numbness)</div>
+                                    <div class="bg-red-950/80 p-2 rounded border border-red-800">5. Paralysis (Motor Loss)</div>
+                                    <div class="bg-red-950/80 p-2 rounded border border-red-800">6. Poikilothermia (Coldness)</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 8,
+                module: "MODULE 8",
+                title: "Hypertensive Crises & Target Organ Damage",
+                subtitle: "Pathophysiology, Target Organ Injury & Safe Autoregulatory BP Reduction",
+                content: `
+                    <div class="space-y-6">
+                        <p class="text-sm text-slate-700 leading-relaxed">
+                            A <strong>Hypertensive Crisis</strong> involves severe blood pressure elevations (typically $SBP > 180$ mmHg or $DBP > 120$ mmHg). The core diagnostic differentiator between Hypertensive Urgency and Hypertensive Emergency is the presence of <strong>acute target organ damage</strong>.
+                        </p>
+
+                        <!-- TARGET ORGAN BREAKDOWN GRID -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="space-y-3">
+                                <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl">
+                                    <strong class="text-xs font-bold text-slate-900 uppercase block">🧠 Brain (Cerebrovascular)</strong>
+                                    <p class="text-xs text-slate-600">Breakdown of blood-brain barrier ➔ Hypertensive encephalopathy, severe headache, confusion, papilledema, intracerebral hemorrhage.</p>
+                                </div>
+                                <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl">
+                                    <strong class="text-xs font-bold text-slate-900 uppercase block">🫀 Heart (Cardiovascular)</strong>
+                                    <p class="text-xs text-slate-600">Extreme wall stress and afterload ➔ Acute myocardial infarction, acute LV failure, acute pulmonary edema, aortic dissection.</p>
+                                </div>
+                                <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl">
+                                    <strong class="text-xs font-bold text-slate-900 uppercase block">🫘 Kidneys (Renal)</strong>
+                                    <p class="text-xs text-slate-600">High intra-glomerular shear stress ➔ Acute fibrinoid necrosis of renal arterioles, oliguria, acute renal failure.</p>
+                                </div>
+                            </div>
+
+                            <!-- CHART CONTAINER FOR TARGET ORGAN DISRUPTION -->
+                            <div class="bg-white p-3 rounded-xl border border-slate-200 flex flex-col justify-center">
+                                <h4 class="text-xs font-bold text-slate-600 text-center mb-1">Target Organ Damage Spectrum</h4>
+                                <div class="chart-container">
+                                    <canvas id="htnChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- CRITICAL SAFETY CONCEPT -->
+                        <div class="bg-amber-50 border-l-4 border-amber-600 p-4 rounded-r-xl text-xs text-amber-950">
+                            <strong class="font-bold text-amber-900 uppercase block mb-1">Critical Autoregulatory Nursing Safety Principle</strong>
+                            Chronic hypertension shifts cerebral and renal blood flow autoregulatory curves to higher pressure baselines. <strong>Reducing blood pressure too rapidly can cause arterial pressure to drop below autoregulatory thresholds, paradoxically precipitating ischemic stroke or renal necrosis!</strong> BP must be lowered gradually under continuous IV titration.
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 9,
+                module: "MODULE 9",
+                title: "Cardiomyopathies & Cardiac Electrophysiology",
+                subtitle: "Structural Heart Diseases & Hemodynamic Impact of Dysrhythmias",
+                content: `
+                    <div class="space-y-6">
+                        <!-- CARDIOMYOPATHY TRIO -->
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+                            <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                                <span class="text-blue-600 font-bold text-[10px] uppercase block">Systolic Dysfunction</span>
+                                <h4 class="font-bold text-slate-900 text-sm mt-0.5">Dilated Cardiomyopathy</h4>
+                                <p class="text-slate-600 mt-2">Ventricular chamber enlarges & walls thin out. Weak contractile force leads to severe systolic pumping failure & high risk of clots.</p>
+                            </div>
+                            <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                                <span class="text-amber-600 font-bold text-[10px] uppercase block">Dynamic Obstruction</span>
+                                <h4 class="font-bold text-slate-900 text-sm mt-0.5">Hypertrophic Cardiomyopathy</h4>
+                                <p class="text-slate-600 mt-2">Abnormal asymmetric hypertrophy of interventricular septum. Reduces cavity size & impairs diastolic filling; potential LV outflow obstruction.</p>
+                            </div>
+                            <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                                <span class="text-purple-600 font-bold text-[10px] uppercase block">Diastolic Stiffening</span>
+                                <h4 class="font-bold text-slate-900 text-sm mt-0.5">Restrictive Cardiomyopathy</h4>
+                                <p class="text-slate-600 mt-2">Rigid, non-compliant ventricular walls resist diastolic stretch. Impaired relaxation cuts filling and cardiac output despite normal contractility.</p>
+                            </div>
+                        </div>
+
+                        <!-- CONDUCTIONS & DYSRHYTHMIA TABLE -->
+                        <div class="bg-slate-900 text-white p-5 rounded-xl">
+                            <h4 class="font-bold text-sm text-blue-300 mb-2">Conduction Sequence & Dysrhythmia Hemodynamic Impact</h4>
+                            <div class="text-xs text-slate-300 mb-3 font-mono">
+                                SA Node (Pacemaker) ➔ AV Node (Delay) ➔ Bundle of His ➔ Bundle Branches ➔ Purkinje Fibers
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 text-xs">
+                                <div class="bg-slate-800 p-2.5 rounded border border-slate-700">
+                                    <strong class="text-amber-300 block">Symptomatic Bradycardia (&lt;60)</strong>
+                                    Reduced rate directly lowers $CO$ ($CO = HR \times SV$). Causes syncope, dizziness, hypotension.
+                                </div>
+                                <div class="bg-slate-800 p-2.5 rounded border border-slate-700">
+                                    <strong class="text-amber-300 block">Atrial Fibrillation (AFib)</strong>
+                                    Chaotic atrial quiver ➔ Loss of "Atrial Kick" (20-30% of $SV$). Venous stasis increases stroke clot risk.
+                                </div>
+                                <div class="bg-slate-800 p-2.5 rounded border border-slate-700">
+                                    <strong class="text-red-400 block">Ventricular Fibrillation (VFib)</strong>
+                                    Chaotic ventricular quivering; ZERO stroke volume; immediate cardiac arrest emergency!
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 10,
+                module: "MODULE 10",
+                title: "Diagnostic Protocols & Master Nursing Assessment Matrix",
+                subtitle: "Non-Invasive/Invasive Diagnostics & The Integrated 3-Question Decision Framework",
+                content: `
+                    <div class="space-y-6">
+                        <!-- DIAGNOSTIC COMPARISON GRID -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                                <h4 class="font-bold text-blue-900 text-sm mb-2">Non-Invasive Diagnostic Modalities</h4>
+                                <ul class="text-xs text-slate-700 space-y-2">
+                                    <li class="bg-white p-2.5 rounded border border-slate-200">
+                                        <strong>12-Lead ECG:</strong> Evaluates electrical conduction patterns. Detects ST elevation (injury), ST depression/T-wave inversion (ischemia), and Q-waves (infarction).
+                                    </li>
+                                    <li class="bg-white p-2.5 rounded border border-slate-200">
+                                        <strong>Echocardiography:</strong> Ultrasound imaging mapping cardiac chamber size, wall motion anomalies, valvular regurgitation/stenosis, and Ejection Fraction ($EF$).
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                                <h4 class="font-bold text-blue-900 text-sm mb-2">Invasive Hemodynamic Monitoring</h4>
+                                <ul class="text-xs text-slate-700 space-y-2">
+                                    <li class="bg-white p-2.5 rounded border border-slate-200">
+                                        <strong>Cardiac Catheterization:</strong> Angiography to visualize coronary luminal stenosis. Nursing focus: monitor arterial puncture site for hematoma and distal pulses.
+                                    </li>
+                                    <li class="bg-white p-2.5 rounded border border-slate-200">
+                                        <strong>Central Venous Line (CVP):</strong> Measures right atrial hydrostatic pressure (Right Heart Preload / Volume status).
+                                    </li>
+                                    <li class="bg-white p-2.5 rounded border border-slate-200">
+                                        <strong>Intra-Arterial Line (A-Line):</strong> Direct continuous arterial beat-to-beat BP tracking & blood sampling.
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- MASTER TRIPARTITE INTEGRATION CARD -->
+                        <div class="bg-slate-900 text-white p-5 rounded-2xl border border-slate-800">
+                            <h4 class="font-bold text-base text-blue-300 mb-2">The Unit 6 Master Integration Rule for Clinical Practice</h4>
+                            <p class="text-xs text-slate-300 mb-4">When caring for any cardiovascular client with altered tissue perfusion, continuously answer these 3 questions:</p>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+                                <div class="bg-slate-800 p-3 rounded-xl border border-slate-700">
+                                    <span class="text-blue-400 font-bold block mb-1">QUESTION 1</span>
+                                    <strong class="text-white text-sm block">Is the Heart Pumping Effectively?</strong>
+                                    <span class="text-slate-400 mt-1 block">Assess BP, HR, ECG rhythm, S3/S4 gallop, and forward/backward HF signs.</span>
+                                </div>
+                                <div class="bg-slate-800 p-3 rounded-xl border border-slate-700">
+                                    <span class="text-amber-400 font-bold block mb-1">QUESTION 2</span>
+                                    <strong class="text-white text-sm block">Is Blood Reaching Systemic Tissues?</strong>
+                                    <span class="text-slate-400 mt-1 block">Assess peripheral pulses, skin temp, capillary refill, urine output (&gt;30 mL/hr).</span>
+                                </div>
+                                <div class="bg-slate-800 p-3 rounded-xl border border-slate-700">
+                                    <span class="text-emerald-400 font-bold block mb-1">QUESTION 3</span>
+                                    <strong class="text-white text-sm block">Are Tissues Receiving Adequate Oxygen?</strong>
+                                    <span class="text-slate-400 mt-1 block">Assess SpO2, respiratory effort, chest pain relief, and mental status.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `
+            }
+        ];
+
+        /* NCLEX QUIZ QUESTIONS DATA */
+        const quizQuestions = [
+            {
+                question: "A client with acute myocardial infarction develops diaphoresis, cool clammy skin, a blood pressure of 82/50 mmHg, and a heart rate of 118 bpm. Which physiological condition is the client experiencing?",
+                options: [
+                    "Hypertensive Crisis with target organ damage",
+                    "Cardiogenic Shock secondary to primary pump failure",
+                    "Hypertrophic Cardiomyopathy outflow obstruction",
+                    "Isolated Right-Sided Heart Failure"
+                ],
+                correct: 1,
+                rationale: "Cardiogenic shock occurs when severe myocardial failure reduces stroke volume and cardiac output below the threshold required for organ perfusion. Key manifestations include severe hypotension, compensatory tachycardia, oliguria, and cool clammy skin from sympathetic vasoconstriction."
+            },
+            {
+                question: "A client diagnosed with Left-Sided Heart Failure complains of worsening shortness of breath when lying flat in bed. How should the nurse document and explain this symptom?",
+                options: [
+                    "Intermittent claudication caused by skeletal muscle ischemia",
+                    "Orthopnea caused by elevated pulmonary capillary pressure and fluid shift",
+                    "Poikilothermia caused by peripheral arterial stenosis",
+                    "Azotemia caused by reduced renal arterial clearance"
+                ],
+                correct: 1,
+                rationale: "Orthopnea is difficulty breathing when lying flat, characteristic of left-sided heart failure. When prone, venous return to the heart increases, raising left ventricular filling pressure and backing up fluid into the pulmonary circulation."
+            },
+            {
+                question: "The nurse is evaluating a client presenting with sudden severe pain in the right lower extremity. The leg is chalk-white, cold to touch, and distal pedal pulses are non-palpable. Which action is the nurse's immediate priority?",
+                options: [
+                    "Elevate the extremity on two pillows above heart level",
+                    "Notify the physician immediately as these are the 6 Ps of acute arterial occlusion",
+                    "Apply a warm heating pad to promote vasodilation",
+                    "Instruct the patient to walk to clear accumulated lactic acid"
+                ],
+                correct: 1,
+                rationale: "The presence of Pain, Pallor, Pulselessness, Paresthesia, Paralysis, and Poikilothermia (the 6 Ps) indicates acute arterial occlusion, which is a medical emergency requiring urgent intervention to prevent limb necrosis."
+            },
+            {
+                question: "Why must blood pressure reduction in a client experiencing a Hypertensive Emergency be executed gradually rather than rapidly?",
+                options: [
+                    "Rapid reduction triggers severe hypokalemia",
+                    "Autoregulatory curves have shifted; rapid drop induces cerebral and organ ischemia",
+                    "Rapid reduction causes irreversible hypertrophy of the septum",
+                    "Rapid reduction increases venous return, causing pulmonary edema"
+                ],
+                correct: 1,
+                rationale: "In chronic hypertension, organ blood flow autoregulation shifts to higher pressure thresholds. Lowering BP too rapidly lowers arterial pressure below these altered thresholds, paradoxically precipitating ischemic stroke or acute kidney injury."
+            }
+        ];
+
+        /* -------------------------------------------------------------------------- */
+        /* APPLICATION STATE & NAVIGATION CONTROLS                                    */
+        /* -------------------------------------------------------------------------- */
+        let currentSlide = 1;
+        let chartInstances = {};
+        let currentQuizIndex = 0;
+        let userQuizScore = 0;
+
+        function initApp() {
+            renderSlide(currentSlide);
+            renderGrid();
+            initCoChart();
+            initQuiz();
+            setupKeyboardNav();
+        }
+
+        function switchView(viewName) {
+            document.getElementById('view-slides').classList.add('hidden');
+            document.getElementById('view-grid').classList.add('hidden');
+            document.getElementById('view-tools').classList.add('hidden');
+            document.getElementById('view-quiz').classList.add('hidden');
+
+            document.getElementById('btn-view-slides').className = "px-3 py-1.5 rounded-md text-slate-300 hover:text-white hover:bg-slate-700 transition-all";
+            document.getElementById('btn-view-grid').className = "px-3 py-1.5 rounded-md text-slate-300 hover:text-white hover:bg-slate-700 transition-all";
+            document.getElementById('btn-view-tools').className = "px-3 py-1.5 rounded-md text-slate-300 hover:text-white hover:bg-slate-700 transition-all";
+            document.getElementById('btn-view-quiz').className = "px-3 py-1.5 rounded-md text-slate-300 hover:text-white hover:bg-slate-700 transition-all";
+
+            document.getElementById(`view-${viewName}`).classList.remove('hidden');
+            document.getElementById(`btn-view-${viewName}`).className = "px-3 py-1.5 rounded-md text-white bg-blue-600 shadow transition-all";
+
+            if (viewName === 'tools') {
+                updateCoSimulator();
+            }
+        }
+
+        function renderSlide(slideNum) {
+            const slide = slidesData.find(s => s.id === slideNum);
+            if (!slide) return;
+
+            currentSlide = slideNum;
+            document.getElementById('current-slide-num').innerText = slideNum;
+            document.getElementById('slide-select').value = slideNum;
+            
+            const progressPercent = (slideNum / slidesData.length) * 100;
+            document.getElementById('slide-progress-bar').style.width = `${progressPercent}%`;
+
+            const container = document.getElementById('slide-container');
+            container.innerHTML = `
+                <div>
+                    <div class="flex items-center justify-between border-b border-slate-200 pb-3 mb-4">
+                        <span class="bg-blue-100 text-blue-900 font-extrabold text-xs px-3 py-1 rounded-full uppercase tracking-wider">${slide.module}</span>
+                        <span class="text-xs font-semibold text-slate-400">Unit 6 Presentation Deck</span>
+                    </div>
+                    <h2 class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">${slide.title}</h2>
+                    <p class="text-xs sm:text-sm font-semibold text-blue-700 mt-1 mb-6">${slide.subtitle}</p>
+                    <div class="slide-transition">${slide.content}</div>
+                </div>
+            `;
+
+            // Initialize slide-specific Chart.js canvas if needed
+            setTimeout(() => {
+                if (slideNum === 2) initIschemiaChart();
+                if (slideNum === 8) initHtnChart();
+            }, 50);
+        }
+
+        function prevSlide() {
+            if (currentSlide > 1) {
+                renderSlide(currentSlide - 1);
+            }
+        }
+
+        function nextSlide() {
+            if (currentSlide < slidesData.length) {
+                renderSlide(currentSlide + 1);
+            }
+        }
+
+        function goToSlide(slideNum) {
+            switchView('slides');
+            renderSlide(slideNum);
+        }
+
+        function setupKeyboardNav() {
+            document.addEventListener('keydown', (e) => {
+                const slidesView = document.getElementById('view-slides');
+                if (!slidesView.classList.contains('hidden')) {
+                    if (e.key === 'ArrowRight') nextSlide();
+                    if (e.key === 'ArrowLeft') prevSlide();
+                }
+            });
+        }
+
+        function renderGrid() {
+            const grid = document.getElementById('grid-container');
+            grid.innerHTML = slidesData.map(s => `
+                <div onclick="goToSlide(${s.id})" class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-500 hover:shadow-md transition cursor-pointer flex flex-col justify-between">
+                    <div>
+                        <span class="bg-slate-100 text-slate-700 font-bold text-[10px] px-2.5 py-0.5 rounded uppercase">${s.module}</span>
+                        <h3 class="font-bold text-slate-900 text-base mt-2">${s.title}</h3>
+                        <p class="text-xs text-slate-500 mt-1">${s.subtitle}</p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-blue-600">
+                        <span>Open Slide ▶</span>
+                        <span>Slide ${s.id}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        /* -------------------------------------------------------------------------- */
+        /* CHART.JS VISUALIZATION INITIALIZERS                                        */
+        /* -------------------------------------------------------------------------- */
+        function initIschemiaChart() {
+            const ctx = document.getElementById('ischemicChart');
+            if (!ctx) return;
+            if (chartInstances.ischemic) chartInstances.ischemic.destroy();
+
+            chartInstances.ischemic = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['0 min', '10 min', '20 min (Critical)', '40 min', '60 min', '120 min'],
+                    datasets: [{
+                        label: 'Myocardial Tissue Viability (%)',
+                        data: [100, 95, 80, 45, 20, 5],
+                        borderColor: '#dc2626',
+                        backgroundColor: 'rgba(220, 38, 38, 0.1)',
+                        fill: true,
+                        tension: 0.3,
+                        borderWidth: 3
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: (context) => `Viability: ${context.parsed.y}%`
+                            }
+                        }
+                    },
+                    scales: {
+                        y: { min: 0, max: 100, title: { display: true, text: 'Viability %', font: { size: 10 } } },
+                        x: { title: { display: true, text: 'Ischemia Duration', font: { size: 10 } } }
+                    }
+                }
+            });
+        }
+
+        function initHtnChart() {
+            const ctx = document.getElementById('htnChart');
+            if (!ctx) return;
+            if (chartInstances.htn) chartInstances.htn.destroy();
+
+            chartInstances.htn = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Cerebrovascular (Brain)', 'Cardiovascular (Heart)', 'Renal (Kidneys)', 'Vascular (Retina/Arterioles)'],
+                    datasets: [{
+                        data: [35, 35, 20, 10],
+                        backgroundColor: ['#1e3a8a', '#dc2626', '#d97706', '#059669']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 10 } } }
+                    }
+                }
+            });
+        }
+
+        function initCoChart() {
+            const ctx = document.getElementById('coChart');
+            if (!ctx) return;
+
+            chartInstances.co = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['40 (Brady)', '75 (Normal)', '110 (Tachy)', '160 (Severe Tachy)'],
+                    datasets: [{
+                        label: 'Cardiac Output (L/min)',
+                        data: [3.2, 5.25, 4.8, 3.1],
+                        backgroundColor: ['#d97706', '#059669', '#1e3a8a', '#dc2626'],
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        y: { min: 0, max: 8, title: { display: true, text: 'CO (L/min)', font: { size: 10 } } }
+                    }
+                }
+            });
+        }
+
+        function updateCoSimulator() {
+            const hr = parseInt(document.getElementById('sim-hr-slider').value);
+            document.getElementById('sim-hr-val').innerText = `${hr} bpm`;
+
+            let sv = 70; // mL baseline
+            let fillTime = (60 / hr) * 0.65; // estimated diastolic fill time sec
+
+            if (hr < 60) {
+                sv = 80; // slight diastolic compensatory fill
+                document.getElementById('sim-hr-label').innerText = 'Bradycardia';
+                document.getElementById('sim-hr-label').className = 'text-amber-600 font-bold';
+            } else if (hr <= 100) {
+                sv = 70;
+                document.getElementById('sim-hr-label').innerText = 'Normal Rate';
+                document.getElementById('sim-hr-label').className = 'text-emerald-600 font-bold';
+            } else if (hr <= 130) {
+                sv = 55;
+                document.getElementById('sim-hr-label').innerText = 'Moderate Tachycardia';
+                document.getElementById('sim-hr-label').className = 'text-blue-600 font-bold';
+            } else {
+                sv = 35; // severe drop in SV due to truncated diastole
+                document.getElementById('sim-hr-label').innerText = 'Severe Tachycardia!';
+                document.getElementById('sim-hr-label').className = 'text-red-600 font-bold';
+            }
+
+            const co = ((hr * sv) / 1000).toFixed(2);
+
+            document.getElementById('sim-sv-disp').innerText = `${sv} mL`;
+            document.getElementById('sim-co-disp').innerText = `${co} L/min`;
+            document.getElementById('sim-fill-disp').innerText = `${fillTime.toFixed(2)} sec`;
+
+            if (hr > 130) {
+                document.getElementById('sim-physio-note').innerHTML = `
+                    <strong class="text-red-600">CRITICAL PHYSIOLOGY WARNING:</strong> At ${hr} bpm, diastole is cut short. The ventricle cannot fill adequately, causing Stroke Volume to drop to ${sv} mL and reducing Cardiac Output despite the fast rate!
+                `;
+            } else {
+                document.getElementById('sim-physio-note').innerText = `At ${hr} bpm, diastolic filling time is approximately ${fillTime.toFixed(2)} seconds, maintaining a balance between rate and stroke volume.`;
+            }
+        }
+
+        /* -------------------------------------------------------------------------- */
+        /* INTERACTIVE CLINICAL TOOLS LOGIC                                           */
+        /* -------------------------------------------------------------------------- */
+        function calculateTripartite() {
+            const sbp = parseInt(document.getElementById('wiz-sbp').value) || 0;
+            const hr = parseInt(document.getElementById('wiz-hr').value) || 0;
+            const rhythm = document.getElementById('wiz-rhythm').value;
+            const pulses = document.getElementById('wiz-pulses').value;
+            const cap = document.getElementById('wiz-cap').value;
+            const urine = parseInt(document.getElementById('wiz-urine').value) || 0;
+            const spo2 = parseInt(document.getElementById('wiz-spo2').value) || 0;
+            const cns = document.getElementById('wiz-cns').value;
+            const pain = document.getElementById('wiz-pain').value;
+
+            const badge = document.getElementById('wiz-status-badge');
+            const summary = document.getElementById('wiz-summary-text');
+            const recs = document.getElementById('wiz-recommendations');
+
+            if (sbp < 90 || urine < 30 || cns === 'lethargic' || rhythm === 'vtach') {
+                badge.innerText = "CRITICAL IMPAIRMENT / SHOCK";
+                badge.className = "bg-red-600 text-white font-bold text-xs px-3 py-1 rounded-full animate-pulse";
+                summary.innerText = "High-risk state detected! Severe systemic hypoperfusion indicated by low BP, oliguria, or cardiac dysrhythmia.";
+                recs.innerHTML = "• Immediate notification of physician.<br>• Prepare for invasive A-line/CVP hemodynamic tracking.<br>• Initiate high-flow O2 and vasoactive arterial support as ordered.";
+            } else if (pulses === '1' || cap === 'delayed' || pain === 'ischemic' || cns === 'restless') {
+                badge.innerText = "MODERATE PERFUSION DEFICIT";
+                badge.className = "bg-amber-600 text-white font-bold text-xs px-3 py-1 rounded-full";
+                summary.innerText = "Localized tissue ischemia or early backward failure present. Requires rapid intervention to prevent shock.";
+                recs.innerHTML = "• Administer supplemental O2 to maintain SpO2 >94%.<br>• Reduce myocardial oxygen demand (bed rest, pain management).<br>• Obtain stat 12-lead ECG and serum Troponin.";
+            } else {
+                badge.innerText = "SYSTEMIC PERFUSION ADEQUATE";
+                badge.className = "bg-emerald-600 text-white font-bold text-xs px-3 py-1 rounded-full";
+                summary.innerText = "Parameters indicate stable hemodynamic equilibrium. Heart pump function, peripheral delivery, and tissue oxygenation are preserved.";
+                recs.innerHTML = "• Continue routine monitoring of vital signs every 4 hours.<br>• Re-evaluate urine output trends and pulse character.";
+            }
+        }
+
+        function assess6Ps() {
+            const checks = ['p-pain', 'p-pallor', 'p-pulseless', 'p-paresthesia', 'p-paralysis', 'p-poikilo'];
+            const count = checks.filter(id => document.getElementById(id).checked).length;
+
+            const title = document.getElementById('p-result-title');
+            const desc = document.getElementById('p-result-desc');
+            const box = document.getElementById('p-result-box');
+
+            if (count >= 4) {
+                title.innerText = "EMERGENCY: Acute Arterial Occlusion Suspected!";
+                title.className = "text-base font-bold text-red-600 mt-1";
+                desc.innerText = `${count} of 6 Ps present. Complete arterial blockage threatening limb viability. IMMEDIATE vascular surgery consult and Doppler verification required!`;
+                box.className = "mt-4 p-4 rounded-xl bg-red-50 border border-red-300";
+            } else if (count >= 1) {
+                title.innerText = "WARNING: Early Arterial Ischemia";
+                title.className = "text-base font-bold text-amber-600 mt-1";
+                desc.innerText = `${count} sign(s) present. Lower extremity arterial flow is compromised. Avoid limb elevation; keep extremity dependent.`;
+                box.className = "mt-4 p-4 rounded-xl bg-amber-50 border border-amber-300";
+            } else {
+                title.innerText = "No Acute Occlusion Indicated";
+                title.className = "text-base font-bold text-slate-800 mt-1";
+                desc.innerText = "Select findings above to calculate bedside urgency.";
+                box.className = "mt-4 p-4 rounded-xl bg-slate-100 border border-slate-300";
+            }
+        }
+
+        /* -------------------------------------------------------------------------- */
+        /* NCLEX QUIZ LAB LOGIC                                                       */
+        /* -------------------------------------------------------------------------- */
+        function initQuiz() {
+            currentQuizIndex = 0;
+            userQuizScore = 0;
+            updateQuizUI();
+        }
+
+        function updateQuizUI() {
+            document.getElementById('quiz-score').innerText = `${userQuizScore} / ${quizQuestions.length}`;
+            const card = document.getElementById('quiz-card-content');
+
+            if (currentQuizIndex >= quizQuestions.length) {
+                card.innerHTML = `
+                    <div class="text-center py-8 space-y-4">
+                        <div class="text-5xl">🎉</div>
+                        <h3 class="text-2xl font-bold text-slate-900">Quiz Completed!</h3>
+                        <p class="text-slate-600 text-sm">You scored ${userQuizScore} out of ${quizQuestions.length} on Unit 6 Clinical Mastery.</p>
+                        <button onclick="initQuiz()" class="px-6 py-2.5 bg-blue-600 text-white font-bold rounded-xl shadow hover:bg-blue-700 transition">
+                            Retake Quiz
+                        </button>
+                    </div>
+                `;
+                return;
+            }
+
+            const q = quizQuestions[currentQuizIndex];
+            card.innerHTML = `
+                <div class="space-y-6">
+                    <div class="flex justify-between items-center text-xs text-slate-400 font-bold">
+                        <span>QUESTION ${currentQuizIndex + 1} OF ${quizQuestions.length}</span>
+                        <span>NCLEX-RN FORMAT</span>
+                    </div>
+
+                    <h3 class="text-base sm:text-lg font-bold text-slate-900 leading-snug">${q.question}</h3>
+
+                    <div class="space-y-3">
+                        ${q.options.map((opt, i) => `
+                            <button onclick="checkAnswer(${i})" class="w-full text-left p-4 rounded-xl border border-slate-200 hover:border-blue-500 hover:bg-blue-50/50 transition text-xs sm:text-sm font-medium text-slate-800 flex items-start gap-3">
+                                <span class="bg-slate-100 text-slate-700 font-bold w-6 h-6 rounded-full flex items-center justify-center text-xs shrink-0">${String.fromCharCode(65 + i)}</span>
+                                <span>${opt}</span>
+                            </button>
+                        `).join('')}
+                    </div>
+
+                    <div id="quiz-rationale" class="hidden p-4 rounded-xl bg-slate-50 border text-xs leading-relaxed"></div>
+                </div>
+            `;
+        }
+
+        function checkAnswer(selectedIndex) {
+            const q = quizQuestions[currentQuizIndex];
+            const ratBox = document.getElementById('quiz-rationale');
+            ratBox.classList.remove('hidden');
+
+            if (selectedIndex === q.correct) {
+                userQuizScore++;
+                ratBox.className = "p-4 rounded-xl bg-emerald-50 border border-emerald-300 text-xs leading-relaxed";
+                ratBox.innerHTML = `
+                    <strong class="text-emerald-900 font-bold block mb-1">✅ Correct!</strong>
+                    <p class="text-emerald-950">${q.rationale}</p>
+                    <button onclick="nextQuestion()" class="mt-3 px-4 py-1.5 bg-emerald-700 text-white font-bold rounded-lg text-xs">Next Question ▶</button>
+                `;
+            } else {
+                ratBox.className = "p-4 rounded-xl bg-red-50 border border-red-300 text-xs leading-relaxed";
+                ratBox.innerHTML = `
+                    <strong class="text-red-900 font-bold block mb-1">❌ Incorrect. Correct Answer: ${String.fromCharCode(65 + q.correct)}</strong>
+                    <p class="text-red-950">${q.rationale}</p>
+                    <button onclick="nextQuestion()" class="mt-3 px-4 py-1.5 bg-red-700 text-white font-bold rounded-lg text-xs">Next Question ▶</button>
+                `;
+            }
+
+            document.getElementById('quiz-score').innerText = `${userQuizScore} / ${quizQuestions.length}`;
+        }
+
+        function nextQuestion() {
+            currentQuizIndex++;
+            updateQuizUI();
+        }
+
+        // Initialize application on DOM load
+        window.addEventListener('DOMContentLoaded', initApp);
+    </script>
+</body>
+</html>

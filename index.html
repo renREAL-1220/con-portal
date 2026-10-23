@@ -56,21 +56,33 @@
         </div>
     </header>
 
-    <!-- Hero Section -->
-    <section id="home" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
-        <div class="text-center max-w-3xl mx-auto space-y-6">
-            <span class="bg-emerald-100 text-emerald-800 text-xs sm:text-sm font-semibold px-3 py-1 rounded-full uppercase tracking-wider">Welcome Future Nurses</span>
-            <h2 class="text-4xl sm:text-5xl font-bold text-slate-900 tracking-tight">
-                Saint Ferdinand College - College of Nursing Portal
-            </h2>
-            <p class="text-lg text-slate-600">
-                Access full uncompressed course modules, interactive clinical flipcharts, and test practice suites.
-            </p>
-            <div class="flex justify-center space-x-4 pt-4">
-                <a href="#learning-materials" class="bg-emerald-800 text-white font-medium px-6 py-3 rounded-lg shadow hover:bg-emerald-700 transition-colors">Select a Learning Module</a>
-            </div>
-        </div>
-    </section>
+		<!-- Hero Section with Background Photo -->
+	<section id="home" class="relative bg-cover bg-center bg-no-repeat py-24 sm:py-32" style="background-image:url('bh.jpg')">
+		
+		<!-- Dark/Emerald Overlay to keep text readable -->
+		<div class="absolute inset-0 bg-slate-900/40 backdrop-blur-[2px]"></div>
+
+		<!-- Hero Content -->
+		<div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-3xl space-y-6 z-10">
+			<span class="bg-emerald-500/20 text-emerald-200 border border-emerald-400/30 text-xs sm:text-sm font-semibold px-4 py-1.5 rounded-full uppercase tracking-wider backdrop-blur-sm inline-block">
+				Welcome Future Nurses
+			</span>
+			
+			<h2 class="text-4xl sm:text-5xl font-bold text-white tracking-tight drop-shadow-md">
+				Saint Ferdinand College - College of Nursing Portal
+			</h2>
+			
+			<p class="text-lg text-slate-200 drop-shadow-sm">
+				Access full uncompressed course modules, interactive clinical flipcharts, and test practice suites.
+			</p>
+			
+			<div class="flex justify-center space-x-4 pt-4">
+				<a href="#learning-materials" class="bg-emerald-700 hover:bg-emerald-600 text-white font-semibold px-6 py-3 rounded-xl shadow-lg transition-all duration-200 block">
+					Select a Learning Module &rarr;
+				</a>
+			</div>
+		</div>
+	</section>
 
     <!-- Learning Materials Section -->
     <section id="learning-materials" class="bg-white py-16 border-t border-slate-200">
@@ -95,7 +107,7 @@
                             Access the complete Chapter 4 study guide. Covers RRL objectives, Conceptual vs. Research literature, Primary/Secondary sources, Execution Steps, and Review Matrices.
                         </p>
                         <div class="text-xs text-slate-500 border-t pt-3">
-                            <p><strong>Instructor:</strong> Prof. RENE S. REAL, RN</p>
+                            <p><strong>Instructor:</strong>RENE S. REAL, RN</p>
                         </div>
                     </div>
                     <a href="research-module.html" target="_blank" class="w-full text-center bg-emerald-800 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl shadow transition-colors block">
@@ -116,17 +128,56 @@
                             Launch the full interactive flipchart. Features GCS assessment calculators, Monro-Kellie pathophysiology, Cushing's Triad, EVD leveling, and NCLEX quiz suite.
                         </p>
                         <div class="text-xs text-slate-500 border-t pt-3">
-                            <p><strong>Course Faculty:</strong> Prof. RENE S. REAL, RN</p>
+                            <p><strong>Course Faculty:</strong> RENE S. REAL, RN</p>
                         </div>
                     </div>
                     <a href="TRAUMATIC BRAIN INJURY.html" target="_blank" class="w-full text-center bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 rounded-xl shadow transition-colors block">
                         Launch Full Interactive TBI Flipchart &rarr;
                     </a>
                 </div>
+				<!-- Module Card 3: Maternal and Child -->
+				<div class="p-8 rounded-2xl bg-slate-50 border border-slate-200 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between space-y-6">
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center">
+                            <span class="bg-emerald-100 text-emerald-800 font-bold text-xs px-3 py-1 rounded-full uppercase">Course Module 3</span>
+                            <span class="text-xs text-slate-400 font-medium">BSN Level II</span>
+                        </div>
+                        <h4 class="text-2xl font-bold text-slate-900">NCM07: Maternal and Child</h4>
+                        <p class="text-xs font-bold text-emerald-700">Antepartum Care</p>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            This module covers the essential physical and psychological changes during pregnancy, comprehensive antepartum assessments, management of potential complications, and effective childbirth preparation methods
+                        </p>
+                        <div class="text-xs text-slate-500 border-t pt-3">
+                            <p><strong>Instructor:</strong> RENE S. REAL, RN</p>
+                        </div>
+                    </div>
+                    <a href="Antepartum.html" target="_blank" class="w-full text-center bg-emerald-700 hover:bg-emerald-600 text-white font-bold py-3 rounded-xl shadow transition-colors block">
+                        Launch Full Maternal and Child Module &rarr;
+                    </a>
+                </div>
+				<!-- Module Card 4: Altered Tissue Perfussion -->
+				<div class="p-8 rounded-2xl bg-slate-50 border border-slate-200 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between space-y-6">
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center">
+                            <span class="bg-emerald-100 text-emerald-800 font-bold text-xs px-3 py-1 rounded-full uppercase">Course Module 4</span>
+                            <span class="text-xs text-slate-400 font-medium">BSN Level IV</span>
+                        </div>
+                        <h4 class="text-2xl font-bold text-slate-900">NCM118: Medical Surgical Nursing</h4>
+                        <p class="text-xs font-bold text-emerald-700">Acute Biologic Crisis</p>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Fundamentals of Tissue Perfusion & The Triadic System Core Mechanisms, Physiological Triad, and Ischemic Cascade
+                        </p>
+                        <div class="text-xs text-slate-500 border-t pt-3">
+                            <p><strong>Instructor:</strong> RENE S. REAL, RN</p>
+                        </div>
+                    </div>
+                    <a href="Altered-tissue-perfusion.html" target="_blank" class="w-full text-center bg-emerald-700 hover:bg-emerald-600 text-white font-bold py-3 rounded-xl shadow transition-colors block">
+                        Launch Access to Module &rarr;
+                    </a>
+                </div>
             </div>
         </div>
-    </section>
-
+    
     <!-- Test Practice Section -->
     <section id="test-practice" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center space-y-3">
@@ -142,7 +193,7 @@
             <!-- About Header -->
             <div class="text-center max-w-3xl mx-auto space-y-3">
                 <span class="bg-emerald-800 text-amber-300 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider border border-amber-400/30">Institutional Profile</span>
-                <h3 class="text-3xl sm:text-4xl font-extrabold text-white">About Saint Ferdinand College - College of Nursing</h3>
+                <h3 class="text-3xl sm:text-4xl font-extrabold text-white">Saint Ferdinand College - College of Nursing</h3>
                 <p class="text-sm text-emerald-200">Ilagan City, Isabela &bull; Established 1962</p>
             </div>
 
@@ -165,7 +216,7 @@
                     <div class="w-10 h-10 rounded-lg bg-amber-400 text-emerald-950 flex items-center justify-center font-bold text-lg">
                         <i class="fa-solid fa-eye"></i>
                     </div>
-                    <h4 class="text-lg font-bold text-amber-300">Our Vision</h4>
+                    <h4 class="text-lg font-bold text-amber-300">Vision</h4>
                     <p class="text-xs text-emerald-100 leading-relaxed">
                         Saint Ferdinand College is a dynamic Catholic Educational Institution that develops individuals of competence and character through holistic educationand dedicated service toward a just and humane society.
 
@@ -179,7 +230,7 @@
                     </div>
                     <h4 class="text-lg font-bold text-amber-300">Core Values </h4>
                     <p class="text-xs text-emerald-100 leading-relaxed">
-                        <strong>S</strong>piritulity <strong>T</strong>eamwork <strong>E</strong>xcellence <strong>P</strong>rofessionalism <strong>S</strong>ervice
+                        <strong>S</strong>piritulity-- <strong>T</strong>eamwork-- <strong>E</strong>xcellence-- <strong>P</strong>rofessionalism-- <strong>S</strong>ervice
                     </p>
                 </div>
             </div>
@@ -192,7 +243,7 @@
                     <p>College of Nursing &bull; Academic Portal</p>
                 </div>
                 <div class="text-right space-y-1">
-                    <p><strong>Established:</strong> 1962</p>
+                    <p><strong>Established:</strong> 1950</p>
                     <p><strong>Inquiries:</strong> sfchcdepartment@gmail.com</p>
                 </div>
             </div>
